@@ -90,28 +90,28 @@ public class DataHandler {
     }
 
     private void impressionsByAge() {
-        int impressions1 = 0;
-        int impressions2 = 0;
-        int impressions3 = 0;
-        int impressions4 = 0;
-        int impressions5 = 0;
+        int impressionsBelow25 = 0;
+        int impressions25To34 = 0;
+        int impressions35To44 = 0;
+        int impressions45To54 = 0;
+        int impressionsAbove54 = 0;
         for (Object value : impressionRecords.values()) {
             String stringValue = value.toString();
             if (stringValue.contains("<25"))
-                impressions1 ++;
+                impressionsBelow25 ++;
             else if (stringValue.contains("25-34"))
-                impressions2 ++;
+                impressions25To34 ++;
             else if (stringValue.contains("35-44"))
-                impressions3 ++;
+                impressions35To44 ++;
             else if (stringValue.contains("45-54"))
-                impressions4 ++;
+                impressions45To54 ++;
             else if (stringValue.contains(">54"))
-                impressions5 ++;
+                impressionsAbove54 ++;
         }
-        System.out.println("Impressions <25: " + impressions1);
-        System.out.println("Impressions 25-34: " + impressions2);
-        System.out.println("Impressions <35-44: " + impressions3);
-        System.out.println("Impressions <45-54: " + impressions4);
-        System.out.println("Impressions >54: " + impressions5);
+        System.out.println("Impressions <25: " + impressionsBelow25);
+        System.out.println("Impressions 25-34: " + impressions25To34);
+        System.out.println("Impressions <35-44: " + impressions35To44);
+        System.out.println("Impressions <45-54: " + impressions45To54);
+        System.out.println("Impressions >54: " + impressionsAbove54);
     }
 }
