@@ -1,9 +1,12 @@
 package DataHandler;
 
+import DataHandler.pojos.ImpressionRecord;
 import DataHandler.pojos.Record;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import static DataHandler.Parser.*;
 import static DataHandler.Parser.clickLogsParser;
@@ -39,6 +42,8 @@ public class DataHandler {
             serverLogsCount();
             clickCount();
             impressionsCount();
+            impressionsByGender();
+            impressionsByAge();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,5 +70,48 @@ public class DataHandler {
         int size = impressionRecords.entries().size();
         System.out.println("Total Impression Records: " + size);
 
+    }
+
+    private void impressionsByGender() {
+        int impressionsMale = 0;
+        for (Object value : impressionRecords.values()) {
+            String stringValue = value.toString();
+            if (stringValue.contains("Male"))
+                    impressionsMale++;
+        }
+        int impressionsFemale = 0;
+        for (Object value : impressionRecords.values()) {
+            String stringValue = value.toString();
+            if (stringValue.contains("Female"))
+                impressionsFemale++;
+        }
+        System.out.println("Male impressions: " + impressionsMale);
+        System.out.println("Female impressions: " + impressionsFemale);
+    }
+
+    private void impressionsByAge() {
+        int impressionsBelow25 = 0;
+        int impressions25To34 = 0;
+        int impressions35To44 = 0;
+        int impressions45To54 = 0;
+        int impressionsAbove54 = 0;
+        for (Object value : impressionRecords.values()) {
+            String stringValue = value.toString();
+            if (stringValue.contains("<25"))
+                impressionsBelow25 ++;
+            else if (stringValue.contains("25-34"))
+                impressions25To34 ++;
+            else if (stringValue.contains("35-44"))
+                impressions35To44 ++;
+            else if (stringValue.contains("45-54"))
+                impressions45To54 ++;
+            else if (stringValue.contains(">54"))
+                impressionsAbove54 ++;
+        }
+        System.out.println("Impressions <25: " + impressionsBelow25);
+        System.out.println("Impressions 25-34: " + impressions25To34);
+        System.out.println("Impressions <35-44: " + impressions35To44);
+        System.out.println("Impressions <45-54: " + impressions45To54);
+        System.out.println("Impressions >54: " + impressionsAbove54);
     }
 }
