@@ -21,7 +21,7 @@ class Parser {
         Multimap<String, Record> serverLogs = ArrayListMultimap.create();
         in = new FileReader(TEST_DATA_SERVER_LOG_CSV);
         Iterable<CSVRecord> serverLogCSVRecords = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
-
+//TODO: Exception Handling for incorrect file input
         for (CSVRecord record : serverLogCSVRecords) {
             String entryDate = record.get("Entry Date");
             String id = record.get("ID");
