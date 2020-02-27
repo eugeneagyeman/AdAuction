@@ -5,12 +5,8 @@ import DataHandler.pojos.ImpressionRecord;
 import DataHandler.pojos.Record;
 import DataHandler.pojos.ServerRecord;
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
-
-import java.util.Collection;
-import java.util.HashMap;
 
 class DataStorage {
     private static final Multimap<String, Record> storage = ArrayListMultimap.create();
