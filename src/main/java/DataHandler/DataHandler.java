@@ -51,6 +51,7 @@ public class DataHandler {
             System.out.println("Cost Per Acquisition: " + costPerAcquisition());
             System.out.println("Cost Per Click: " + costPerClick());
             System.out.println("Number of Bounces: " + bounceCount());
+            System.out.println("Bounce Rate: " + bounceRate());
 
             /*serverLogsCount();
             clickCount();
@@ -167,6 +168,11 @@ public class DataHandler {
 
     private Double costPerClick() {
         return (Double) (double) (totalCostofCampaigninPence() / clickCount());
+    }
+
+    // Average number of bounces per click
+    private double bounceRate() {
+        return (double) bounceCount() / clickCount();
     }
 
     // Get individual server records
