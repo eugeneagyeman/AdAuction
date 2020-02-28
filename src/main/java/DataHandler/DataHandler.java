@@ -7,6 +7,11 @@ import DataHandler.pojos.ServerRecord;
 import com.google.common.collect.Multimap;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.Duration;
+import java.util.Collection;
 
 import static DataHandler.Parser.*;
 import static DataHandler.Parser.clickLogsParser;
@@ -45,6 +50,8 @@ public class DataHandler {
             System.out.println("Number of Conversions: " + numberOfConversions());
             System.out.println("Cost Per Acquisition: " + costPerAcquisition());
             System.out.println("Cost Per Click: " + costPerClick());
+            System.out.println("Number of Bounces: " + bounceCount());
+            System.out.println("Bounce Rate: " + bounceRate());
 
             /*serverLogsCount();
             clickCount();
@@ -161,6 +168,74 @@ public class DataHandler {
 
     private Double costPerClick() {
         return (Double) (double) (totalCostofCampaigninPence() / clickCount());
+    }
+
+    // Average number of bounces per click
+    private double bounceRate() {
+        return (double) bounceCount() / clickCount();
+    }
+
+    // Get individual server records
+    // Extract dates and calculate difference as an int
+    // Implement pre-defined logic to check for bounce
+    private int bounceCount() {
+        int count = 0;
+        Collection<ServerRecord> records = serverRecords.values();
+        for (ServerRecord record : records) {
+            String entryDate = record.getEntryDate();
+            String exitDate = record.getExitDate();
+            String conversion = record.getConversion().replaceAll("\\s","");
+            int pagesViewed = Integer.parseInt(record.getPagesViewed().replaceAll("\\s",""));
+            Long time = dateDifference(entryDate, exitDate);
+
+            // Bounce logic
+            if (time != null) {
+                if (conversion.equals("No") && pagesViewed <= 1 && time <= 10)
+                    count++;
+            }
+        }
+
+        return count;
+    }
+
+    private Long dateDifference(String entry, String exit) {
+        // Edge cases eg new day, month, or year, daylight saving time
+        long time = 0;
+
+        if (!exit.replaceAll("\\s","").equals("n/a")) {
+            LocalDateTime entryDateTime = parseDateTime(entry);
+            LocalDateTime exitDateTime = parseDateTime(exit);
+            Duration difference = Duration.between(entryDateTime, exitDateTime);
+            time = Math.abs(difference.toSeconds());
+        } else
+            return null;
+
+        return time;
+    }
+
+    private LocalDateTime parseDateTime(String dateTime) {
+        // YYYY/MM/DD HH:MM:SS -- According to requirements document
+        // YYYY-MM-DD HH:MM:SS -- According to test data (Using this)
+
+        // Split datetime string into individual components
+        String[] split = dateTime.split(" ");
+        String[] splitDate = split[0].split("-");
+        String[] splitTime = split[1].split(":");
+
+        // Convert string values to int
+        Integer[] splitDateInt = new Integer[splitDate.length];
+        for (int i = 0; i < splitDate.length; i++)
+            splitDateInt[i] = Integer.parseInt(splitDate[i]);
+
+        Integer[] splitTimeInt = new Integer[splitTime.length];
+        for (int i = 0; i < splitTime.length; i++)
+            splitTimeInt[i] = Integer.parseInt(splitTime[i]);
+
+        // Convert string into java.time object
+        LocalDate localDate = LocalDate.of(splitDateInt[0], splitDateInt[1], splitDateInt[2]);
+        LocalTime localTime = LocalTime.of(splitTimeInt[0], splitTimeInt[1], splitTimeInt[2]);
+
+        return LocalDateTime.of(localDate, localTime);
     }
 }
 
