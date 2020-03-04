@@ -1,27 +1,45 @@
 package GUI;
 
+import Configuration.Configuration;
+import Dashboard.DashboardModel;
+import GUI.Overview.OverviewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.net.URL;
+import java.io.IOException;
 
 public class Main extends Application {
+    private static Stage mainWindow;
+    private DashboardModel model;
+
+    public static void changeScene(String fxml) throws IOException {
+        Parent pane = FXMLLoader.load(
+                Main.class.getResource(fxml));
+
+        mainWindow.getScene().setRoot(pane);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
-        Stage window = stage;
+        mainWindow = stage;
 
-        String resourcepath = "fxml/overview.fxml";
-        URL location = getClass().getResource(resourcepath);
-        FXMLLoader fxmlLoader = new FXMLLoader(location);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(this.getClass().getResource("/fxml/overview.fxml"));
 
-        VBox vBox = fxmlLoader.load();
+        model = new Configuration().buildDashboard();
+        Scene scene = new Scene(loader.load());
+        mainWindow.setScene(scene);
 
-        Scene scene = new Scene(vBox);
-        stage.setScene(scene);
-        stage.show();
+
+        OverviewController controller = (OverviewController) loader.getController();
+        controller.initModel(model);
+        //controller.initialiseOverview();
+        mainWindow.show();
+
+
 
 
     }
