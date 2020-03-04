@@ -1,4 +1,4 @@
-package DataHandler.pojos;
+package POJOs;
 
 public class ClickRecord extends Record {
     private String date;
