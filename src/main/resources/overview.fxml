@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1"
+      fx:controller="GUI.MainController">
+    <children>
+        <MenuBar fx:id="MenuBar" VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="New"/>
+                        <MenuItem mnemonicParsing="false" text="Open…"/>
+                        <Menu mnemonicParsing="false" text="Open Recent"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Close"/>
+                        <MenuItem mnemonicParsing="false" text="Save"/>
+                        <MenuItem mnemonicParsing="false" text="Save As…"/>
+                        <MenuItem mnemonicParsing="false" text="Revert"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Preferences…"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Quit"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Undo"/>
+                        <MenuItem mnemonicParsing="false" text="Redo"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Cut"/>
+                        <MenuItem mnemonicParsing="false" text="Copy"/>
+                        <MenuItem mnemonicParsing="false" text="Paste"/>
+                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Select All"/>
+                        <MenuItem mnemonicParsing="false" text="Unselect All"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About MyHelloApp"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane dividerPositions="0.25278396436525613" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0"
+                   VBox.vgrow="ALWAYS">
+            <items>
+                <AnchorPane prefHeight="595.0" prefWidth="230.0" style="-fx-background-color: #2F004F;">
+                    <children>
+                        <ImageView fitHeight="218.0" fitWidth="238.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../../../Envisioning/AdAuctionDashboardLogo.jped.png"/>
+                            </image>
+                        </ImageView>
+                        <VBox layoutX="1.0" layoutY="218.0">
+                            <children>
+                                <Button fx:id="overviewButton" alignment="BOTTOM_LEFT" mnemonicParsing="false"
+                                        onAction="#overviewButtonClicked" prefHeight="29.0" prefWidth="221.0"
+                                        text="Overview">
+                                    <font>
+                                        <Font size="16.0"/>
+                                    </font>
+                                </Button>
+                                <Accordion prefHeight="244.0" prefWidth="221.0">
+                                    <panes>
+                                        <TitledPane fx:id="contextAccordian" animated="false" text="Context">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0"
+                                                            style="-fx-background-color: #2f243a#2f243a;"/>
+                                            </content>
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                        </TitledPane>
+                                        <TitledPane fx:id="audienceSegmentsAccordian" animated="false"
+                                                    text="Audience Segements">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0"
+                                                            style="-fx-background-color: #2f243a#2f243a;"/>
+                                            </content>
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                        </TitledPane>
+                                        <TitledPane fx:id="campaignAccordian" animated="false" prefHeight="193.0"
+                                                    prefWidth="227.0" text="Campaigns">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="219.0"
+                                                            style="-fx-background-color: #2f243a#2f243a;"/>
+                                            </content>
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                        </TitledPane>
+                                    </panes>
+                                </Accordion>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="676.0" prefWidth="477.0"
+                            style="-fx-background-color: #BEBBBB;">
+                    <children>
+                        <Label alignment="CENTER" layoutX="249.0" prefHeight="55.0" prefWidth="170.0" style="&#10;"
+                               text="Overview" textFill="#444054" wrapText="false">
+                            <font>
+                                <Font size="32.0"/>
+                            </font>
+                        </Label>
+                        <HBox alignment="CENTER" layoutY="83.0" prefHeight="180.0" prefWidth="667.0">
+                            <children>
+                                <AnchorPane prefHeight="180.0" prefWidth="170.0">
+                                    <children>
+                                        <Text fill="#2f243a" layoutX="17.0" layoutY="19.0" pickOnBounds="true"
+                                              strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Clicks:"
+                                              textAlignment="CENTER" wrappingWidth="133.83349609375">
+                                            <font>
+                                                <Font name="Arial Bold" size="16.0"/>
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="numericalValueCPC" layoutX="32.0" layoutY="96.0"
+                                              strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER"
+                                              wrappingWidth="102.22900390625">
+                                            <font>
+                                                <Font size="15.0"/>
+                                            </font>
+                                        </Text>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="180.0" prefWidth="170.0">
+                                    <children>
+                                        <Text fill="#2e2338" layoutX="14.0" layoutY="14.0" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" text="Total Number of Impressions:"
+                                              textAlignment="CENTER" wrappingWidth="140.0">
+                                            <font>
+                                                <Font name="Arial Bold" size="16.0"/>
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="numericalValueOfImpressions" layoutX="22.0" layoutY="95.0"
+                                              strokeType="OUTSIDE" strokeWidth="0.0" text="Insert Number Here">
+                                            <font>
+                                                <Font size="15.0"/>
+                                            </font>
+                                        </Text>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="180.0" prefWidth="170.0">
+                                    <children>
+                                        <Text fill="#2f243a" layoutX="14.0" layoutY="14.0" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" text="Cost per Thousand Impressions:"
+                                              textAlignment="CENTER" wrappingWidth="140.0">
+                                            <font>
+                                                <Font name="Arial Bold" size="16.0"/>
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="numericalValueCPM" layoutX="51.0" layoutY="96.0"
+                                              strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER"
+                                              wrappingWidth="66.22900390625">
+                                            <font>
+                                                <Font size="15.0"/>
+                                            </font>
+                                        </Text>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="180.0" prefWidth="170.0">
+                                    <children>
+                                        <Text fill="#2f243a" layoutX="14.0" layoutY="28.0" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" text="Number of Clicks:" textAlignment="CENTER"
+                                              wrappingWidth="140.0">
+                                            <font>
+                                                <Font name="Arial Bold" size="16.0"/>
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="numericalValueNumOfClicks" layoutX="22.0" layoutY="95.0"
+                                              strokeType="OUTSIDE" strokeWidth="0.0" text="Insert Number Here"
+                                              textAlignment="CENTER">
+                                            <font>
+                                                <Font size="15.0"/>
+                                            </font>
+                                        </Text>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </HBox>
+                        <AnchorPane layoutY="256.0" prefHeight="339.0" prefWidth="667.0">
+                            <children>
+                                <PieChart fx:id="overviewPieChart" layoutX="-6.0" prefHeight="339.0" prefWidth="340.0"
+                                          title="Impressions"/>
+                                <ListView fx:id="recommendationList" layoutX="334.0" layoutY="31.0" prefHeight="308.0"
+                                          prefWidth="294.0"/>
+                                <Text layoutX="414.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      text="Recommendations" textAlignment="CENTER">
+                                    <font>
+                                        <Font size="17.0"/>
+                                    </font>
+                                </Text>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</VBox>

@@ -1,4 +1,4 @@
-package DataHandler.pojos;
+package POJOs;
 
 public class ImpressionRecord extends Record {
 

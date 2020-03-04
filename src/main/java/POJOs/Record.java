@@ -1,4 +1,4 @@
-package DataHandler.pojos;
+package POJOs;
 
 public abstract class Record {
     private String id;
