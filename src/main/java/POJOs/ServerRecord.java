@@ -1,4 +1,4 @@
-package DataHandler.pojos;
+package POJOs;
 
 public class ServerRecord extends Record {
 

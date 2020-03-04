@@ -1,4 +1,4 @@
-package DataHandler.pojos;
+package POJOs;
 
 public class ImpressionRecord extends Record {
 
@@ -7,7 +7,7 @@ public class ImpressionRecord extends Record {
     private String age;
     private String income;
     private String context;
-    private String impressionCost;
+    private Float impressionCost;
 
     public ImpressionRecord(String uniqueID, String date, String gender, String age, String income, String context, String impressionCost) {
         super(uniqueID);
@@ -16,7 +16,7 @@ public class ImpressionRecord extends Record {
         this.age = age;
         this.income = income;
         this.context = context;
-        this.impressionCost = impressionCost;
+        this.impressionCost = Float.valueOf(impressionCost);
     }
 
     public String getDate() {
@@ -59,11 +59,11 @@ public class ImpressionRecord extends Record {
         this.context = context;
     }
 
-    public String getImpressionCost() {
+    public Float getImpressionCost() {
         return impressionCost;
     }
 
-    public void setImpressionCost(String impressionCost) {
+    public void setImpressionCost(Float impressionCost) {
         this.impressionCost = impressionCost;
     }
 
