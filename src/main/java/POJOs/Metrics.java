@@ -1,6 +1,8 @@
 package POJOs;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static Configuration.Parser.dateDifference;
 
@@ -18,13 +20,18 @@ public class Metrics {
     private double costPerThousand;
     private double bounceRate;
     private Records records;
+    private ArrayList<String> recommendations = new ArrayList<>();
 
     public Metrics(Records records) {
         this.records = records;
         calculateMetrics();
+        calculateRecommendations();
         printMetrics();
     }
 
+    public void calculateRecommendations() {
+        recommendations.add("No Recommendations");
+    }
 
     private void calculateMetrics() {
         calculateNumOfImpressions();
@@ -38,6 +45,7 @@ public class Metrics {
         calculateCostPerClick();
         calculateCostPerThousand();
         calculateBouncerate();
+
 
     }
 
@@ -170,5 +178,9 @@ public class Metrics {
 
     public double getBounceRate() {
         return bounceRate;
+    }
+
+    public List<String> getRecommendations() {
+        return recommendations;
     }
 }

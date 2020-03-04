@@ -19,9 +19,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1"
-      fx:controller="GUI.MainController">
+      fx:controller="GUI.Overview.OverviewController">
     <children>
         <MenuBar fx:id="MenuBar" VBox.vgrow="NEVER">
             <menus>
@@ -57,19 +56,19 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About MyHelloApp"/>
+                        <MenuItem mnemonicParsing="false" text="About AdAuctionDashboard"/>
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane dividerPositions="0.25278396436525613" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0"
+        <SplitPane dividerPositions="0.26506024096385544" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0"
                    VBox.vgrow="ALWAYS">
             <items>
                 <AnchorPane prefHeight="595.0" prefWidth="230.0" style="-fx-background-color: #2F004F;">
                     <children>
-                        <ImageView fitHeight="218.0" fitWidth="238.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="218.0" fitWidth="221.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../../../Envisioning/AdAuctionDashboardLogo.jped.png"/>
+                                <Image url="@/AdAuctionDashboardLogo.png"/>
                             </image>
                         </ImageView>
                         <VBox layoutX="1.0" layoutY="218.0">
@@ -121,7 +120,7 @@
                         </VBox>
                     </children>
                 </AnchorPane>
-                <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="676.0" prefWidth="477.0"
+                <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="595.0" prefWidth="692.0"
                             style="-fx-background-color: #BEBBBB;">
                     <children>
                         <Label alignment="CENTER" layoutX="249.0" prefHeight="55.0" prefWidth="170.0" style="&#10;"
@@ -141,9 +140,9 @@
                                                 <Font name="Arial Bold" size="16.0"/>
                                             </font>
                                         </Text>
-                                        <Text fx:id="numericalValueCPC" layoutX="32.0" layoutY="96.0"
-                                              strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER"
-                                              wrappingWidth="102.22900390625">
+                                        <Text fx:id="numericalValueCPC" boundsType="LOGICAL_VERTICAL_CENTER"
+                                              layoutX="32.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                              text="Text" textAlignment="CENTER" wrappingWidth="102.22900390625">
                                             <font>
                                                 <Font size="15.0"/>
                                             </font>
@@ -159,8 +158,9 @@
                                                 <Font name="Arial Bold" size="16.0"/>
                                             </font>
                                         </Text>
-                                        <Text fx:id="numericalValueOfImpressions" layoutX="22.0" layoutY="95.0"
-                                              strokeType="OUTSIDE" strokeWidth="0.0" text="Insert Number Here">
+                                        <Text fx:id="numericalValueOfImpressions" boundsType="LOGICAL_VERTICAL_CENTER"
+                                              layoutX="22.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                              text="Insert Number Here">
                                             <font>
                                                 <Font size="15.0"/>
                                             </font>
@@ -176,9 +176,9 @@
                                                 <Font name="Arial Bold" size="16.0"/>
                                             </font>
                                         </Text>
-                                        <Text fx:id="numericalValueCPM" layoutX="51.0" layoutY="96.0"
-                                              strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER"
-                                              wrappingWidth="66.22900390625">
+                                        <Text fx:id="numericalValueCPM" boundsType="LOGICAL_VERTICAL_CENTER"
+                                              layoutX="51.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                              text="Text" textAlignment="CENTER" wrappingWidth="66.22900390625">
                                             <font>
                                                 <Font size="15.0"/>
                                             </font>
@@ -194,9 +194,9 @@
                                                 <Font name="Arial Bold" size="16.0"/>
                                             </font>
                                         </Text>
-                                        <Text fx:id="numericalValueNumOfClicks" layoutX="22.0" layoutY="95.0"
-                                              strokeType="OUTSIDE" strokeWidth="0.0" text="Insert Number Here"
-                                              textAlignment="CENTER">
+                                        <Text fx:id="numericalValueNumOfClicks" boundsType="LOGICAL_VERTICAL_CENTER"
+                                              layoutX="22.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                              text="Insert Number Here" textAlignment="CENTER">
                                             <font>
                                                 <Font size="15.0"/>
                                             </font>

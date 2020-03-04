@@ -51,5 +51,9 @@ public class Configuration {
 
     }
 
+    public DashboardModel buildDashboard() throws IOException {
+        return buildDashboard(impressionsLogFilePath, serverLogFilePath, clickLogFilePath);
+    }
+
 
 }

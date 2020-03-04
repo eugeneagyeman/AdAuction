@@ -2,6 +2,8 @@ package Dashboard;
 
 import POJOs.Campaign;
 import POJOs.Metrics;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
@@ -9,6 +11,7 @@ public class DashboardModel {
     private Campaign currentCampaign;
     private ArrayList<Campaign> listOfCampaigns;
     private Metrics metrics;
+    private ObservableList<?> recommendations;
 
     public DashboardModel() {
         listOfCampaigns = new ArrayList<>();
@@ -20,6 +23,8 @@ public class DashboardModel {
 
     public DashboardModel setCurrentCampaign(Campaign currentCampaign) {
         this.currentCampaign = currentCampaign;
+        this.metrics = currentCampaign.getMetrics();
+        this.recommendations = FXCollections.observableArrayList(currentCampaign.getMetrics().getRecommendations());
         return this;
     }
 
@@ -38,6 +43,15 @@ public class DashboardModel {
 
     public DashboardModel setMetrics(Metrics metrics) {
         this.metrics = metrics;
+        return this;
+    }
+
+    public ObservableList getRecommendations() {
+        return recommendations;
+    }
+
+    public DashboardModel setRecommendations(ObservableList<?> recommendations) {
+        this.recommendations = recommendations;
         return this;
     }
 }
