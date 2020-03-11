@@ -61,21 +61,9 @@
             </ImageView>
             <Accordion layoutX="0.0" layoutY="349.0" minWidth="127.0" prefHeight="794.0" prefWidth="345.0">
               <expandedPane>
-                <TitledPane fx:id="x4" animated="false" text="Context">
+                <TitledPane fx:id="x2" animated="false" text="Configuration">
                   <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                      <children>
-                        <CheckBox layoutX="62.0" layoutY="59.0" mnemonicParsing="false" text="News">
-                          <font>
-                            <Font size="32.0" fx:id="x1" />
-                          </font>
-                        </CheckBox>
-                        <CheckBox font="$x1" layoutX="61.0" layoutY="170.0" mnemonicParsing="false" text="Shopping" />
-                        <CheckBox font="$x1" layoutX="61.0" layoutY="278.0" mnemonicParsing="false" text="Social Media" />
-                        <CheckBox font="$x1" layoutX="61.0" layoutY="384.0" mnemonicParsing="false" text="Hobbies" />
-                        <CheckBox font="$x1" layoutX="59.0" layoutY="482.0" mnemonicParsing="false" text="Travel" />
-                      </children>
-                    </AnchorPane>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
                 </TitledPane>
               </expandedPane>
@@ -89,19 +77,31 @@
                   <content>
                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                       <children>
-                        <CheckBox font="$x1" layoutX="62.0" layoutY="59.0" mnemonicParsing="false" text="Age" />
+                        <CheckBox layoutX="62.0" layoutY="59.0" mnemonicParsing="false" text="Age">
+                          <font>
+                            <Font size="32.0" fx:id="x1" />
+                          </font>
+                        </CheckBox>
                         <CheckBox font="$x1" layoutX="62.0" layoutY="214.0" mnemonicParsing="false" text="Gender" />
                         <CheckBox font="$x1" layoutX="61.0" layoutY="369.0" mnemonicParsing="false" text="Income" />
                       </children>
                     </AnchorPane>
                   </content>
                 </TitledPane>
-                <fx:reference source="x4" />
-                <TitledPane animated="false" text="Configuration">
+                <TitledPane fx:id="x4" animated="false" text="Context">
                   <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <CheckBox font="$x1" layoutX="62.0" layoutY="59.0" mnemonicParsing="false" text="News" />
+                        <CheckBox font="$x1" layoutX="61.0" layoutY="170.0" mnemonicParsing="false" text="Shopping" />
+                        <CheckBox font="$x1" layoutX="61.0" layoutY="278.0" mnemonicParsing="false" text="Social Media" />
+                        <CheckBox font="$x1" layoutX="61.0" layoutY="384.0" mnemonicParsing="false" text="Hobbies" />
+                        <CheckBox font="$x1" layoutX="59.0" layoutY="482.0" mnemonicParsing="false" text="Travel" />
+                      </children>
+                    </AnchorPane>
                   </content>
                 </TitledPane>
+                <fx:reference source="x2" />
                 <TitledPane animated="false" text="Campaigns">
                   <content>
                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
@@ -113,57 +113,7 @@
         </Pane>
         <Pane layoutX="345.0" layoutY="0.0" prefHeight="1141.0" prefWidth="1518.0">
           <children>
-            <Text layoutX="615.0" layoutY="72.0" scaleX="2.944977607165707" scaleY="2.848262343504421" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" />
-            <VBox layoutX="106.0" layoutY="146.0" prefHeight="250.0" prefWidth="250.0" style="-fx-border-color:black;&#10;">
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost-per Click" />
-              </children>
-            </VBox>
-            <VBox layoutX="449.0" layoutY="146.0" prefHeight="250.0" prefWidth="250.0" style="-fx-border-color:black;">
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Impressions" />
-              </children>
-            </VBox>
-            <VBox layoutX="808.0" layoutY="146.0" maxHeight="250.0" maxWidth="250.0" prefHeight="250.0" prefWidth="250.0" style="-fx-border-color:black;">
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost-per Thousand" textOrigin="BASELINE" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Impressions" />
-              </children>
-            </VBox>
-            <VBox layoutX="1161.0" layoutY="146.0" prefHeight="250.0" prefWidth="250.0" style="-fx-border-color:black;">
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Clicks" />
-              </children>
-            </VBox>
-            <VBox layoutX="96.0" layoutY="527.0" prefHeight="550.0" prefWidth="687.6875" style="-fx-border-color:black">
-              <children>
-                <VBox id="VBox" alignment="CENTER" maxHeight="60.0" maxWidth="687.0" minHeight="60.0" minWidth="500.0" prefHeight="60.000099999997474" prefWidth="687.0" spacing="5.0" style="-fx-border-color:black" VBox.margin="$x2">
-                  <children>
-                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="" text="User Demographics">
-                      <font>
-                        <Font size="30.0" fx:id="x3" />
-                      </font>
-                    </Text>
-                  </children>
-                  <padding>
-                    <Insets fx:id="x2" />
-                  </padding>
-                </VBox>
-              </children>
-            </VBox>
-            <VBox layoutX="910.0" layoutY="515.0" padding="$x2" prefHeight="550.0" prefWidth="496.0" style="-fx-border-color:black">
-              <children>
-                <VBox id="VBox" alignment="CENTER" maxHeight="60.0" maxWidth="500.0" minHeight="60.0" minWidth="500.0" prefHeight="60.0" prefWidth="500.0" spacing="5.0" style="-fx-border-color:black">
-                  <children>
-                    <Text font="$x3" strokeType="OUTSIDE" strokeWidth="0.0" text="Recommendations" />
-                  </children>
-                  <VBox.margin>
-                    <Insets top="0.4" />
-                  </VBox.margin>
-                </VBox>
-                <ListView orientation="VERTICAL" prefHeight="550.0" prefWidth="494.0" VBox.margin="$x2" />
-              </children>
-            </VBox>
+            <Text layoutX="615.0" layoutY="72.0" scaleX="2.944977607165707" scaleY="2.848262343504421" strokeType="OUTSIDE" strokeWidth="0.0" text="Configuration" />
             <ImageView fitHeight="108.0" fitWidth="108.0" layoutX="1385.0" layoutY="10.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
               <image>
                 <Image url="@Settings.png" />
@@ -174,6 +124,42 @@
                 <Image url="@Profile.jpg" />
               </image>
             </ImageView>
+            <Text layoutX="263.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Information:">
+              <font>
+                <Font size="30.0" />
+              </font>
+            </Text>
+            <HBox layoutX="555.0" layoutY="159.0" prefHeight="344.0" prefWidth="790.3310546875" style="-fx-border-color:black">
+              <children>
+                <VBox prefHeight="402.0" prefWidth="395.0" style="-fx-border-color:black&#10;">
+                  <children>
+                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+                      <VBox.margin>
+                        <Insets bottom="40.0" left="15.0" top="30.0" />
+                      </VBox.margin>
+                    </Text>
+                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User ID:">
+                      <VBox.margin>
+                        <Insets bottom="40.0" left="15.0" fx:id="x3" />
+                      </VBox.margin>
+                    </Text>
+                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Company Name:" VBox.margin="$x3" />
+                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Login Date and Time:">
+                      <VBox.margin>
+                        <Insets left="15.0" />
+                      </VBox.margin>
+                    </Text>
+                  </children>
+                </VBox>
+                <VBox prefHeight="402.0" prefWidth="395.0" style="-fx-border-color:black&#10;" />
+              </children>
+            </HBox>
+            <Button layoutX="1107.0" layoutY="982.0" mnemonicParsing="false" prefHeight="78.921875" prefWidth="278.0" style="-fx-color:green" text="Save Charts As PDF">
+              <font>
+                <Font size="26.0" fx:id="x5" />
+              </font>
+            </Button>
+            <Button font="$x5" layoutX="124.0" layoutY="982.0" mnemonicParsing="false" prefHeight="78.921875" prefWidth="278.0" style="-fx-color:green" text="Print Charts" />
           </children>
         </Pane>
       </children>

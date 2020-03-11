@@ -27,20 +27,15 @@ public class Main extends Application {
         mainWindow = stage;
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("/fxml/overview.fxml"));
+        loader.setLocation(this.getClass().getResource("/fxml/Splash.fxml"));
 
-        model = new Configuration().buildDashboard();
+        //model = new Configuration().buildDashboard();
         Scene scene = new Scene(loader.load());
         mainWindow.setScene(scene);
 
 
-        OverviewController controller = (OverviewController) loader.getController();
-        controller.initModel(model);
-        //controller.initialiseOverview();
+        //OverviewController controller = (OverviewController) loader.getController();
+        //controller.initModel(model);
         mainWindow.show();
-
-
-
-
     }
 }

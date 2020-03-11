@@ -52,7 +52,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="617.0" prefWidth="961.0" VBox.vgrow="ALWAYS">
       <children>
-        <Pane layoutX="-2.0" layoutY="-1.0" prefHeight="1144.0" prefWidth="347.0000999999975">
+        <Pane layoutX="0.0" layoutY="0.0" prefHeight="1144.0" prefWidth="347.0000999999975">
           <children>
             <ImageView id="AdAuctionDashboardLogo" fitHeight="344.0" fitWidth="345.0" layoutX="0.0" layoutY="7.0" pickOnBounds="true">
               <image>
@@ -61,7 +61,7 @@
             </ImageView>
             <Accordion layoutX="0.0" layoutY="349.0" minWidth="127.0" prefHeight="794.0" prefWidth="345.0">
               <expandedPane>
-                <TitledPane fx:id="x4" animated="false" text="Context">
+                <TitledPane id="x4" fx:id="x2" animated="false" text="Context">
                   <content>
                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                       <children>
@@ -96,7 +96,7 @@
                     </AnchorPane>
                   </content>
                 </TitledPane>
-                <fx:reference source="x4" />
+                <fx:reference source="x2" />
                 <TitledPane animated="false" text="Configuration">
                   <content>
                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
@@ -113,57 +113,18 @@
         </Pane>
         <Pane layoutX="345.0" layoutY="0.0" prefHeight="1141.0" prefWidth="1518.0">
           <children>
-            <Text layoutX="615.0" layoutY="72.0" scaleX="2.944977607165707" scaleY="2.848262343504421" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" />
-            <VBox layoutX="106.0" layoutY="146.0" prefHeight="250.0" prefWidth="250.0" style="-fx-border-color:black;&#10;">
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost-per Click" />
-              </children>
-            </VBox>
-            <VBox layoutX="449.0" layoutY="146.0" prefHeight="250.0" prefWidth="250.0" style="-fx-border-color:black;">
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Impressions" />
-              </children>
-            </VBox>
-            <VBox layoutX="808.0" layoutY="146.0" maxHeight="250.0" maxWidth="250.0" prefHeight="250.0" prefWidth="250.0" style="-fx-border-color:black;">
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost-per Thousand" textOrigin="BASELINE" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Impressions" />
-              </children>
-            </VBox>
-            <VBox layoutX="1161.0" layoutY="146.0" prefHeight="250.0" prefWidth="250.0" style="-fx-border-color:black;">
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Clicks" />
-              </children>
-            </VBox>
-            <VBox layoutX="96.0" layoutY="527.0" prefHeight="550.0" prefWidth="687.6875" style="-fx-border-color:black">
-              <children>
-                <VBox id="VBox" alignment="CENTER" maxHeight="60.0" maxWidth="687.0" minHeight="60.0" minWidth="500.0" prefHeight="60.000099999997474" prefWidth="687.0" spacing="5.0" style="-fx-border-color:black" VBox.margin="$x2">
-                  <children>
-                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="" text="User Demographics">
-                      <font>
-                        <Font size="30.0" fx:id="x3" />
-                      </font>
-                    </Text>
-                  </children>
-                  <padding>
-                    <Insets fx:id="x2" />
-                  </padding>
-                </VBox>
-              </children>
-            </VBox>
-            <VBox layoutX="910.0" layoutY="515.0" padding="$x2" prefHeight="550.0" prefWidth="496.0" style="-fx-border-color:black">
-              <children>
-                <VBox id="VBox" alignment="CENTER" maxHeight="60.0" maxWidth="500.0" minHeight="60.0" minWidth="500.0" prefHeight="60.0" prefWidth="500.0" spacing="5.0" style="-fx-border-color:black">
-                  <children>
-                    <Text font="$x3" strokeType="OUTSIDE" strokeWidth="0.0" text="Recommendations" />
-                  </children>
-                  <VBox.margin>
-                    <Insets top="0.4" />
-                  </VBox.margin>
-                </VBox>
-                <ListView orientation="VERTICAL" prefHeight="550.0" prefWidth="494.0" VBox.margin="$x2" />
-              </children>
-            </VBox>
+            <Text layoutX="700.0" layoutY="70.0" scaleX="2.944977607165707" scaleY="2.848262343504421" strokeType="OUTSIDE" strokeWidth="0.0" text="Audience Demographics" />
+            <HBox layoutX="107.0" layoutY="32.0" prefHeight="58.0" prefWidth="311.0" style="-fx-border-color:black" />
+            <HBox layoutX="22.0" layoutY="32.0" prefHeight="51.0" prefWidth="85.0" />
+            <Text layoutX="32.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
+            <Text layoutX="107.0" layoutY="580.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:" />
+            <Text layoutX="829.0" layoutY="580.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:" />
+            <HBox layoutX="189.0" layoutY="542.0" prefHeight="58.0" prefWidth="156.0" style="-fx-border-color:black" />
+            <HBox layoutX="345.0" layoutY="542.0" prefHeight="58.0" prefWidth="156.0" style="-fx-border-color:black" />
+            <HBox layoutX="501.0" layoutY="542.0" prefHeight="58.0" prefWidth="155.0" style="-fx-border-color:black" />
+            <HBox layoutX="907.0" layoutY="542.0" prefHeight="58.0" prefWidth="156.0" style="-fx-border-color:black" />
+            <HBox layoutX="1063.0" layoutY="542.0" prefHeight="58.0" prefWidth="156.0" style="-fx-border-color:black" />
+            <HBox layoutX="1219.0" layoutY="542.0" prefHeight="58.0" prefWidth="155.0" style="-fx-border-color:black" />
             <ImageView fitHeight="108.0" fitWidth="108.0" layoutX="1385.0" layoutY="10.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
               <image>
                 <Image url="@Settings.png" />
