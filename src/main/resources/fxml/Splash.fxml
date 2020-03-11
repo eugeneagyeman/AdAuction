@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-background-color 0x7f93ffff?>
+
+<VBox prefHeight="1201.0" prefWidth="1863.0" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #4c52d3);&#10;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="617.0" prefWidth="961.0" VBox.vgrow="ALWAYS">
+      <children>
+        <ImageView id="AdAuctionDashboardLogo" fitHeight="643.0" fitWidth="642.0" layoutX="611.0" layoutY="201.0" pickOnBounds="true">
+          <image>
+            <Image url="@Logo.png" backgroundLoading="true" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+        <Pane layoutX="862.0" layoutY="946.0" prefHeight="50.0" prefWidth="139.0">
+          <children>
+            <Text layoutX="26.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." />
+          </children>
+        </Pane>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
