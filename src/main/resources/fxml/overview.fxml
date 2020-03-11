@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="1201.0" prefWidth="1863.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<VBox prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <MenuBar prefHeight="58.0" prefWidth="2069.0" VBox.vgrow="NEVER">
+    <MenuBar prefWidth="1400.0" style="-fx-font-size: 16px;" VBox.vgrow="ALWAYS">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
@@ -50,133 +62,193 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="617.0" prefWidth="961.0" VBox.vgrow="ALWAYS">
-      <children>
-        <Pane layoutX="-2.0" layoutY="-1.0" prefHeight="1144.0" prefWidth="347.0000999999975">
-          <children>
-            <ImageView id="AdAuctionDashboardLogo" fitHeight="344.0" fitWidth="345.0" layoutX="0.0" layoutY="7.0" pickOnBounds="true">
-              <image>
-                <Image url="@Logo.png" preserveRatio="true" smooth="true" />
-              </image>
-            </ImageView>
-            <Accordion layoutX="0.0" layoutY="349.0" minWidth="127.0" prefHeight="794.0" prefWidth="345.0">
-              <expandedPane>
-                <TitledPane fx:id="x4" animated="false" text="Context">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                      <children>
-                        <CheckBox layoutX="62.0" layoutY="59.0" mnemonicParsing="false" text="News">
-                          <font>
-                            <Font size="32.0" fx:id="x1" />
-                          </font>
-                        </CheckBox>
-                        <CheckBox font="$x1" layoutX="61.0" layoutY="170.0" mnemonicParsing="false" text="Shopping" />
-                        <CheckBox font="$x1" layoutX="61.0" layoutY="278.0" mnemonicParsing="false" text="Social Media" />
-                        <CheckBox font="$x1" layoutX="61.0" layoutY="384.0" mnemonicParsing="false" text="Hobbies" />
-                        <CheckBox font="$x1" layoutX="59.0" layoutY="482.0" mnemonicParsing="false" text="Travel" />
-                      </children>
-                    </AnchorPane>
-                  </content>
-                </TitledPane>
-              </expandedPane>
-              <panes>
-                <TitledPane id="x1" animated="false" prefHeight="668.0" prefWidth="345.0" text="Overview">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </TitledPane>
-                <TitledPane id="x2" animated="false" text="Audience Segments">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                      <children>
-                        <CheckBox font="$x1" layoutX="62.0" layoutY="59.0" mnemonicParsing="false" text="Age" />
-                        <CheckBox font="$x1" layoutX="62.0" layoutY="214.0" mnemonicParsing="false" text="Gender" />
-                        <CheckBox font="$x1" layoutX="61.0" layoutY="369.0" mnemonicParsing="false" text="Income" />
-                      </children>
-                    </AnchorPane>
-                  </content>
-                </TitledPane>
-                <fx:reference source="x4" />
-                <TitledPane animated="false" text="Configuration">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </TitledPane>
-                <TitledPane animated="false" text="Campaigns">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </TitledPane>
-              </panes>
-            </Accordion>
-          </children>
-        </Pane>
-        <Pane layoutX="345.0" layoutY="0.0" prefHeight="1141.0" prefWidth="1518.0">
-          <children>
-            <Text layoutX="615.0" layoutY="72.0" scaleX="2.944977607165707" scaleY="2.848262343504421" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" />
-            <VBox layoutX="106.0" layoutY="146.0" prefHeight="250.0" prefWidth="250.0" style="-fx-border-color:black;&#10;">
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost-per Click" />
-              </children>
-            </VBox>
-            <VBox layoutX="449.0" layoutY="146.0" prefHeight="250.0" prefWidth="250.0" style="-fx-border-color:black;">
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Impressions" />
-              </children>
-            </VBox>
-            <VBox layoutX="808.0" layoutY="146.0" maxHeight="250.0" maxWidth="250.0" prefHeight="250.0" prefWidth="250.0" style="-fx-border-color:black;">
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost-per Thousand" textOrigin="BASELINE" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Impressions" />
-              </children>
-            </VBox>
-            <VBox layoutX="1161.0" layoutY="146.0" prefHeight="250.0" prefWidth="250.0" style="-fx-border-color:black;">
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Clicks" />
-              </children>
-            </VBox>
-            <VBox layoutX="96.0" layoutY="527.0" prefHeight="550.0" prefWidth="687.6875" style="-fx-border-color:black">
-              <children>
-                <VBox id="VBox" alignment="CENTER" maxHeight="60.0" maxWidth="687.0" minHeight="60.0" minWidth="500.0" prefHeight="60.000099999997474" prefWidth="687.0" spacing="5.0" style="-fx-border-color:black" VBox.margin="$x2">
-                  <children>
-                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="" text="User Demographics">
-                      <font>
-                        <Font size="30.0" fx:id="x3" />
-                      </font>
-                    </Text>
-                  </children>
-                  <padding>
-                    <Insets fx:id="x2" />
-                  </padding>
-                </VBox>
-              </children>
-            </VBox>
-            <VBox layoutX="910.0" layoutY="515.0" padding="$x2" prefHeight="550.0" prefWidth="496.0" style="-fx-border-color:black">
-              <children>
-                <VBox id="VBox" alignment="CENTER" maxHeight="60.0" maxWidth="500.0" minHeight="60.0" minWidth="500.0" prefHeight="60.0" prefWidth="500.0" spacing="5.0" style="-fx-border-color:black">
-                  <children>
-                    <Text font="$x3" strokeType="OUTSIDE" strokeWidth="0.0" text="Recommendations" />
-                  </children>
-                  <VBox.margin>
-                    <Insets top="0.4" />
-                  </VBox.margin>
-                </VBox>
-                <ListView orientation="VERTICAL" prefHeight="550.0" prefWidth="494.0" VBox.margin="$x2" />
-              </children>
-            </VBox>
-            <ImageView fitHeight="108.0" fitWidth="108.0" layoutX="1385.0" layoutY="10.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
-              <image>
-                <Image url="@Settings.png" />
-              </image>
-            </ImageView>
-            <ImageView fitHeight="98.2112445275309" fitWidth="100.3309097290039" layoutX="1246.0" layoutY="15.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
-              <image>
-                <Image url="@Profile.jpg" />
-              </image>
-            </ImageView>
-          </children>
-        </Pane>
-      </children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="900.0" prefWidth="1400.0" VBox.vgrow="NEVER">
+         <children>
+            <HBox alignment="CENTER" layoutX="0" prefHeight="860.0" prefWidth="1400.0">
+               <children>
+                  <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="860.0" prefWidth="275.0" style="-fx-border-color: #ababab;">
+                     <children>
+                        <ImageView fitHeight="275.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                           <image>
+                              <Image url="@Logo.png" />
+                           </image>
+                        </ImageView>
+                        <Accordion style="-fx-font-size: 18px;" VBox.vgrow="ALWAYS">
+                          <panes>
+                            <TitledPane animated="false" text="Overview">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </TitledPane>
+                            <TitledPane animated="false" text="Audience Segments">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <CheckBox layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="Age" />
+                                          <CheckBox layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Gender" />
+                                          <CheckBox layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Income" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </TitledPane>
+                            <TitledPane animated="false" text="Context">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <CheckBox layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="News" />
+                                          <CheckBox layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Shopping" />
+                                          <CheckBox layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Social Media" />
+                                          <CheckBox layoutX="50.0" layoutY="200.0" mnemonicParsing="false" text="Hobbies" />
+                                          <CheckBox layoutX="50.0" layoutY="250.0" mnemonicParsing="false" text="Travel" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </TitledPane>
+                              <TitledPane animated="false" text="Configuration">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </TitledPane>
+                              <TitledPane animated="false" prefHeight="691.0" prefWidth="275.0" text="Campaigns">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </TitledPane>
+                          </panes>
+                        </Accordion>
+                     </children>
+                  </VBox>
+                  <Pane HBox.hgrow="ALWAYS">
+                     <children>
+                        <Text layoutX="388.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" textAlignment="CENTER" textOrigin="CENTER">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="875.0" layoutY="21.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Profile.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="992.0" layoutY="20.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Settings.png" />
+                           </image>
+                        </ImageView>
+                        <BorderPane layoutX="85.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
+                           <top>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Click" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <BorderPane.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </BorderPane.margin>
+                              </Text>
+                           </top>
+                           <center>
+                              <Text fx:id="costPerClickText" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Text>
+                           </center>
+                        </BorderPane>
+                        <BorderPane layoutX="340.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
+                           <top>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Impressions" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <BorderPane.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </BorderPane.margin>
+                              </Text>
+                           </top>
+                           <center>
+                              <Text fx:id="totalImpressionsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Text>
+                           </center>
+                        </BorderPane>
+                        <BorderPane layoutX="600.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
+                           <top>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Thousand Impressions" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <BorderPane.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </BorderPane.margin>
+                              </Text>
+                           </top>
+                           <center>
+                              <Text fx:id="costPerThousandImpressionsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <BorderPane.margin>
+                                    <Insets bottom="25.0" />
+                                 </BorderPane.margin>
+                              </Text>
+                           </center>
+                        </BorderPane>
+                        <BorderPane layoutX="850.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
+                           <top>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Click" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <BorderPane.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </BorderPane.margin>
+                              </Text>
+                           </top>
+                           <center>
+                              <Text fx:id="costPerClickText" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Text>
+                           </center>
+                        </BorderPane>
+                        <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="90.0" layoutY="440.0" prefHeight="345.0" prefWidth="475.0" style="-fx-border-color: black;">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Demographics" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <Line endX="375.0" startX="-100.0">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Line>
+                              <PieChart fx:id="overviewPieChart" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="679.0" layoutY="440.0" prefHeight="350.0" prefWidth="336.0" style="-fx-border-color: black;">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recommendations" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <Line endX="41.03495788574219" endY="9.932084083557129" startX="-305.0097961425781" startY="8.850176811218262">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Line>
+                              <ListView fx:id="recommendationsListView" prefWidth="350.0" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </children>
     </AnchorPane>
   </children>
 </VBox>

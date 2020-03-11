@@ -27,7 +27,7 @@ public class Main extends Application {
         mainWindow = stage;
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("/fxml/Splash.fxml"));
+        loader.setLocation(this.getClass().getResource("/fxml/Overview.fxml"));
 
         //model = new Configuration().buildDashboard();
         Scene scene = new Scene(loader.load());

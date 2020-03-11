@@ -9,11 +9,11 @@
 <?import javafx.scene.text.Text?>
 <?scenebuilder-background-color 0x7f93ffff?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #4c52d3);&#10;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #4c52d3);&#10;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <AnchorPane maxHeight="900.0" maxWidth="1600.0" prefHeight="900.0" prefWidth="1600.0" VBox.vgrow="NEVER">
       <children>
-            <VBox alignment="CENTER" AnchorPane.bottomAnchor="339.0" AnchorPane.leftAnchor="611.0" AnchorPane.rightAnchor="638.0" AnchorPane.topAnchor="201.0">
+            <VBox alignment="CENTER" prefHeight="900.0" prefWidth="1400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
               <ImageView id="AdAuctionDashboardLogo" pickOnBounds="true" preserveRatio="true">
                 <image>
