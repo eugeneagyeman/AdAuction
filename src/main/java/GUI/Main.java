@@ -29,13 +29,12 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(this.getClass().getResource("/fxml/Overview.fxml"));
 
-        //model = new Configuration().buildDashboard();
+        model = new Configuration().buildDashboard();
         Scene scene = new Scene(loader.load());
         mainWindow.setScene(scene);
 
-
-        //OverviewController controller = (OverviewController) loader.getController();
-        //controller.initModel(model);
+        OverviewController controller = loader.getController();
+        controller.initModel(model);
         mainWindow.show();
     }
 }

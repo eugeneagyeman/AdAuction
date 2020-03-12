@@ -76,12 +76,12 @@
                         </ImageView>
                         <Accordion style="-fx-font-size: 18px;" VBox.vgrow="ALWAYS">
                           <panes>
-                            <TitledPane animated="false" text="Overview">
+                            <TitledPane fx:id="overviewTab" animated="false" text="Overview">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                               </content>
                             </TitledPane>
-                            <TitledPane animated="false" text="Audience Segments">
+                            <TitledPane fx:id="audienceSegmentsTab" animated="false" text="Audience Segments">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -92,7 +92,7 @@
                                     </AnchorPane>
                               </content>
                             </TitledPane>
-                            <TitledPane animated="false" text="Context">
+                            <TitledPane fx:id="contextTab" animated="false" text="Context">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -105,12 +105,12 @@
                                     </AnchorPane>
                               </content>
                             </TitledPane>
-                              <TitledPane animated="false" text="Configuration">
+                              <TitledPane fx:id="configurationTab" animated="false" text="Configuration">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                  </content>
                               </TitledPane>
-                              <TitledPane animated="false" prefHeight="691.0" prefWidth="275.0" text="Campaigns">
+                              <TitledPane fx:id="campaignsTab" animated="false" prefHeight="691.0" prefWidth="275.0" text="Campaigns">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                  </content>
@@ -198,7 +198,7 @@
                         </BorderPane>
                         <BorderPane layoutX="850.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
                            <top>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Click" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Clicks" wrappingWidth="175.0" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -208,7 +208,7 @@
                               </Text>
                            </top>
                            <center>
-                              <Text fx:id="costPerClickText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                              <Text fx:id="totalClicksText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="24.0" />
                                  </font>

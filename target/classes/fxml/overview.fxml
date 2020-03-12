@@ -9,6 +9,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -75,12 +76,12 @@
                         </ImageView>
                         <Accordion style="-fx-font-size: 18px;" VBox.vgrow="ALWAYS">
                           <panes>
-                            <TitledPane animated="false" text="Overview">
+                            <TitledPane fx:id="overviewTab" animated="false" text="Overview">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                               </content>
                             </TitledPane>
-                            <TitledPane animated="false" text="Audience Segments">
+                            <TitledPane fx:id="audienceSegmentsTab" animated="false" text="Audience Segments">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -91,7 +92,7 @@
                                     </AnchorPane>
                               </content>
                             </TitledPane>
-                            <TitledPane animated="false" text="Context">
+                            <TitledPane fx:id="contextTab" animated="false" text="Context">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -104,12 +105,12 @@
                                     </AnchorPane>
                               </content>
                             </TitledPane>
-                              <TitledPane animated="false" text="Configuration">
+                              <TitledPane fx:id="configurationTab" animated="false" text="Configuration">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                  </content>
                               </TitledPane>
-                              <TitledPane animated="false" prefHeight="691.0" prefWidth="275.0" text="Campaigns">
+                              <TitledPane fx:id="campaignsTab" animated="false" prefHeight="691.0" prefWidth="275.0" text="Campaigns">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                  </content>
@@ -125,12 +126,12 @@
                               <Font size="40.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="875.0" layoutY="21.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="890.0" layoutY="30.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@Profile.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="992.0" layoutY="20.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="68.0" fitWidth="68.0" layoutX="992.0" layoutY="26.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@Settings.png" />
                            </image>
@@ -147,7 +148,7 @@
                               </Text>
                            </top>
                            <center>
-                              <Text fx:id="costPerClickText" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                              <Text fx:id="costPerClickText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -166,7 +167,7 @@
                               </Text>
                            </top>
                            <center>
-                              <Text fx:id="totalImpressionsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                              <Text fx:id="totalImpressionsText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -185,7 +186,7 @@
                               </Text>
                            </top>
                            <center>
-                              <Text fx:id="costPerThousandImpressionsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                              <Text fx:id="costPerThousandImpressionsText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -197,7 +198,7 @@
                         </BorderPane>
                         <BorderPane layoutX="850.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
                            <top>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Click" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Clicks" wrappingWidth="175.0" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -207,7 +208,7 @@
                               </Text>
                            </top>
                            <center>
-                              <Text fx:id="costPerClickText" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                              <Text fx:id="totalClicksText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -244,6 +245,16 @@
                               <ListView fx:id="recommendationsListView" prefWidth="350.0" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
+                        <Text layoutX="35.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="currentDate" alignment="TOP_LEFT" editable="false" layoutX="85.0" layoutY="40.0" prefWidth="150.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </Pane>
                </children>
