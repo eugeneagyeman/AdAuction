@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="1201.0" prefWidth="1863.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<VBox prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <MenuBar prefHeight="58.0" prefWidth="2069.0" VBox.vgrow="NEVER">
+    <MenuBar prefWidth="1400.0" style="-fx-font-size: 16px;" VBox.vgrow="ALWAYS">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
@@ -50,94 +61,124 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="617.0" prefWidth="961.0" VBox.vgrow="ALWAYS">
-      <children>
-        <Pane layoutX="0.0" layoutY="0.0" prefHeight="1144.0" prefWidth="347.0000999999975">
-          <children>
-            <ImageView id="AdAuctionDashboardLogo" fitHeight="344.0" fitWidth="345.0" layoutX="0.0" layoutY="7.0" pickOnBounds="true">
-              <image>
-                <Image url="@Logo.png" preserveRatio="true" smooth="true" />
-              </image>
-            </ImageView>
-            <Accordion layoutX="0.0" layoutY="349.0" minWidth="127.0" prefHeight="794.0" prefWidth="345.0">
-              <expandedPane>
-                <TitledPane id="x4" fx:id="x2" animated="false" text="Context">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                      <children>
-                        <CheckBox layoutX="62.0" layoutY="59.0" mnemonicParsing="false" text="News">
-                          <font>
-                            <Font size="32.0" fx:id="x1" />
-                          </font>
-                        </CheckBox>
-                        <CheckBox font="$x1" layoutX="61.0" layoutY="170.0" mnemonicParsing="false" text="Shopping" />
-                        <CheckBox font="$x1" layoutX="61.0" layoutY="278.0" mnemonicParsing="false" text="Social Media" />
-                        <CheckBox font="$x1" layoutX="61.0" layoutY="384.0" mnemonicParsing="false" text="Hobbies" />
-                        <CheckBox font="$x1" layoutX="59.0" layoutY="482.0" mnemonicParsing="false" text="Travel" />
-                      </children>
-                    </AnchorPane>
-                  </content>
-                </TitledPane>
-              </expandedPane>
-              <panes>
-                <TitledPane id="x1" animated="false" prefHeight="668.0" prefWidth="345.0" text="Overview">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </TitledPane>
-                <TitledPane id="x2" animated="false" text="Audience Segments">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                      <children>
-                        <CheckBox font="$x1" layoutX="62.0" layoutY="59.0" mnemonicParsing="false" text="Age" />
-                        <CheckBox font="$x1" layoutX="62.0" layoutY="214.0" mnemonicParsing="false" text="Gender" />
-                        <CheckBox font="$x1" layoutX="61.0" layoutY="369.0" mnemonicParsing="false" text="Income" />
-                      </children>
-                    </AnchorPane>
-                  </content>
-                </TitledPane>
-                <fx:reference source="x2" />
-                <TitledPane animated="false" text="Configuration">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </TitledPane>
-                <TitledPane animated="false" text="Campaigns">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </TitledPane>
-              </panes>
-            </Accordion>
-          </children>
-        </Pane>
-        <Pane layoutX="345.0" layoutY="0.0" prefHeight="1141.0" prefWidth="1518.0">
-          <children>
-            <Text layoutX="700.0" layoutY="70.0" scaleX="2.944977607165707" scaleY="2.848262343504421" strokeType="OUTSIDE" strokeWidth="0.0" text="Audience Demographics" />
-            <HBox layoutX="107.0" layoutY="32.0" prefHeight="58.0" prefWidth="311.0" style="-fx-border-color:black" />
-            <HBox layoutX="22.0" layoutY="32.0" prefHeight="51.0" prefWidth="85.0" />
-            <Text layoutX="32.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
-            <Text layoutX="107.0" layoutY="580.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:" />
-            <Text layoutX="829.0" layoutY="580.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:" />
-            <HBox layoutX="189.0" layoutY="542.0" prefHeight="58.0" prefWidth="156.0" style="-fx-border-color:black" />
-            <HBox layoutX="345.0" layoutY="542.0" prefHeight="58.0" prefWidth="156.0" style="-fx-border-color:black" />
-            <HBox layoutX="501.0" layoutY="542.0" prefHeight="58.0" prefWidth="155.0" style="-fx-border-color:black" />
-            <HBox layoutX="907.0" layoutY="542.0" prefHeight="58.0" prefWidth="156.0" style="-fx-border-color:black" />
-            <HBox layoutX="1063.0" layoutY="542.0" prefHeight="58.0" prefWidth="156.0" style="-fx-border-color:black" />
-            <HBox layoutX="1219.0" layoutY="542.0" prefHeight="58.0" prefWidth="155.0" style="-fx-border-color:black" />
-            <ImageView fitHeight="108.0" fitWidth="108.0" layoutX="1385.0" layoutY="10.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
-              <image>
-                <Image url="@Settings.png" />
-              </image>
-            </ImageView>
-            <ImageView fitHeight="98.2112445275309" fitWidth="100.3309097290039" layoutX="1246.0" layoutY="15.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
-              <image>
-                <Image url="@Profile.jpg" />
-              </image>
-            </ImageView>
-          </children>
-        </Pane>
-      </children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="900.0" prefWidth="1400.0" VBox.vgrow="NEVER">
+         <children>
+            <HBox alignment="CENTER" layoutX="0" prefHeight="860.0" prefWidth="1400.0">
+               <children>
+                  <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="860.0" prefWidth="275.0" style="-fx-border-color: #ababab;">
+                     <children>
+                        <ImageView fitHeight="275.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                           <image>
+                              <Image url="@Logo.png" />
+                           </image>
+                        </ImageView>
+                        <Accordion style="-fx-font-size: 18px;" VBox.vgrow="ALWAYS">
+                          <panes>
+                            <TitledPane animated="false" text="Overview">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </TitledPane>
+                            <TitledPane animated="false" text="Audience Segments">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <CheckBox layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="Age" />
+                                          <CheckBox layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Gender" />
+                                          <CheckBox layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Income" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </TitledPane>
+                            <TitledPane animated="false" text="Context">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <CheckBox layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="News" />
+                                          <CheckBox layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Shopping" />
+                                          <CheckBox layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Social Media" />
+                                          <CheckBox layoutX="50.0" layoutY="200.0" mnemonicParsing="false" text="Hobbies" />
+                                          <CheckBox layoutX="50.0" layoutY="250.0" mnemonicParsing="false" text="Travel" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </TitledPane>
+                              <TitledPane animated="false" text="Configuration">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </TitledPane>
+                              <TitledPane animated="false" prefHeight="691.0" prefWidth="275.0" text="Campaigns">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </TitledPane>
+                          </panes>
+                        </Accordion>
+                     </children>
+                  </VBox>
+                  <Pane HBox.hgrow="ALWAYS">
+                     <children>
+                        <Text layoutX="311.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Demographics" textAlignment="CENTER" textOrigin="CENTER">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="890.0" layoutY="30.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Profile.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="68.0" fitWidth="68.0" layoutX="992.0" layoutY="26.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Settings.png" />
+                           </image>
+                        </ImageView>
+                        <Text layoutX="35.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <TextField alignment="TOP_LEFT" layoutX="85.0" layoutY="40.0" prefWidth="150.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                        <Text layoutX="62.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="594.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Pane fx:id="fromDateDay" layoutX="133.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;" />
+                        <Pane fx:id="fromDateMonth" layoutX="249.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;" />
+                        <Pane fx:id="fromDateYear" layoutX="365.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;" />
+                        <Pane fx:id="untilDateDay" layoutX="668.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;" />
+                        <Pane fx:id="untilDateMonth" layoutX="784.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;" />
+                        <Pane fx:id="untilDateYear" layoutX="900.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;" />
+                        <SplitPane dividerPositions="0.03" layoutY="220.0" prefHeight="645.0" prefWidth="1124.0">
+                          <items>
+                            <AnchorPane>
+                                 <children>
+                                    <ScrollBar max="-1.0" min="10.0" orientation="VERTICAL" prefHeight="645.0" prefWidth="30.0" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane>
+                                 <children>
+                                    <TilePane fx:id="userDemographicsGraphs" alignment="BOTTOM_CENTER" hgap="50.0" prefColumns="3" prefHeight="645.0" prefWidth="1084.0" tileAlignment="TOP_CENTER" vgap="50.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </children>
     </AnchorPane>
   </children>
 </VBox>
