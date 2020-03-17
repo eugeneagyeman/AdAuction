@@ -5,11 +5,16 @@
 
 package GUI.Overview;
 
+import Configuration.Configuration;
 import Dashboard.DashboardModel;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -24,6 +29,7 @@ public class OverviewController implements Initializable {
 
     private DashboardModel model;
 
+    @FXML private Accordion accordion;
     @FXML private TitledPane overviewTab;
     @FXML private TitledPane audienceSegmentsTab;
     @FXML private TitledPane contextTab;
@@ -36,10 +42,6 @@ public class OverviewController implements Initializable {
     @FXML private Text totalClicksText;
     @FXML private PieChart overviewPieChart;
     @FXML private ListView<String> recommendationsListView;
-
-    public void overviewButtonClicked(javafx.event.ActionEvent actionEvent) throws IOException {
-        GUI.Main.changeScene("/fxml/Overview.fxml");
-    }
 
     public void setModel(DashboardModel model) {
         this.model = model;
@@ -54,6 +56,50 @@ public class OverviewController implements Initializable {
         costPerThousandImpressionsText.setText("£" + decimalFormat.format(model.getMetrics().getCostPerThousand()));
         totalClicksText.setText(String.valueOf(model.getMetrics().getNumOfClicks()));
         recommendationsListView.setItems(model.getRecommendations());
+
+        overviewTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    GUI.Main.changeScene("/fxml/Overview.fxml");
+//                    GUI.Main.setModel(new Configuration().buildDashboard());
+//                    GUI.Main.getLoader().setController(GUI.Main.getOverviewController());
+//                    GUI.Main.getOverviewController().initialiseOverview();
+                } catch (IOException i) {
+                    i.printStackTrace();
+                }
+            }
+        });
+        audienceSegmentsTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    GUI.Main.changeScene("/fxml/AudienceSegments.fxml");
+                } catch (IOException i) {
+                    i.printStackTrace();
+                }
+            }
+        });
+        contextTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    GUI.Main.changeScene("/fxml/Context.fxml");
+                } catch (IOException i) {
+                    i.printStackTrace();
+                }
+            }
+        });
+        configurationTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    GUI.Main.changeScene("/fxml/Configuration.fxml");
+                } catch (IOException i) {
+                    i.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
