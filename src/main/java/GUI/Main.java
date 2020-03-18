@@ -2,7 +2,10 @@ package GUI;
 
 import Configuration.Configuration;
 import Dashboard.DashboardModel;
+import GUI.Configuration.ConfigController;
+import GUI.Context.ContextController;
 import GUI.Overview.OverviewController;
+import GUI.Segments.SegmentsController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +18,9 @@ public class Main extends Application {
     private static Stage mainWindow;
     private static DashboardModel model;
     private static OverviewController overviewController;
+    private static SegmentsController segmentsController;
+    private static ContextController contextController;
+    private static ConfigController configController;
 
     public static DashboardModel getModel() { return model; }
     public static OverviewController getOverviewController() { return overviewController; }
@@ -34,18 +40,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        model = new Configuration().buildDashboard();
         mainWindow = stage;
-        overviewController = new OverviewController();
-        overviewController.setModel(model);
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setController(overviewController);
-        loader.setLocation(this.getClass().getResource("/fxml/Overview.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Overview.fxml"));
         Scene scene = new Scene(loader.load());
         mainWindow.setScene(scene);
-        overviewController.initialiseOverview();
-
         mainWindow.show();
     }
 }

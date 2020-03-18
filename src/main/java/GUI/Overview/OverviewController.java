@@ -29,26 +29,22 @@ public class OverviewController implements Initializable {
 
     private DashboardModel model;
 
-    @FXML private Accordion accordion;
-    @FXML private TitledPane overviewTab;
-    @FXML private TitledPane audienceSegmentsTab;
-    @FXML private TitledPane contextTab;
-    @FXML private TitledPane configurationTab;
-    @FXML private TitledPane campaignsTab;
-    @FXML private TextField currentDate;
-    @FXML private Text costPerClickText;
-    @FXML private Text totalImpressionsText;
-    @FXML private Text costPerThousandImpressionsText;
-    @FXML private Text totalClicksText;
-    @FXML private PieChart overviewPieChart;
-    @FXML private ListView<String> recommendationsListView;
-
-    public void setModel(DashboardModel model) {
-        this.model = model;
-    }
+    @FXML private Accordion accordion = new Accordion();
+    @FXML private TitledPane overviewTab = new TitledPane();
+    @FXML private TitledPane audienceSegmentsTab = new TitledPane();
+    @FXML private TitledPane contextTab = new TitledPane();
+    @FXML private TitledPane configurationTab = new TitledPane();
+    @FXML private TitledPane campaignsTab = new TitledPane();
+    @FXML private TextField currentDate = new TextField();
+    @FXML private Text costPerClickText = new Text();
+    @FXML private Text totalImpressionsText = new Text();
+    @FXML private Text costPerThousandImpressionsText = new Text();
+    @FXML private Text totalClicksText = new Text();
+    @FXML private PieChart overviewPieChart = new PieChart();
+    @FXML private ListView<String> recommendationsListView = new ListView<>();
 
     public void initialiseOverview() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         currentDate.setText(dateFormat.format(new Date()));
         costPerClickText.setText("£" + decimalFormat.format(model.getMetrics().getCostPerClick()));
@@ -62,9 +58,6 @@ public class OverviewController implements Initializable {
             public void handle(MouseEvent event) {
                 try {
                     GUI.Main.changeScene("/fxml/Overview.fxml");
-//                    GUI.Main.setModel(new Configuration().buildDashboard());
-//                    GUI.Main.getLoader().setController(GUI.Main.getOverviewController());
-//                    GUI.Main.getOverviewController().initialiseOverview();
                 } catch (IOException i) {
                     i.printStackTrace();
                 }
@@ -121,5 +114,10 @@ public class OverviewController implements Initializable {
         totalClicksText.setText("0");
         if (recommendationsListView == null)
             throw new AssertionError("fx:id=\"recommendationList\" was not injected: check your FXML file 'overview.fxml'.");
+
+        try {
+            model = new Configuration().buildDashboard();
+            initialiseOverview();
+        } catch (IOException i) { i.printStackTrace(); }
     }
 }
