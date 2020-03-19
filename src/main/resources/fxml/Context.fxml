@@ -4,6 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -107,7 +108,10 @@
                               </TitledPane>
                               <TitledPane fx:id="campaignsTab" animated="false" expanded="false" prefHeight="691.0" prefWidth="275.0" text="Campaigns">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <ListView fx:id="campaignsList" prefWidth="275.0" />
+                                       </children></AnchorPane>
                                  </content>
                               </TitledPane>
                               <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="Configuration">

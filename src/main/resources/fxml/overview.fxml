@@ -108,7 +108,10 @@
                               </TitledPane>
                               <TitledPane fx:id="campaignsTab" animated="false" expanded="false" prefHeight="691.0" prefWidth="275.0" text="Campaigns">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <ListView fx:id="campaignsList" prefWidth="275.0" />
+                                       </children></AnchorPane>
                                  </content>
                               </TitledPane>
                               <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="Configuration">
@@ -152,7 +155,7 @@
                               </Text>
                            </top>
                            <center>
-                              <Text fx:id="totalClicksText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                              <Text fx:id="totalClicksText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -171,7 +174,7 @@
                               </Text>
                            </top>
                            <center>
-                              <Text fx:id="totalImpressionsText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                              <Text fx:id="totalImpressionsText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -190,7 +193,7 @@
                               </Text>
                            </top>
                            <center>
-                              <Text fx:id="costPerClickText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                              <Text fx:id="costPerClickText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -212,7 +215,7 @@
                               </Text>
                            </top>
                            <center>
-                              <Text fx:id="costPerThousandImpressionsText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" BorderPane.alignment="CENTER">
+                              <Text fx:id="costPerThousandImpressionsText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
