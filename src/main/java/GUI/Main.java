@@ -41,6 +41,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         mainWindow = stage;
+        model = new Configuration().buildDashboard();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Overview.fxml"));
         Scene scene = new Scene(loader.load());
         mainWindow.setScene(scene);

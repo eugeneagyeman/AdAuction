@@ -1,12 +1,11 @@
-
-/**
- * Sample Skeleton for 'overview.fxml' Controller Class
- */
-
 package GUI.Segments;
 
 import Configuration.Configuration;
 import Dashboard.DashboardModel;
+import GUI.Main;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +14,9 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -42,49 +44,40 @@ public class SegmentsController implements Initializable {
     @FXML private Text untilDateDay = new Text();
     @FXML private Text untilDateMonth = new Text();
     @FXML private Text untilDateYear = new Text();
+    @FXML private TilePane audienceSegmentsGraphs = new TilePane();
 
     public void initialiseSegments() {
+        accordion.expandedPaneProperty().setValue(audienceSegmentsTab);
+
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         currentDate.setText(dateFormat.format(new Date()));
 
-        overviewTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    GUI.Main.changeScene("/fxml/Overview.fxml");
-                } catch (IOException i) {
-                    i.printStackTrace();
-                }
+        overviewTab.setOnMouseClicked(event -> {
+            try {
+                Main.changeScene("/fxml/Overview.fxml");
+            } catch (IOException i) {
+                i.printStackTrace();
             }
         });
-        audienceSegmentsTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    GUI.Main.changeScene("/fxml/AudienceSegments.fxml");
-                } catch (IOException i) {
-                    i.printStackTrace();
-                }
+        audienceSegmentsTab.setOnMouseClicked(event -> {
+            try {
+                Main.changeScene("/fxml/AudienceSegments.fxml");
+            } catch (IOException i) {
+                i.printStackTrace();
             }
         });
-        contextTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    GUI.Main.changeScene("/fxml/Context.fxml");
-                } catch (IOException i) {
-                    i.printStackTrace();
-                }
+        contextTab.setOnMouseClicked(event -> {
+            try {
+                Main.changeScene("/fxml/Context.fxml");
+            } catch (IOException i) {
+                i.printStackTrace();
             }
         });
-        configurationTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    GUI.Main.changeScene("/fxml/Configuration.fxml");
-                } catch (IOException i) {
-                    i.printStackTrace();
-                }
+        configurationTab.setOnMouseClicked(event -> {
+            try {
+                Main.changeScene("/fxml/Configuration.fxml");
+            } catch (IOException i) {
+                i.printStackTrace();
             }
         });
     }
@@ -98,9 +91,7 @@ public class SegmentsController implements Initializable {
         assert configurationTab != null : "fx:id=\"configurationsTab\" was not injected: check your FXML file 'overview.fxml'.";
         assert currentDate != null : "fx:id-\"currentDate\" was not injected: check your FXML file 'overview.fxml'.";
 
-        try {
-            model = new Configuration().buildDashboard();
-            initialiseSegments();
-        } catch (IOException i) { i.printStackTrace(); }
+        model = Main.getModel();
+        initialiseSegments();
     }
 }

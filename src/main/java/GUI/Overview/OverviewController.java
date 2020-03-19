@@ -1,12 +1,9 @@
-
-/**
- * Sample Skeleton for 'overview.fxml' Controller Class
- */
-
 package GUI.Overview;
 
 import Configuration.Configuration;
 import Dashboard.DashboardModel;
+import GUI.Main;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,44 +50,32 @@ public class OverviewController implements Initializable {
         totalClicksText.setText(String.valueOf(model.getMetrics().getNumOfClicks()));
         recommendationsListView.setItems(model.getRecommendations());
 
-        overviewTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    GUI.Main.changeScene("/fxml/Overview.fxml");
-                } catch (IOException i) {
-                    i.printStackTrace();
-                }
+        overviewTab.setOnMouseClicked(event -> {
+            try {
+                Main.changeScene("/fxml/Overview.fxml");
+            } catch (IOException i) {
+                i.printStackTrace();
             }
         });
-        audienceSegmentsTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    GUI.Main.changeScene("/fxml/AudienceSegments.fxml");
-                } catch (IOException i) {
-                    i.printStackTrace();
-                }
+        audienceSegmentsTab.setOnMouseClicked(event -> {
+            try {
+                Main.changeScene("/fxml/AudienceSegments.fxml");
+            } catch (IOException i) {
+                i.printStackTrace();
             }
         });
-        contextTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    GUI.Main.changeScene("/fxml/Context.fxml");
-                } catch (IOException i) {
-                    i.printStackTrace();
-                }
+        contextTab.setOnMouseClicked(event -> {
+            try {
+                Main.changeScene("/fxml/Context.fxml");
+            } catch (IOException i) {
+                i.printStackTrace();
             }
         });
-        configurationTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    GUI.Main.changeScene("/fxml/Configuration.fxml");
-                } catch (IOException i) {
-                    i.printStackTrace();
-                }
+        configurationTab.setOnMouseClicked(event -> {
+            try {
+                Main.changeScene("/fxml/Configuration.fxml");
+            } catch (IOException i) {
+                i.printStackTrace();
             }
         });
     }
@@ -115,9 +100,7 @@ public class OverviewController implements Initializable {
         if (recommendationsListView == null)
             throw new AssertionError("fx:id=\"recommendationList\" was not injected: check your FXML file 'overview.fxml'.");
 
-        try {
-            model = new Configuration().buildDashboard();
-            initialiseOverview();
-        } catch (IOException i) { i.printStackTrace(); }
+        model = Main.getModel();
+        initialiseOverview();
     }
 }

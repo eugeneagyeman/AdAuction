@@ -1,12 +1,8 @@
-
-/**
- * Sample Skeleton for 'overview.fxml' Controller Class
- */
-
 package GUI.Configuration;
 
 import Configuration.Configuration;
 import Dashboard.DashboardModel;
+import GUI.Main;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,49 +36,39 @@ public class ConfigController implements Initializable {
     @FXML private Text userIDText = new Text();
     @FXML private Text companyNameText = new Text();
     @FXML private Text logDateTimeText = new Text();
+    @FXML private Button saveAsPDFButton = new Button();
+    @FXML private Button printButton = new Button();
 
-    public void initialiseContext() {
+    public void initialiseConfiguration() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         currentDate.setText(dateFormat.format(new Date()));
 
-        overviewTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    GUI.Main.changeScene("/fxml/Overview.fxml");
-                } catch (IOException i) {
-                    i.printStackTrace();
-                }
+        overviewTab.setOnMouseClicked(event -> {
+            try {
+                Main.changeScene("/fxml/Overview.fxml");
+            } catch (IOException i) {
+                i.printStackTrace();
             }
         });
-        audienceSegmentsTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    GUI.Main.changeScene("/fxml/AudienceSegments.fxml");
-                } catch (IOException i) {
-                    i.printStackTrace();
-                }
+        audienceSegmentsTab.setOnMouseClicked(event -> {
+            try {
+                Main.changeScene("/fxml/AudienceSegments.fxml");
+            } catch (IOException i) {
+                i.printStackTrace();
             }
         });
-        contextTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    GUI.Main.changeScene("/fxml/Context.fxml");
-                } catch (IOException i) {
-                    i.printStackTrace();
-                }
+        contextTab.setOnMouseClicked(event -> {
+            try {
+                Main.changeScene("/fxml/Context.fxml");
+            } catch (IOException i) {
+                i.printStackTrace();
             }
         });
-        configurationTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    GUI.Main.changeScene("/fxml/Configuration.fxml");
-                } catch (IOException i) {
-                    i.printStackTrace();
-                }
+        configurationTab.setOnMouseClicked(event -> {
+            try {
+                Main.changeScene("/fxml/Configuration.fxml");
+            } catch (IOException i) {
+                i.printStackTrace();
             }
         });
     }
@@ -96,9 +82,7 @@ public class ConfigController implements Initializable {
         assert configurationTab != null : "fx:id=\"configurationsTab\" was not injected: check your FXML file 'overview.fxml'.";
         assert currentDate != null : "fx:id-\"currentDate\" was not injected: check your FXML file 'overview.fxml'.";
 
-        try {
-            model = new Configuration().buildDashboard();
-            initialiseContext();
-        } catch (IOException i) { i.printStackTrace(); }
+        model = Main.getModel();
+        initialiseConfiguration();
     }
 }
