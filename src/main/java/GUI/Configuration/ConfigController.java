@@ -2,6 +2,7 @@ package GUI.Configuration;
 
 import Configuration.Configuration;
 import Dashboard.DashboardModel;
+import GUI.Controller;
 import GUI.Main;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,17 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class ConfigController implements Initializable {
+public class ConfigController extends Controller {
 
-    private DashboardModel model;
-
-    @FXML private Accordion accordion = new Accordion();
-    @FXML private TitledPane overviewTab = new TitledPane();
-    @FXML private TitledPane audienceSegmentsTab = new TitledPane();
-    @FXML private TitledPane contextTab = new TitledPane();
-    @FXML private TitledPane configurationTab = new TitledPane();
-    @FXML private TitledPane campaignsTab = new TitledPane();
-    @FXML private TextField currentDate = new TextField();
     @FXML private Text usernameText = new Text();
     @FXML private Text userIDText = new Text();
     @FXML private Text companyNameText = new Text();
@@ -40,49 +32,13 @@ public class ConfigController implements Initializable {
     @FXML private Button printButton = new Button();
 
     public void initialiseConfiguration() {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        currentDate.setText(dateFormat.format(new Date()));
 
-        overviewTab.setOnMouseClicked(event -> {
-            try {
-                Main.changeScene("/fxml/Overview.fxml");
-            } catch (IOException i) {
-                i.printStackTrace();
-            }
-        });
-        audienceSegmentsTab.setOnMouseClicked(event -> {
-            try {
-                Main.changeScene("/fxml/AudienceSegments.fxml");
-            } catch (IOException i) {
-                i.printStackTrace();
-            }
-        });
-        contextTab.setOnMouseClicked(event -> {
-            try {
-                Main.changeScene("/fxml/Context.fxml");
-            } catch (IOException i) {
-                i.printStackTrace();
-            }
-        });
-        configurationTab.setOnMouseClicked(event -> {
-            try {
-                Main.changeScene("/fxml/Configuration.fxml");
-            } catch (IOException i) {
-                i.printStackTrace();
-            }
-        });
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        assert overviewTab != null : "fx:id=\"overviewTab\" was not injected: check your FXML file 'overview.fxml'.";
-        assert contextTab != null : "fx:id=\"contextTab\" was not injected: check your FXML file 'overview.fxml'.";
-        assert audienceSegmentsTab != null : "fx:id=\"audienceSegmentsTab\" was not injected: check your FXML file 'overview.fxml'.";
-        assert campaignsTab != null : "fx:id=\"campaignsTab\" was not injected: check your FXML file 'overview.fxml'.";
-        assert configurationTab != null : "fx:id=\"configurationsTab\" was not injected: check your FXML file 'overview.fxml'.";
-        assert currentDate != null : "fx:id-\"currentDate\" was not injected: check your FXML file 'overview.fxml'.";
-
         model = Main.getModel();
+        initialiseController();
         initialiseConfiguration();
     }
 }
