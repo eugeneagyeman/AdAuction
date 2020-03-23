@@ -7,7 +7,6 @@ import com.google.common.collect.Multimap;
 public class Filter {
 
     public Filter() {
-
     }
 
     private void impressionsByAge(Multimap<String, ImpressionRecord> records) {

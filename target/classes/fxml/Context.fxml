@@ -2,30 +2,30 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Overview.OverviewController">
+<VBox prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Context.ContextController">
   <children>
-    <MenuBar prefWidth="1400.0" style="-fx-font-size: 16px;" VBox.vgrow="NEVER">
+    <MenuBar prefWidth="1400.0" style="-fx-font-size: 16px;" VBox.vgrow="ALWAYS">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
@@ -64,7 +64,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" VBox.vgrow="NEVER">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="900.0" prefWidth="1400.0" VBox.vgrow="NEVER">
          <children>
             <HBox alignment="CENTER" layoutX="0" prefHeight="860.0" prefWidth="1400.0">
                <children>
@@ -93,9 +93,9 @@
                                     </AnchorPane>
                                  </content>
                               </TitledPane>
-                              <TitledPane fx:id="contextTab" animated="false" expanded="false" text="Context">
+                              <TitledPane fx:id="contextTab" animated="false" text="Context">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="200.0">
                                        <children>
                                           <CheckBox layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="News" />
                                           <CheckBox layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Shopping" />
@@ -128,7 +128,61 @@
                   </VBox>
                   <Pane HBox.hgrow="ALWAYS">
                      <children>
-                        <Text layoutX="388.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" textAlignment="CENTER" textOrigin="CENTER">
+                        <Pane layoutX="133.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
+                           <children>
+                              <Text fx:id="fromDateDay" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="day">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="249.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
+                           <children>
+                              <Text fx:id="fromDateMonth" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="month">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="365.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
+                           <children>
+                              <Text fx:id="fromDateYear" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="year">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="668.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
+                           <children>
+                              <Text fx:id="untilDateDay" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="day">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="784.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
+                           <children>
+                              <Text fx:id="untilDateMonth" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="month">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="900.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
+                           <children>
+                              <Text fx:id="untilDateYear" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="year">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                        <Text layoutX="388.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Context" textAlignment="CENTER" textOrigin="CENTER">
                            <font>
                               <Font size="40.0" />
                            </font>
@@ -143,128 +197,92 @@
                               <Image url="@Settings.png" />
                            </image>
                         </ImageView>
-                        <BorderPane layoutX="85.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
-                           <top>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Clicks" wrappingWidth="175.0" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <BorderPane.margin>
-                                    <Insets left="5.0" top="5.0" />
-                                 </BorderPane.margin>
-                              </Text>
-                           </top>
-                           <center>
-                              <Text fx:id="totalClicksText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Text>
-                           </center>
-                        </BorderPane>
-                        <BorderPane layoutX="340.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
-                           <top>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Impressions" wrappingWidth="175.0" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <BorderPane.margin>
-                                    <Insets left="5.0" top="5.0" />
-                                 </BorderPane.margin>
-                              </Text>
-                           </top>
-                           <center>
-                              <Text fx:id="totalImpressionsText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Text>
-                           </center>
-                        </BorderPane>
-                        <BorderPane layoutX="600.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
-                           <top>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Click" wrappingWidth="175.0" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <BorderPane.margin>
-                                    <Insets left="5.0" top="5.0" />
-                                 </BorderPane.margin>
-                              </Text>
-                           </top>
-                           <center>
-                              <Text fx:id="costPerClickText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <BorderPane.margin>
-                                    <Insets />
-                                 </BorderPane.margin>
-                              </Text>
-                           </center>
-                        </BorderPane>
-                        <BorderPane layoutX="850.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
-                           <top>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Thousand Impressions" wrappingWidth="175.0" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <BorderPane.margin>
-                                    <Insets left="5.0" top="5.0" />
-                                 </BorderPane.margin>
-                              </Text>
-                           </top>
-                           <center>
-                              <Text fx:id="costPerThousandImpressionsText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <BorderPane.margin>
-                                    <Insets bottom="25.0" />
-                                 </BorderPane.margin>
-                              </Text>
-                           </center>
-                        </BorderPane>
-                        <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="90.0" layoutY="440.0" prefHeight="345.0" prefWidth="475.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Demographics" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Text>
-                              <Line endX="375.0" startX="-100.0">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </Line>
-                              <PieChart fx:id="overviewPieChart" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="679.0" layoutY="440.0" prefHeight="350.0" prefWidth="336.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recommendations" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Text>
-                              <Line endX="41.03495788574219" endY="9.932084083557129" startX="-305.0097961425781" startY="8.850176811218262">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </Line>
-                              <ListView fx:id="recommendationsListView" prefWidth="350.0" VBox.vgrow="ALWAYS" />
-                           </children>
-                        </VBox>
-                        <Text layoutX="35.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+                        <Text layoutX="35.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="currentDate" alignment="TOP_LEFT" editable="false" layoutX="85.0" layoutY="40.0" prefWidth="150.0">
+                        <TextField fx:id="currentDate" alignment="TOP_LEFT" layoutX="85.0" layoutY="27.0" prefWidth="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
+                        <Text layoutX="62.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="594.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <SplitPane dividerPositions="0.03" layoutY="220.0" prefHeight="647.0" prefWidth="865.0">
+                          <items>
+                            <AnchorPane>
+                                 <children>
+                                    <ScrollBar max="-1.0" min="10.0" orientation="VERTICAL" prefHeight="645.0" prefWidth="30.0" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane>
+                                 <children>
+                                    <TilePane fx:id="contextGraphs" alignment="BOTTOM_CENTER" hgap="50.0" prefColumns="2" prefHeight="645.0" prefWidth="811.0" tileAlignment="TOP_CENTER" vgap="50.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                        <VBox layoutX="865.0" layoutY="220.0" prefHeight="645.0" prefWidth="260.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter ages by:">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" left="20.0" top="30.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <CheckBox mnemonicParsing="false" text="Younger than 25">
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="30.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox mnemonicParsing="false" text="Between 25 and 34">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="30.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <CheckBox mnemonicParsing="false" text="Between 35 and 44">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="30.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <CheckBox mnemonicParsing="false" text="Between 45 and 54">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="30.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <CheckBox mnemonicParsing="false" text="Older than 54">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="30.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                           </children>
+                        </VBox>
                      </children>
                   </Pane>
                </children>
