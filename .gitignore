@@ -95,7 +95,7 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 # Maven ignores
-
+/target/
 target/
 pom.xml.tag
 pom.xml.releaseBackup
