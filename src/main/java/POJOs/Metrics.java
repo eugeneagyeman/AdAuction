@@ -26,7 +26,7 @@ public class Metrics {
         this.records = records;
         calculateMetrics();
         calculateRecommendations();
-        printMetrics();
+//      printMetrics();
     }
 
     public void calculateRecommendations() {
@@ -45,8 +45,6 @@ public class Metrics {
         calculateCostPerClick();
         calculateCostPerThousand();
         calculateBouncerate();
-
-
     }
 
     private void printMetrics() {
