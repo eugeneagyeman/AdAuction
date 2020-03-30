@@ -24,6 +24,11 @@ public class ContextController extends Controller {
     @FXML private Text untilDateMonth = new Text();
     @FXML private Text untilDateYear = new Text();
     @FXML private TilePane contextGraphs = new TilePane();
+    @FXML private CheckBox youngerThan25Checkbox = new CheckBox();
+    @FXML private CheckBox between25and34Checkbox = new CheckBox();
+    @FXML private CheckBox between35and44Checkbox = new CheckBox();
+    @FXML private CheckBox between45and54Checkbox = new CheckBox();
+    @FXML private CheckBox olderThan54Checkbox = new CheckBox();
 
     public void initialiseContext() {
         accordion.expandedPaneProperty().setValue(contextTab);

@@ -59,7 +59,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem mnemonicParsing="false" text="About AdAuction" />
           </items>
         </Menu>
       </menus>
@@ -241,7 +241,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Text>
-                              <CheckBox mnemonicParsing="false" text="Younger than 25">
+                              <CheckBox fx:id="youngerThan25Checkbox" mnemonicParsing="false" text="Younger than 25">
                                  <VBox.margin>
                                     <Insets left="20.0" top="30.0" />
                                  </VBox.margin>
@@ -249,7 +249,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </CheckBox>
-                              <CheckBox mnemonicParsing="false" text="Between 25 and 34">
+                              <CheckBox fx:id="between25and34Checkbox" mnemonicParsing="false" text="Between 25 and 34">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -257,7 +257,7 @@
                                     <Insets left="20.0" top="30.0" />
                                  </VBox.margin>
                               </CheckBox>
-                              <CheckBox mnemonicParsing="false" text="Between 35 and 44">
+                              <CheckBox fx:id="between35and44Checkbox" mnemonicParsing="false" text="Between 35 and 44">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -265,7 +265,7 @@
                                     <Insets left="20.0" top="30.0" />
                                  </VBox.margin>
                               </CheckBox>
-                              <CheckBox mnemonicParsing="false" text="Between 45 and 54">
+                              <CheckBox fx:id="between45and54Checkbox" mnemonicParsing="false" text="Between 45 and 54">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -273,7 +273,7 @@
                                     <Insets left="20.0" top="30.0" />
                                  </VBox.margin>
                               </CheckBox>
-                              <CheckBox mnemonicParsing="false" text="Older than 54">
+                              <CheckBox fx:id="olderThan54Checkbox" mnemonicParsing="false" text="Older than 54">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

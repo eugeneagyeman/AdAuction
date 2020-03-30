@@ -7,6 +7,7 @@ import com.google.common.collect.Multimap;
 public class Filter {
 
     public Filter() {
+
     }
 
     private void impressionsByAge(Multimap<String, ImpressionRecord> records) {
@@ -28,11 +29,6 @@ public class Filter {
             else if (stringValue.contains(">54"))
                 impressionsAbove54++;
         }
-        System.out.println("Impressions <25: " + impressionsBelow25);
-        System.out.println("Impressions 25-34: " + impressions25To34);
-        System.out.println("Impressions <35-44: " + impressions35To44);
-        System.out.println("Impressions <45-54: " + impressions45To54);
-        System.out.println("Impressions >54: " + impressionsAbove54);
     }
 
     private void impressionsByGender(Multimap<String, Record> records) {
@@ -48,7 +44,5 @@ public class Filter {
             if (stringValue.contains("Female"))
                 impressionsFemale++;
         }
-        System.out.println("Male impressions: " + impressionsMale);
-        System.out.println("Female impressions: " + impressionsFemale);
     }
 }
