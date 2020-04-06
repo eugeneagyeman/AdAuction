@@ -6,7 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -51,7 +51,7 @@ public class Controller implements Initializable {
         });
         audienceSegmentsTab.setOnMouseClicked(event -> {
             try {
-                Main.changeScene("/fxml/AudienceSegments.fxml");
+                Main.changeScene("/fxml/AudienceSegmentsEdit.fxml");
             } catch (IOException i) {
                 i.printStackTrace();
             }

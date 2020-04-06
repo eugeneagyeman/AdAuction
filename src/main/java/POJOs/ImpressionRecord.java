@@ -1,8 +1,12 @@
 package POJOs;
 
+import java.time.LocalDateTime;
+
+import static Configuration.Parser.parseDateTime;
+
 public class ImpressionRecord extends Record {
 
-    private String date;
+    private LocalDateTime date;
     private String gender;
     private String age;
     private String income;
@@ -11,7 +15,7 @@ public class ImpressionRecord extends Record {
 
     public ImpressionRecord(String uniqueID, String date, String gender, String age, String income, String context, String impressionCost) {
         super(uniqueID);
-        this.date = date;
+        this.date = parseDateTime(date);
         this.gender = gender;
         this.age = age;
         this.income = income;
@@ -20,11 +24,11 @@ public class ImpressionRecord extends Record {
     }
 
     public String getDate() {
-        return date;
+        return date.toString();
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.date = parseDateTime(date);
     }
 
     public String getGender() {
@@ -69,13 +73,6 @@ public class ImpressionRecord extends Record {
 
     @Override
     public String toString() {
-        return "ImpressionRecord{" +
-                "date='" + date + '\'' +
-                ", gender='" + gender + '\'' +
-                ", age='" + age + '\'' +
-                ", income='" + income + '\'' +
-                ", context='" + context + '\'' +
-                ", impressionCost='" + impressionCost + '\'' +
-                '}';
+        return String.format("ImpressionRecord{date='%s', gender='%s', age='%s', income='%s', context='%s', impressionCost='%s'}", date.toString(), gender, age, income, context, impressionCost);
     }
 }

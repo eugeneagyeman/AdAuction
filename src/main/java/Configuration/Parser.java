@@ -14,6 +14,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 public class Parser {
 
@@ -23,7 +25,7 @@ public class Parser {
         Multimap<String, Record> serverLogs = ArrayListMultimap.create();
         in = new FileReader(logCsv);
         Iterable<CSVRecord> serverLogCSVRecords = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
-//TODO: Exception Handling for incorrect file input
+        //TODO: Exception Handling for incorrect file input
         for (CSVRecord record : serverLogCSVRecords) {
             String entryDate = record.get("Entry Date");
             String id = record.get("ID");
@@ -81,7 +83,13 @@ public class Parser {
     public static LocalDateTime parseDateTime(String dateTime) {
         // YYYY/MM/DD HH:MM:SS -- According to requirements document
         // YYYY-MM-DD HH:MM:SS -- According to test data (Using this)
+        DateTimeFormatter dfs = new DateTimeFormatterBuilder()
+                .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))
+                .appendOptional(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                .toFormatter();
 
+        if (dateTime.contains("n/a")) return null;
+        if (dateTime.contains("T")) return LocalDateTime.parse(dateTime, dfs);
         // Split datetime string into individual components
         String[] split = dateTime.split(" ");
         String[] splitDate = split[0].split("-");
@@ -103,14 +111,12 @@ public class Parser {
         return LocalDateTime.of(localDate, localTime);
     }
 
-    public static Long dateDifference(String entry, String exit) {
+    public static Long dateDifference(LocalDateTime entry, LocalDateTime exit) {
         // Edge cases eg new day, month, or year, daylight saving time
         long time = 0;
 
-        if (!exit.replaceAll("\\s", "").equals("n/a")) {
-            LocalDateTime entryDateTime = parseDateTime(entry);
-            LocalDateTime exitDateTime = parseDateTime(exit);
-            Duration difference = Duration.between(entryDateTime, exitDateTime);
+        if (!exit.equals(LocalDateTime.MAX)) {
+            Duration difference = Duration.between(entry, exit);
             time = Math.abs(difference.toSeconds());
         } else
             return null;

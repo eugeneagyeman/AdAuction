@@ -48,4 +48,6 @@ public class Campaign {
         this.bounceDefinition = bounceDefinition;
         return this;
     }
+
+
 }

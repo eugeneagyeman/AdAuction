@@ -1,51 +1,57 @@
 package POJOs;
 
+import java.time.LocalDateTime;
+
+import static Configuration.Parser.parseDateTime;
+
 public class ServerRecord extends Record {
 
 
-    private String entryDate;
-    private String exitDate;
-    private String pagesViewed;
-    private String conversion;
+    private LocalDateTime entryDate;
+    private LocalDateTime exitDate;
+    private int pagesViewed;
+    private Boolean conversion;
 
     public ServerRecord(String uniqueID, String entryDate, String exitDate, String pagesViewed, String conversion) {
         super(uniqueID);
-        this.entryDate = entryDate;
-        this.exitDate = exitDate;
-        this.pagesViewed = pagesViewed;
-        this.conversion = conversion;
+        this.entryDate = parseDateTime(entryDate);
+        this.exitDate = parseDateTime(exitDate);
+        this.pagesViewed = Integer.parseInt(pagesViewed.replaceAll("\\s", ""));
+        this.conversion = setConversion(conversion);
     }
 
-    public String getEntryDate() {
+    public LocalDateTime getEntryDate() {
         return entryDate;
     }
 
     public void setEntryDate(String entryDate) {
-        this.entryDate = entryDate;
+        this.entryDate = parseDateTime(entryDate);
     }
 
-    public String getExitDate() {
+    public LocalDateTime getExitDate() {
+        if (exitDate == null) return LocalDateTime.MAX;
         return exitDate;
     }
 
     public void setExitDate(String exitDate) {
-        this.exitDate = exitDate;
+        parseDateTime(exitDate);
     }
 
-    public String getPagesViewed() {
+    public int getPagesViewed() {
         return pagesViewed;
     }
 
-    public void setPagesViewed(String pagesViewed) {
+    public void setPagesViewed(int pagesViewed) {
         this.pagesViewed = pagesViewed;
     }
 
-    public String getConversion() {
+    public Boolean getConversion() {
         return conversion;
     }
 
-    public void setConversion(String conversion) {
-        this.conversion = conversion;
+    public boolean setConversion(String conversion) {
+        if (conversion.equalsIgnoreCase("Yes")) return true;
+        else return false;
     }
 
     @Override

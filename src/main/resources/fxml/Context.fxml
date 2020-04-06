@@ -97,11 +97,17 @@
                                  <content>
                                     <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="200.0">
                                        <children>
-                                          <CheckBox layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="News" />
-                                          <CheckBox layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Shopping" />
-                                          <CheckBox layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Social Media" />
-                                          <CheckBox layoutX="50.0" layoutY="200.0" mnemonicParsing="false" text="Hobbies" />
-                                          <CheckBox layoutX="50.0" layoutY="250.0" mnemonicParsing="false" text="Travel" />
+                                           <CheckBox fx:id="newsBttn" accessibleText="News" layoutX="50.0"
+                                                     layoutY="50.0" mnemonicParsing="false" text="News"/>
+                                           <CheckBox fx:id="shoppingBttn" accessibleText="Shopping" layoutX="50.0"
+                                                     layoutY="100.0" mnemonicParsing="false" text="Shopping"/>
+                                           <CheckBox fx:id="socialMediaBttn" accessibleText="Social Media"
+                                                     layoutX="50.0" layoutY="150.0" mnemonicParsing="false"
+                                                     text="Social Media"/>
+                                           <CheckBox fx:id="hobbiesBttn" accessibleText="Hobbies" layoutX="50.0"
+                                                     layoutY="200.0" mnemonicParsing="false" text="Hobbies"/>
+                                           <CheckBox fx:id="travelBttn" accessibleText="Travel" layoutX="50.0"
+                                                     layoutY="250.0" mnemonicParsing="false" text="Travel"/>
                                        </children>
                                     </AnchorPane>
                                  </content>

@@ -1,8 +1,10 @@
 package POJOs;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static Configuration.Parser.dateDifference;
 
@@ -20,13 +22,25 @@ public class Metrics {
     private double costPerThousand;
     private double bounceRate;
     private Records records;
+
+    private List<String> ageRanges;
     private ArrayList<String> recommendations = new ArrayList<>();
 
     public Metrics(Records records) {
         this.records = records;
+        this.ageRanges = getAgeRanges();
         calculateMetrics();
         calculateRecommendations();
-//      printMetrics();
+        printMetrics();
+    }
+
+    public List getAgeRanges() {
+
+        List<String> ranges = records.getImpressionRecords().values()
+                .stream()
+                .map(ImpressionRecord::getAge)
+                .distinct().sorted().collect(Collectors.toUnmodifiableList());
+        return ranges;
     }
 
     public void calculateRecommendations() {
@@ -78,13 +92,13 @@ public class Metrics {
         // Bounce logic
         serverRecords.forEach(
                 record -> {
-                    String entryDate = record.getEntryDate();
-                    String exitDate = record.getExitDate();
-                    String conversion = record.getConversion().replaceAll("\\s", "");
-                    int pagesViewed = Integer.parseInt(record.getPagesViewed().replaceAll("\\s", ""));
+                    LocalDateTime entryDate = record.getEntryDate();
+                    LocalDateTime exitDate = record.getExitDate();
+                    boolean converted = record.getConversion();
+                    int pagesViewed = record.getPagesViewed();
                     Long time = dateDifference(entryDate, exitDate);
                     if (time != null) {
-                        if (conversion.equals("No") && pagesViewed <= 1 && time <= 10)
+                        if (converted && pagesViewed <= 1 && time <= 10)
                             this.numOfBounces++;
                     }
                 });
@@ -95,7 +109,7 @@ public class Metrics {
         this.numOfConversions = (int) records.getServerRecords().values()
                 .stream()
                 .map(ServerRecord::getConversion)
-                .filter(response -> response.equalsIgnoreCase("yes"))
+                .filter(converted -> converted)
                 .count();
         return numOfConversions;
     }

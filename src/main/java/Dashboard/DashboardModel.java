@@ -12,9 +12,11 @@ public class DashboardModel {
     private ArrayList<Campaign> listOfCampaigns;
     private Metrics metrics;
     private ObservableList<?> recommendations;
+    private Filter filter;
 
     public DashboardModel() {
         listOfCampaigns = new ArrayList<>();
+        this.filter = new Filter(this);
     }
 
     public Campaign getCurrentCampaign() {
@@ -46,12 +48,16 @@ public class DashboardModel {
         return this;
     }
 
-    public ObservableList getRecommendations() {
+    public ObservableList<?> getRecommendations() {
         return recommendations;
     }
 
     public DashboardModel setRecommendations(ObservableList<?> recommendations) {
         this.recommendations = recommendations;
         return this;
+    }
+
+    public Filter getFilter() {
+        return filter;
     }
 }
