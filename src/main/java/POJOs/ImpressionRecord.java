@@ -1,5 +1,6 @@
 package POJOs;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static Configuration.Parser.parseDateTime;
@@ -23,8 +24,8 @@ public class ImpressionRecord extends Record {
         this.impressionCost = Float.valueOf(impressionCost);
     }
 
-    public String getDate() {
-        return date.toString();
+    public LocalDateTime getDate() {
+        return date;
     }
 
     public void setDate(String date) {
@@ -74,5 +75,12 @@ public class ImpressionRecord extends Record {
     @Override
     public String toString() {
         return String.format("ImpressionRecord{date='%s', gender='%s', age='%s', income='%s', context='%s', impressionCost='%s'}", date.toString(), gender, age, income, context, impressionCost);
+    }
+
+    @Override
+    public Boolean dateInBetween(LocalDate start, LocalDate end) {
+        LocalDate date = this.date.toLocalDate();
+        if (date.isEqual(start) || date.isEqual(end)) return true;
+        return date.isAfter(start) && date.isBefore(end);
     }
 }

@@ -2,6 +2,7 @@ package GUI.Overview;
 
 import GUI.Controller;
 import GUI.Main;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
@@ -28,7 +29,7 @@ public class OverviewController extends Controller {
         totalImpressionsText.setText(String.valueOf(model.getMetrics().getNumOfImpressions()));
         costPerThousandImpressionsText.setText("£" + decimalFormat.format(model.getMetrics().getCostPerThousand()));
         totalClicksText.setText(String.valueOf(model.getMetrics().getNumOfClicks()));
-        recommendationsListView.setItems(model.getRecommendations());
+        recommendationsListView.setItems((ObservableList<String>) model.getRecommendations());
     }
 
     @Override

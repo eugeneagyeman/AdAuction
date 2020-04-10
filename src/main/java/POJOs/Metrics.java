@@ -31,16 +31,15 @@ public class Metrics {
         this.ageRanges = getAgeRanges();
         calculateMetrics();
         calculateRecommendations();
-        printMetrics();
+        //printMetrics();
     }
 
-    public List getAgeRanges() {
+    public List<String> getAgeRanges() {
 
-        List<String> ranges = records.getImpressionRecords().values()
+        return records.getImpressionRecords().values()
                 .stream()
                 .map(ImpressionRecord::getAge)
                 .distinct().sorted().collect(Collectors.toUnmodifiableList());
-        return ranges;
     }
 
     public void calculateRecommendations() {
@@ -87,7 +86,7 @@ public class Metrics {
     }
 
     public int calculateNumOfBounces() {
-        this.numOfBounces = 0;
+        numOfBounces = 0;
         Collection<ServerRecord> serverRecords = records.getServerRecords().values();
         // Bounce logic
         serverRecords.forEach(
@@ -95,19 +94,20 @@ public class Metrics {
                     LocalDateTime entryDate = record.getEntryDate();
                     LocalDateTime exitDate = record.getExitDate();
                     boolean converted = record.getConversion();
+
                     int pagesViewed = record.getPagesViewed();
                     Long time = dateDifference(entryDate, exitDate);
                     if (time != null) {
-                        if (converted && pagesViewed <= 1 && time <= 10)
-                            this.numOfBounces++;
+                        if (!converted && pagesViewed <= 1 && time <= 10)
+                            numOfBounces++;
                     }
                 });
-        return this.numOfBounces;
+        return numOfBounces;
     }
 
     public int calculateNumOfConversions() {
-        this.numOfConversions = (int) records.getServerRecords().values()
-                .stream()
+        numOfConversions = (int) records.getServerRecords().values()
+                .parallelStream()
                 .map(ServerRecord::getConversion)
                 .filter(converted -> converted)
                 .count();
@@ -115,31 +115,31 @@ public class Metrics {
     }
 
     public Double calculateTotalCost() {
-        this.totalCost = records.getImpressionRecords().values()
-                .stream()
+        totalCost = records.getImpressionRecords().values()
+                .parallelStream()
                 .map(ImpressionRecord::getImpressionCost)
                 .reduce((float) 0.00, Float::sum);
         return totalCost;
     }
 
     public double calculateClickThroughRate() {
-        this.clickThroughRate = (getNumOfClicks() / getNumOfImpressions()) * 100;
-        return this.clickThroughRate;
+        clickThroughRate = (getNumOfClicks() / getNumOfImpressions()) * 100;
+        return clickThroughRate;
     }
 
     public double calculateCostPerAction() {
-        this.costPerAction = totalCost / numOfConversions;
-        return this.costPerAction;
+        costPerAction = totalCost / numOfConversions;
+        return costPerAction;
     }
 
     public double calculateCostPerClick() {
-        this.costPerClick = totalCost / getNumOfClicks();
-        return this.costPerClick;
+        costPerClick = totalCost / getNumOfClicks();
+        return costPerClick;
     }
 
     public Double calculateCostPerThousand() {
-        this.costPerThousand = ((1000 * (totalCost)) / numOfImpressions);
-        return this.costPerThousand;
+        costPerThousand = ((1000 * (totalCost)) / numOfImpressions);
+        return costPerThousand;
     }
 
     public float calculateBouncerate() {
