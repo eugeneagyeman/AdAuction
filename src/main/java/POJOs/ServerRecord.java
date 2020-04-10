@@ -1,11 +1,11 @@
 package POJOs;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static Configuration.Parser.parseDateTime;
 
 public class ServerRecord extends Record {
-
 
     private LocalDateTime entryDate;
     private LocalDateTime exitDate;
@@ -50,8 +50,7 @@ public class ServerRecord extends Record {
     }
 
     public boolean setConversion(String conversion) {
-        if (conversion.equalsIgnoreCase("Yes")) return true;
-        else return false;
+        return conversion.equalsIgnoreCase("Yes");
     }
 
     @Override
@@ -60,5 +59,14 @@ public class ServerRecord extends Record {
                 "entryDate='" + entryDate + '\'' +
                 ", exitDate='" + exitDate + '\'' +
                 '}';
+    }
+
+    @Override
+    public Boolean dateInBetween(LocalDate start, LocalDate end) {
+        LocalDate entryDate = this.entryDate.toLocalDate();
+        LocalDate exitDate = this.exitDate.toLocalDate();
+
+        if (entryDate.isEqual(start) || exitDate.isEqual(end)) return true;
+        return entryDate.isAfter(start) && exitDate.isBefore(end);
     }
 }

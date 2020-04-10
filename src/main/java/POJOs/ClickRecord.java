@@ -1,5 +1,6 @@
 package POJOs;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static Configuration.Parser.parseDateTime;
@@ -34,5 +35,12 @@ public class ClickRecord extends Record {
     @Override
     public String toString() {
         return String.format("ClickRecord{date='%s', clickCost='%s'}", date, clickCost);
+    }
+
+    @Override
+    public Boolean dateInBetween(LocalDate start, LocalDate end) {
+        LocalDate date = this.date.toLocalDate();
+        if (date.isEqual(start) || date.isEqual(end)) return true;
+        return date.isAfter(start) && date.isBefore(end);
     }
 }

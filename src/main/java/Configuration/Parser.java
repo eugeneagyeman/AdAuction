@@ -115,7 +115,7 @@ public class Parser {
         // Edge cases eg new day, month, or year, daylight saving time
         long time = 0;
 
-        if (!exit.equals(LocalDateTime.MAX)) {
+        if (!exit.isEqual(LocalDateTime.MAX)) {
             Duration difference = Duration.between(entry, exit);
             time = Math.abs(difference.toSeconds());
         } else

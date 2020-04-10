@@ -1,5 +1,7 @@
 package POJOs;
 
+import java.time.LocalDate;
+
 public abstract class Record {
     private String id;
 
@@ -15,4 +17,6 @@ public abstract class Record {
     public void setId(String id) {
         this.id = id;
     }
+
+    public abstract Boolean dateInBetween(LocalDate start, LocalDate end);
 }
