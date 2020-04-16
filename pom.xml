@@ -75,7 +75,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>GUI.Main</mainClass>
+                            <mainClass>gui.Main</mainClass>
                         </configuration>
                     </execution>
                     <execution>
@@ -85,7 +85,7 @@
                             <options>
                                 <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005</option>
                             </options>
-                            <mainClass>GUI.Main</mainClass>
+                            <mainClass>gui.Main</mainClass>
                         </configuration>
                     </execution>
                 </executions>

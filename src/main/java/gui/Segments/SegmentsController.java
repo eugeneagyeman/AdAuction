@@ -1,7 +1,7 @@
-package GUI.Segments;
+package gui.segments;
 
-import GUI.Controller;
-import GUI.Main;
+import gui.Controller;
+import gui.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;

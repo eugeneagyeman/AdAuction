@@ -1,7 +1,7 @@
-package GUI.Context;
+package gui.context;
 
-import GUI.Controller;
-import GUI.Main;
+import gui.Controller;
+import gui.Main;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;

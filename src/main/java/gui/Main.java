@@ -1,11 +1,11 @@
-package GUI;
+package gui;
 
-import Configuration.Configuration;
-import Dashboard.DashboardModel;
-import GUI.Configuration.ConfigController;
-import GUI.Context.ContextController;
-import GUI.Overview.OverviewController;
-import GUI.Segments.SegmentsController;
+import configuration.Configuration;
+import dashboard.DashboardModel;
+import gui.configuration.ConfigController;
+import gui.context.ContextController;
+import gui.overview.OverviewController;
+import gui.segments.SegmentsController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -1,4 +1,4 @@
-package GUI.Login;
+package gui.login;
 
 public class LoginController {
 }

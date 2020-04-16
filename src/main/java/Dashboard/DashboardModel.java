@@ -1,7 +1,7 @@
-package Dashboard;
+package dashboard;
 
 import POJOs.Campaign;
-import POJOs.Metrics;
+import metrics.Metrics;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

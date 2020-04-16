@@ -1,6 +1,7 @@
-package Configuration;
+package configuration;
 
-import Dashboard.DashboardModel;
+import dashboard.DashboardModel;
+import metrics.Metrics;
 import POJOs.*;
 import com.google.common.collect.Multimap;
 

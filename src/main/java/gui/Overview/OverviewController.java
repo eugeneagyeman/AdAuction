@@ -1,12 +1,13 @@
-package GUI.Overview;
+package gui.overview;
 
-import GUI.Controller;
-import GUI.Main;
+import gui.Controller;
+import gui.Main;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
+
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.DecimalFormat;

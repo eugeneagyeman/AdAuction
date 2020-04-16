@@ -3,7 +3,7 @@ package POJOs;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static Configuration.Parser.parseDateTime;
+import static configuration.Parser.parseDateTime;
 
 public class ClickRecord extends Record {
     private LocalDateTime date;

@@ -1,5 +1,7 @@
 package POJOs;
 
+import metrics.Metrics;
+
 public class Campaign {
     private String campaignID;
     private Records records;

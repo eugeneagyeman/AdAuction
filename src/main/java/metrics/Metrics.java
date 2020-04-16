@@ -1,5 +1,6 @@
-package POJOs;
+package metrics;
 
+import POJOs.*;
 import org.apache.commons.math3.stat.Frequency;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static Configuration.Parser.dateDifference;
+import static configuration.Parser.dateDifference;
 
 public class Metrics {
     private Campaign campaign;
@@ -67,14 +68,14 @@ public class Metrics {
     }
 
     private void printMetrics() {
-        /*System.out.println("Total Cost of Campaign: " + getTotalCost());
+        System.out.println("Total Cost of Campaign: " + getTotalCost());
         System.out.println("CPM: " + getCostPerThousand());
         System.out.println("Number of Conversions: " + getNumOfConversions());
         System.out.println("Cost Per Acquisition: " + getCostPerAction());
         System.out.println("Cost Per Click: " + getCostPerClick());
         System.out.println("Number of Bounces: " + getNumOfBounces());
-        System.out.println("Bounce Rate: " + getBounceRate());*/
-        //System.out.println("Size of click costs: " + getListOfClickCosts().size());
+        System.out.println("Bounce Rate: " + getBounceRate());
+        System.out.println("Size of click costs: " + getListOfClickCosts().size());
     }
 
     public int calculateNumOfImpressions() {
@@ -104,10 +105,8 @@ public class Metrics {
 
                     int pagesViewed = record.getPagesViewed();
                     Long time = dateDifference(entryDate, exitDate);
-                    if (time != null) {
-                        if (!converted && pagesViewed <= 1 && time <= 10)
-                            numOfBounces++;
-                    }
+                    if ((time != null) && !converted && (pagesViewed <= 1) && time <= 10)
+                        numOfBounces++;
                 });
         return numOfBounces;
     }
@@ -130,7 +129,7 @@ public class Metrics {
     }
 
     public float calculateClickThroughRate() {
-        clickThroughRate = (getNumOfClicks() / getNumOfImpressions()) * 100;
+        clickThroughRate = (float) (((double) getNumOfClicks() / getNumOfImpressions()) * 100);
         return clickThroughRate;
     }
 
@@ -282,7 +281,7 @@ public class Metrics {
         }
 
         private void buildHistogram() {
-            distributionMap = new TreeMap<String, Long>(new StringsComparator());
+            distributionMap = new TreeMap<>(new StringsComparator());
             distributionMap = getHistogramData();
             List yData = new ArrayList(distributionMap.values());
             List xData = Arrays.asList(distributionMap.keySet().toArray());

@@ -1,7 +1,7 @@
-package Dashboard;
+package dashboard;
 
 import POJOs.ImpressionRecord;
-import POJOs.Metrics;
+import metrics.Metrics;
 import POJOs.Record;
 import POJOs.Records;
 import com.google.common.collect.ArrayListMultimap;
