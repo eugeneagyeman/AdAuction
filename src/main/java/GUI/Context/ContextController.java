@@ -5,6 +5,8 @@ import GUI.Controller;
 import GUI.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
@@ -29,6 +31,14 @@ public class ContextController extends Controller {
     @FXML private CheckBox between35and44Checkbox = new CheckBox();
     @FXML private CheckBox between45and54Checkbox = new CheckBox();
     @FXML private CheckBox olderThan54Checkbox = new CheckBox();
+    @FXML private Text conversionRateText = new Text();
+    @FXML private Text clickThroughRateText = new Text();
+    @FXML private PieChart pieChart;
+    @FXML private LineChart clicksAndBouncesChart;
+    @FXML private LineChart impressionsAndConversionsChart;
+    @FXML private Text CPAtext = new Text();
+    @FXML private Text CPMtext = new Text();
+    @FXML private Text CPCtext = new Text();
 
     public void initialiseContext() {
         accordion.expandedPaneProperty().setValue(contextTab);

@@ -2,23 +2,26 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -128,6 +131,160 @@
                   </VBox>
                   <Pane HBox.hgrow="ALWAYS">
                      <children>
+                        <AnchorPane layoutY="220.0">
+                           <children>
+                              <ScrollPane hbarPolicy="NEVER" minViewportHeight="620.0" minViewportWidth="830.0" pannable="true" prefViewportHeight="620.0" prefViewportWidth="830.0" prefWidth="867.0" vmax="2.0">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" minWidth="845.0" spacing="50.0">
+                                             <children>
+                                                <HBox alignment="TOP_CENTER" fillHeight="false" maxHeight="175.0" prefHeight="175.0" spacing="100.0">
+                                                   <children>
+                                                      <BorderPane maxHeight="175.0" maxWidth="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
+                                                         <top>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Conversion Rate" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                               <BorderPane.margin>
+                                                                  <Insets left="5.0" top="5.0" />
+                                                               </BorderPane.margin>
+                                                            </Text>
+                                                         </top>
+                                                         <center>
+                                                            <Text fx:id="conversionRateText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="24.0" />
+                                                               </font>
+                                                               <BorderPane.margin>
+                                                                  <Insets />
+                                                               </BorderPane.margin>
+                                                            </Text>
+                                                         </center>
+                                                      </BorderPane>
+                                                      <BorderPane maxHeight="175.0" maxWidth="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
+                                                         <top>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Click Through Rate" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                               <BorderPane.margin>
+                                                                  <Insets left="5.0" top="5.0" />
+                                                               </BorderPane.margin>
+                                                            </Text>
+                                                         </top>
+                                                         <center>
+                                                            <Text fx:id="clickThroughRateText" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="24.0" />
+                                                               </font>
+                                                               <BorderPane.margin>
+                                                                  <Insets />
+                                                               </BorderPane.margin>
+                                                            </Text>
+                                                         </center>
+                                                      </BorderPane>
+                                                   </children>
+                                                </HBox>
+                                                <PieChart fx:id="pieChart" />
+                                                <LineChart fx:id="clicksAndBouncesChart" horizontalGridLinesVisible="false" legendSide="LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="645.0" title="Clicks and Bounces" verticalGridLinesVisible="false">
+                                                   <xAxis>
+                                                      <CategoryAxis side="BOTTOM" />
+                                                   </xAxis>
+                                                   <yAxis>
+                                                      <NumberAxis side="LEFT" />
+                                                   </yAxis>
+                                                </LineChart>
+                                                <LineChart fx:id="impressionsAndConversionsChart" horizontalGridLinesVisible="false" legendSide="LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="645.0" title="Impressions and Conversions" verticalGridLinesVisible="false">
+                                                   <xAxis>
+                                                      <CategoryAxis side="BOTTOM" />
+                                                   </xAxis>
+                                                   <yAxis>
+                                                      <NumberAxis side="LEFT" />
+                                                   </yAxis>
+                                                </LineChart>
+                                                <HBox alignment="TOP_CENTER" fillHeight="false" maxHeight="175.0" prefHeight="175.0" spacing="100.0">
+                                                   <children>
+                                                      <BorderPane maxHeight="175.0" maxWidth="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
+                                                         <top>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Acquisition" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                               <BorderPane.margin>
+                                                                  <Insets left="5.0" top="5.0" />
+                                                               </BorderPane.margin>
+                                                            </Text>
+                                                         </top>
+                                                         <center>
+                                                            <Text fx:id="CPAtext" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="24.0" />
+                                                               </font>
+                                                               <BorderPane.margin>
+                                                                  <Insets />
+                                                               </BorderPane.margin>
+                                                            </Text>
+                                                         </center>
+                                                      </BorderPane>
+                                                      <BorderPane maxHeight="175.0" maxWidth="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
+                                                         <top>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Thousand Impressions" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                               <BorderPane.margin>
+                                                                  <Insets left="5.0" top="5.0" />
+                                                               </BorderPane.margin>
+                                                            </Text>
+                                                         </top>
+                                                         <center>
+                                                            <Text fx:id="CPMtext" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="24.0" />
+                                                               </font>
+                                                               <BorderPane.margin>
+                                                                  <Insets />
+                                                               </BorderPane.margin>
+                                                            </Text>
+                                                         </center>
+                                                      </BorderPane>
+                                                      <BorderPane maxHeight="175.0" maxWidth="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
+                                                         <top>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Click" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                               <BorderPane.margin>
+                                                                  <Insets left="5.0" top="5.0" />
+                                                               </BorderPane.margin>
+                                                            </Text>
+                                                         </top>
+                                                         <center>
+                                                            <Text fx:id="CPCtext" fill="#0057c8" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="24.0" />
+                                                               </font>
+                                                               <BorderPane.margin>
+                                                                  <Insets />
+                                                               </BorderPane.margin>
+                                                            </Text>
+                                                         </center>
+                                                      </BorderPane>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="25.0" top="25.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
                         <Pane layoutX="133.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
                            <children>
                               <Text fx:id="fromDateDay" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="day">
@@ -217,20 +374,6 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <SplitPane dividerPositions="0.03" layoutY="220.0" prefHeight="647.0" prefWidth="865.0">
-                          <items>
-                            <AnchorPane>
-                                 <children>
-                                    <ScrollBar max="-1.0" min="10.0" orientation="VERTICAL" prefHeight="645.0" prefWidth="30.0" />
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane>
-                                 <children>
-                                    <TilePane fx:id="contextGraphs" alignment="BOTTOM_CENTER" hgap="50.0" prefColumns="2" prefHeight="645.0" prefWidth="811.0" tileAlignment="TOP_CENTER" vgap="50.0" />
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
                         <VBox layoutX="865.0" layoutY="220.0" prefHeight="645.0" prefWidth="260.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter ages by:">
