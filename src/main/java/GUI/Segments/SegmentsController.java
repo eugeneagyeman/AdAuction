@@ -3,6 +3,9 @@ package GUI.Segments;
 import GUI.Controller;
 import GUI.Main;
 import javafx.fxml.FXML;
+import javafx.scene.chart.Axis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
@@ -22,6 +25,14 @@ public class SegmentsController extends Controller {
     @FXML private TilePane audienceSegmentsGraphs = new TilePane();
     @FXML private CheckBox maleCheckbox = new CheckBox();
     @FXML private CheckBox femaleCheckbox = new CheckBox();
+    @FXML private Text conversionRateText = new Text();
+    @FXML private Text clickThroughRateText = new Text();
+    @FXML private PieChart pieChart;
+    @FXML private LineChart clicksAndBouncesChart;
+    @FXML private LineChart impressionsAndConversionsChart;
+    @FXML private Text CPAtext = new Text();
+    @FXML private Text CPMtext = new Text();
+    @FXML private Text CPCtext = new Text();
 
     public void initialiseSegments() {
         accordion.expandedPaneProperty().setValue(audienceSegmentsTab);
