@@ -1,9 +1,15 @@
 package POJOs;
 
+import org.apache.commons.math3.stat.Frequency;
+import org.knowm.xchart.CategoryChart;
+import org.knowm.xchart.CategoryChartBuilder;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.style.Styler;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static Configuration.Parser.dateDifference;
@@ -15,12 +21,12 @@ public class Metrics {
     private int numOfUniques;
     private int numOfBounces;
     private int numOfConversions;
-    private double totalCost;
-    private double clickThroughRate;
-    private double costPerAction;
-    private double costPerClick;
-    private double costPerThousand;
-    private double bounceRate;
+    private float totalCost;
+    private float clickThroughRate;
+    private float costPerAction;
+    private float costPerClick;
+    private float costPerThousand;
+    private float bounceRate;
     private Records records;
 
     private List<String> ageRanges;
@@ -31,7 +37,7 @@ public class Metrics {
         this.ageRanges = getAgeRanges();
         calculateMetrics();
         calculateRecommendations();
-        //printMetrics();
+        printMetrics();
     }
 
     public List<String> getAgeRanges() {
@@ -61,13 +67,14 @@ public class Metrics {
     }
 
     private void printMetrics() {
-        System.out.println("Total Cost of Campaign: " + getTotalCost());
+        /*System.out.println("Total Cost of Campaign: " + getTotalCost());
         System.out.println("CPM: " + getCostPerThousand());
         System.out.println("Number of Conversions: " + getNumOfConversions());
         System.out.println("Cost Per Acquisition: " + getCostPerAction());
         System.out.println("Cost Per Click: " + getCostPerClick());
         System.out.println("Number of Bounces: " + getNumOfBounces());
-        System.out.println("Bounce Rate: " + getBounceRate());
+        System.out.println("Bounce Rate: " + getBounceRate());*/
+        //System.out.println("Size of click costs: " + getListOfClickCosts().size());
     }
 
     public int calculateNumOfImpressions() {
@@ -114,7 +121,7 @@ public class Metrics {
         return numOfConversions;
     }
 
-    public Double calculateTotalCost() {
+    public float calculateTotalCost() {
         totalCost = records.getImpressionRecords().values()
                 .parallelStream()
                 .map(ImpressionRecord::getImpressionCost)
@@ -122,22 +129,22 @@ public class Metrics {
         return totalCost;
     }
 
-    public double calculateClickThroughRate() {
+    public float calculateClickThroughRate() {
         clickThroughRate = (getNumOfClicks() / getNumOfImpressions()) * 100;
         return clickThroughRate;
     }
 
-    public double calculateCostPerAction() {
+    public float calculateCostPerAction() {
         costPerAction = totalCost / numOfConversions;
         return costPerAction;
     }
 
-    public double calculateCostPerClick() {
+    public float calculateCostPerClick() {
         costPerClick = totalCost / getNumOfClicks();
         return costPerClick;
     }
 
-    public double calculateCostPerThousand() {
+    public float calculateCostPerThousand() {
         costPerThousand = ((1000 * (totalCost)) / numOfImpressions);
         return costPerThousand;
     }
@@ -168,31 +175,159 @@ public class Metrics {
         return numOfConversions;
     }
 
-    public double getTotalCost() {
+    public float getTotalCost() {
         return totalCost;
     }
 
-    public double getClickThroughRate() {
+    public float getClickThroughRate() {
         return clickThroughRate;
     }
 
-    public double getCostPerAction() {
+    public float getCostPerAction() {
         return costPerAction;
     }
 
-    public double getCostPerClick() {
+    public float getCostPerClick() {
         return costPerClick;
     }
 
-    public double getCostPerThousand() {
+    public float getCostPerThousand() {
         return costPerThousand;
     }
 
-    public double getBounceRate() {
+    public float getBounceRate() {
         return bounceRate;
     }
 
     public List<String> getRecommendations() {
         return recommendations;
+    }
+
+    public List<String> getListOfClickCosts() {
+        return records.getClickRecords()
+                .values()
+                .parallelStream()
+                .map(ClickRecord::getClickCost)
+                .collect(Collectors.toList());
+    }
+
+    public void getChartMetrics() {
+        new Thread(
+                new ChartMetrics()
+        ).start();
+    }
+
+    public class ChartMetrics implements Runnable {
+
+        private final List<String> frequencyOfClickCosts = getListOfClickCosts();
+        private final BigDecimal bigClassWidth = BigDecimal.valueOf(2.50d);
+        private Map<String, Long> distributionMap;
+
+        public ChartMetrics() {
+
+        }
+
+        public List<BigDecimal> convertToBigDecimal() {
+            return frequencyOfClickCosts
+                    .stream()
+                    .map(BigDecimal::new)
+                    .map(t -> t.setScale(0, RoundingMode.CEILING))
+                    .collect(Collectors.toList());
+        }
+
+        private Map<String, Long> getHistogramData() {
+            Frequency frequency = new Frequency();
+            List<BigDecimal> bigDecimals = convertToBigDecimal();
+            bigDecimals.forEach(frequency::addValue);
+
+            bigDecimals.stream()
+                    .distinct()
+                    .sorted()
+                    .forEach(observation -> {
+                        long observationFrequency = frequency.getCount(observation);
+
+                        BigDecimal upperBoundary;
+                        if (observation.compareTo(bigClassWidth) > 0) {
+                            BigDecimal division = observation.divide(bigClassWidth, RoundingMode.CEILING);
+                            upperBoundary = division.multiply(bigClassWidth);
+                        } else upperBoundary = bigClassWidth;
+
+                        BigDecimal lowerBoundary;
+                        if (upperBoundary.compareTo(bigClassWidth) > 0)
+                            lowerBoundary = upperBoundary.subtract(bigClassWidth);
+                        else lowerBoundary = BigDecimal.ZERO;
+                        String bin = lowerBoundary.toPlainString() + "-" + upperBoundary.toPlainString();
+
+                        updateDistributionMap(lowerBoundary, bin, observationFrequency);
+                    });
+            return distributionMap;
+        }
+
+        private void updateDistributionMap(BigDecimal lowerBoundary, String bin, long observationFrequency) {
+
+            BigDecimal prevLowerBoundary;
+            if (lowerBoundary.compareTo(bigClassWidth) > 0) prevLowerBoundary = lowerBoundary.subtract(bigClassWidth);
+            else prevLowerBoundary = BigDecimal.ZERO;
+
+            String prevBin = prevLowerBoundary.toPlainString() + "-" + lowerBoundary.toPlainString();
+            if (!distributionMap.containsKey(prevBin))
+                distributionMap.put(prevBin, 0L);
+
+            if (!distributionMap.containsKey(bin)) {
+                distributionMap.put(bin, observationFrequency);
+            } else {
+                Long oldFrequency = Long.parseLong(distributionMap.get(bin).toString());
+                distributionMap.replace(bin, oldFrequency + observationFrequency);
+            }
+        }
+
+        private void buildHistogram() {
+            distributionMap = new TreeMap<String, Long>(new StringsComparator());
+            distributionMap = getHistogramData();
+            List yData = new ArrayList(distributionMap.values());
+            List xData = Arrays.asList(distributionMap.keySet().toArray());
+            CategoryChart chart = buildChart(xData, yData);
+            new SwingWrapper<>(chart).displayChart();
+        }
+
+        private CategoryChart buildChart(List xData, List yData) {
+
+            // Create Chart
+            CategoryChart chart = new CategoryChartBuilder().width(800).height(600)
+                    .title("Distribution of Costs")
+                    .xAxisTitle("Costs")
+                    .yAxisTitle("Frequency")
+                    .build();
+
+            chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
+            chart.getStyler().setAvailableSpaceFill(0.99);
+            chart.getStyler().setOverlapped(true);
+
+            chart.addSeries("Click Costs", xData, yData);
+
+            return chart;
+        }
+
+        @Override
+        public void run() {
+            buildHistogram();
+        }
+    }
+
+    private class StringsComparator implements Comparator {
+
+
+        @Override
+        public int compare(Object o1, Object o2) {
+
+            String bin = ((String) o1).split("-")[0];
+            String bin2 = ((String) o2).split("-")[0];
+
+            Double binValue = Double.valueOf(bin);
+            Double bin2Value = Double.valueOf(bin2);
+
+            return Double.compare(binValue, bin2Value);
+
+        }
     }
 }
