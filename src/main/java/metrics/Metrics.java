@@ -39,6 +39,7 @@ public class Metrics {
         calculateMetrics();
         calculateRecommendations();
         printMetrics();
+        getChartMetrics();
     }
 
     public List<String> getAgeRanges() {
@@ -219,8 +220,8 @@ public class Metrics {
     public class ChartMetrics implements Runnable {
 
         private final List<String> frequencyOfClickCosts = getListOfClickCosts();
-        private final BigDecimal bigClassWidth = BigDecimal.valueOf(2.50d);
-        private Map<String, Long> distributionMap;
+        private final BigDecimal bigClassWidth = BigDecimal.valueOf(2.5d);
+        private Map<String, Integer> distributionMap;
 
         public ChartMetrics() {
 
@@ -228,13 +229,13 @@ public class Metrics {
 
         public List<BigDecimal> convertToBigDecimal() {
             return frequencyOfClickCosts
-                    .stream()
+                    .parallelStream()
                     .map(BigDecimal::new)
                     .map(t -> t.setScale(0, RoundingMode.CEILING))
                     .collect(Collectors.toList());
         }
 
-        private Map<String, Long> getHistogramData() {
+        private Map<String, Integer> getHistogramData() {
             Frequency frequency = new Frequency();
             List<BigDecimal> bigDecimals = convertToBigDecimal();
             bigDecimals.forEach(frequency::addValue);
@@ -243,7 +244,7 @@ public class Metrics {
                     .distinct()
                     .sorted()
                     .forEach(observation -> {
-                        long observationFrequency = frequency.getCount(observation);
+                        int observationFrequency = (int) frequency.getCount(observation);
 
                         BigDecimal upperBoundary;
                         if (observation.compareTo(bigClassWidth) > 0) {
@@ -262,7 +263,7 @@ public class Metrics {
             return distributionMap;
         }
 
-        private void updateDistributionMap(BigDecimal lowerBoundary, String bin, long observationFrequency) {
+        private void updateDistributionMap(BigDecimal lowerBoundary, String bin, int observationFrequency) {
 
             BigDecimal prevLowerBoundary;
             if (lowerBoundary.compareTo(bigClassWidth) > 0) prevLowerBoundary = lowerBoundary.subtract(bigClassWidth);
@@ -270,12 +271,12 @@ public class Metrics {
 
             String prevBin = prevLowerBoundary.toPlainString() + "-" + lowerBoundary.toPlainString();
             if (!distributionMap.containsKey(prevBin))
-                distributionMap.put(prevBin, 0L);
+                distributionMap.put(prevBin, 0);
 
             if (!distributionMap.containsKey(bin)) {
                 distributionMap.put(bin, observationFrequency);
             } else {
-                Long oldFrequency = Long.parseLong(distributionMap.get(bin).toString());
+                int oldFrequency = (distributionMap.get(bin));
                 distributionMap.replace(bin, oldFrequency + observationFrequency);
             }
         }
