@@ -1,12 +1,12 @@
 package dashboard;
 
 import POJOs.ImpressionRecord;
-import metrics.Metrics;
 import POJOs.Record;
 import POJOs.Records;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
+import metrics.Metrics;
 
 import java.time.LocalDate;
 import java.util.Set;

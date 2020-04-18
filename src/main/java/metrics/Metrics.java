@@ -1,20 +1,18 @@
 package metrics;
 
 import POJOs.*;
+import dashboard.DateRange;
+import javafx.scene.chart.BarChart;
 import org.apache.commons.math3.stat.Frequency;
 import org.apache.commons.math3.util.Precision;
-import org.knowm.xchart.CategoryChart;
-import org.knowm.xchart.CategoryChartBuilder;
-import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.style.Styler;
 
-import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static configuration.Parser.dateDifference;
+import static gui.charts.ChartBuilder.buildHistogramChart;
 
 public class Metrics {
     private Campaign campaign;
@@ -30,6 +28,7 @@ public class Metrics {
     private float costPerThousand;
     private float bounceRate;
     private Records records;
+    private final ChartMetrics chartMetrics;
 
     private List<String> ageRanges;
     private ArrayList<String> recommendations = new ArrayList<>();
@@ -40,7 +39,7 @@ public class Metrics {
         calculateMetrics();
         calculateRecommendations();
         printMetrics();
-        getChartMetrics();
+        chartMetrics = new ChartMetrics();
     }
 
     public List<String> getAgeRanges() {
@@ -212,23 +211,20 @@ public class Metrics {
                 .collect(Collectors.toList());
     }
 
-    public void getChartMetrics() {
-        new Thread(
-                new ChartMetrics()
-        ).start();
+    public BarChart getHistogram() {
+        return chartMetrics.buildHistogram();
     }
 
-    public class ChartMetrics implements Runnable {
-        public static final int CLASS_WIDTH = 2;
-        private final List<String> frequencyOfClickCosts = getListOfClickCosts();
-        private final BigDecimal bigClassWidth = BigDecimal.valueOf(2.5d);
-        private Map<String, Integer> distributionMap;
+
+    private class ChartMetrics {
+        private static final int BIN_WIDTH = 2;
+        private List<String> frequencyOfClickCosts = getListOfClickCosts();
 
         public ChartMetrics() {
 
         }
 
-        public List convertToInteger() {
+        private List convertToInteger() {
 
             return frequencyOfClickCosts
                     .parallelStream()
@@ -237,6 +233,8 @@ public class Metrics {
                         return Precision.round(dbl, 0, RoundingMode.UP.ordinal());
                     }).collect(Collectors.toList());
         }
+
+        private Map<String, Integer> distributionMap;
 
         private Map<String, Integer> getHistogramData() {
             Frequency frequency = new Frequency();
@@ -250,26 +248,26 @@ public class Metrics {
                         int observationFrequency = (int) frequency.getCount(observation);
 
                         int upperBoundary;
-                        if (observation > CLASS_WIDTH) {
-                            upperBoundary = (int) (Math.ceil(observation / CLASS_WIDTH) * CLASS_WIDTH);
+                        if (observation > BIN_WIDTH) {
+                            upperBoundary = (int) (Math.ceil(observation / BIN_WIDTH) * BIN_WIDTH);
 
-                        } else upperBoundary = CLASS_WIDTH;
+                        } else upperBoundary = BIN_WIDTH;
 
                         int lowerBoundary;
-                        if (upperBoundary > CLASS_WIDTH)
-                            lowerBoundary = upperBoundary - CLASS_WIDTH;
+                        if (upperBoundary > BIN_WIDTH)
+                            lowerBoundary = upperBoundary - BIN_WIDTH;
                         else lowerBoundary = 0;
                         String bin = lowerBoundary + "-" + upperBoundary;
 
-                        updateDistributionMap(lowerBoundary, bin, observationFrequency);
+                        updateHistogramBins(lowerBoundary, bin, observationFrequency);
                     });
             return distributionMap;
         }
 
-        private void updateDistributionMap(int lowerBoundary, String bin, int observationFrequency) {
+        private void updateHistogramBins(int lowerBoundary, String bin, int observationFrequency) {
 
             int prevLowerBoundary;
-            if (lowerBoundary > CLASS_WIDTH) prevLowerBoundary = lowerBoundary - CLASS_WIDTH;
+            if (lowerBoundary > BIN_WIDTH) prevLowerBoundary = lowerBoundary - BIN_WIDTH;
             else prevLowerBoundary = 0;
 
             String prevBin = prevLowerBoundary + "-" + lowerBoundary;
@@ -284,53 +282,75 @@ public class Metrics {
             }
         }
 
-        private void buildHistogram() {
-            distributionMap = new TreeMap<>(new StringsComparator());
+        private BarChart buildHistogram() {
+            distributionMap = new TreeMap<>(new DoublesComaprator());
             distributionMap = getHistogramData();
-            List yData = new ArrayList(distributionMap.values());
-            List xData = Arrays.asList(distributionMap.keySet().toArray());
-            CategoryChart chart = buildChart(xData, yData);
-            new SwingWrapper<>(chart).displayChart();
+            return buildHistogramChart(distributionMap);
         }
 
-        private CategoryChart buildChart(List xData, List yData) {
-
-            // Create Chart
-            CategoryChart chart = new CategoryChartBuilder().width(800).height(600)
-                    .title("Distribution of Costs")
-                    .xAxisTitle("Costs")
-                    .yAxisTitle("Frequency")
-                    .build();
-
-            chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
-            chart.getStyler().setAvailableSpaceFill(0.99);
-            chart.getStyler().setOverlapped(true);
-
-            chart.addSeries("Click Costs", xData, yData);
-
-            return chart;
+        private void buildImpressionsChart() {
+            Map impressionChartData = new TreeMap();
+            impressionChartData = getNumOfImpressionsChartInRange();
         }
 
-        @Override
-        public void run() {
-            buildHistogram();
+        private Map getNumOfImpressionsChartInRange(DateRange dateRange) {
+
+            List<ImpressionRecord> impressionRecords = (List) records.getImpressionRecords();
+            var datesInBetween = dateRange.toList();
+            return impressionRecords.stream()
+                    .map(impressionRecord -> {
+                        return impressionRecord.getDate().toLocalDate();
+                    })
+                    .filter(date -> datesInBetween.contains(date))
+                    .collect(Collectors.groupingBy(date -> date, Collectors.counting()));
         }
-    }
 
-    private class StringsComparator implements Comparator {
-
-
-        @Override
-        public int compare(Object o1, Object o2) {
-
-            String bin = ((String) o1).split("-")[0];
-            String bin2 = ((String) o2).split("-")[0];
-
-            Double binValue = Double.valueOf(bin);
-            Double bin2Value = Double.valueOf(bin2);
-
-            return Double.compare(binValue, bin2Value);
-
+        private Map getNumOfImpressionsChartInRange() {
+            List<ImpressionRecord> impressionRecords = (List) records.getImpressionRecords().values();
+            return impressionRecords
+                    .parallelStream()
+                    .map(rec -> rec.getDate().toLocalDate())
+                    .collect(Collectors.groupingBy(date -> date, Collectors.counting()));
         }
+
+        private Map getNumOfClicksChartInRange() {
+            return null;
+        }
+
+        public Map getClickThroughRateChartData() {
+            return null;
+        }
+
+        public Map getCostPerActionChartData() {
+            return null;
+        }
+
+        public Map getCostPerClickChartData() {
+            return null;
+        }
+
+        public Map getCostPerThousandChartData() {
+            return null;
+        }
+
+        public Map getBounceRateChartData() {
+            return null;
+        }
+
+        private class DoublesComaprator implements Comparator {
+            @Override
+            public int compare(Object o1, Object o2) {
+
+                String bin = ((String) o1).split("-")[0];
+                String bin2 = ((String) o2).split("-")[0];
+
+                Double binValue = Double.valueOf(bin);
+                Double bin2Value = Double.valueOf(bin2);
+
+                return Double.compare(binValue, bin2Value);
+            }
+        }
+
+
     }
 }
