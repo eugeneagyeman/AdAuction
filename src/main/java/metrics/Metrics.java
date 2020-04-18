@@ -2,6 +2,7 @@ package metrics;
 
 import POJOs.*;
 import org.apache.commons.math3.stat.Frequency;
+import org.apache.commons.math3.util.Precision;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
 import org.knowm.xchart.SwingWrapper;
@@ -218,7 +219,7 @@ public class Metrics {
     }
 
     public class ChartMetrics implements Runnable {
-
+        public static final int CLASS_WIDTH = 2;
         private final List<String> frequencyOfClickCosts = getListOfClickCosts();
         private final BigDecimal bigClassWidth = BigDecimal.valueOf(2.5d);
         private Map<String, Integer> distributionMap;
@@ -227,49 +228,51 @@ public class Metrics {
 
         }
 
-        public List<BigDecimal> convertToBigDecimal() {
+        public List convertToInteger() {
+
             return frequencyOfClickCosts
                     .parallelStream()
-                    .map(BigDecimal::new)
-                    .map(t -> t.setScale(0, RoundingMode.CEILING))
-                    .collect(Collectors.toList());
+                    .map(s -> {
+                        double dbl = Double.parseDouble(s);
+                        return Precision.round(dbl, 0, RoundingMode.UP.ordinal());
+                    }).collect(Collectors.toList());
         }
 
         private Map<String, Integer> getHistogramData() {
             Frequency frequency = new Frequency();
-            List<BigDecimal> bigDecimals = convertToBigDecimal();
-            bigDecimals.forEach(frequency::addValue);
+            List<Double> streamOfClicks = convertToInteger();
+            streamOfClicks.forEach(frequency::addValue);
 
-            bigDecimals.stream()
+            streamOfClicks.stream()
                     .distinct()
                     .sorted()
                     .forEach(observation -> {
                         int observationFrequency = (int) frequency.getCount(observation);
 
-                        BigDecimal upperBoundary;
-                        if (observation.compareTo(bigClassWidth) > 0) {
-                            BigDecimal division = observation.divide(bigClassWidth, RoundingMode.CEILING);
-                            upperBoundary = division.multiply(bigClassWidth);
-                        } else upperBoundary = bigClassWidth;
+                        int upperBoundary;
+                        if (observation > CLASS_WIDTH) {
+                            upperBoundary = (int) (Math.ceil(observation / CLASS_WIDTH) * CLASS_WIDTH);
 
-                        BigDecimal lowerBoundary;
-                        if (upperBoundary.compareTo(bigClassWidth) > 0)
-                            lowerBoundary = upperBoundary.subtract(bigClassWidth);
-                        else lowerBoundary = BigDecimal.ZERO;
-                        String bin = lowerBoundary.toPlainString() + "-" + upperBoundary.toPlainString();
+                        } else upperBoundary = CLASS_WIDTH;
+
+                        int lowerBoundary;
+                        if (upperBoundary > CLASS_WIDTH)
+                            lowerBoundary = upperBoundary - CLASS_WIDTH;
+                        else lowerBoundary = 0;
+                        String bin = lowerBoundary + "-" + upperBoundary;
 
                         updateDistributionMap(lowerBoundary, bin, observationFrequency);
                     });
             return distributionMap;
         }
 
-        private void updateDistributionMap(BigDecimal lowerBoundary, String bin, int observationFrequency) {
+        private void updateDistributionMap(int lowerBoundary, String bin, int observationFrequency) {
 
-            BigDecimal prevLowerBoundary;
-            if (lowerBoundary.compareTo(bigClassWidth) > 0) prevLowerBoundary = lowerBoundary.subtract(bigClassWidth);
-            else prevLowerBoundary = BigDecimal.ZERO;
+            int prevLowerBoundary;
+            if (lowerBoundary > CLASS_WIDTH) prevLowerBoundary = lowerBoundary - CLASS_WIDTH;
+            else prevLowerBoundary = 0;
 
-            String prevBin = prevLowerBoundary.toPlainString() + "-" + lowerBoundary.toPlainString();
+            String prevBin = prevLowerBoundary + "-" + lowerBoundary;
             if (!distributionMap.containsKey(prevBin))
                 distributionMap.put(prevBin, 0);
 
