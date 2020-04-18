@@ -1,9 +1,9 @@
 package dashboard;
 
 import POJOs.Campaign;
-import metrics.Metrics;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import metrics.Metrics;
 
 import java.util.ArrayList;
 
@@ -41,6 +41,10 @@ public class DashboardModel {
 
     public Metrics getMetrics() {
         return metrics;
+    }
+
+    public Metrics.ChartMetrics getChartMetrics() {
+        return metrics.getChartMetrics();
     }
 
     public DashboardModel setMetrics(Metrics metrics) {

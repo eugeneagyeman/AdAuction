@@ -16,8 +16,8 @@ public class ClickRecord extends Record {
         this.clickCost = clickCost;
     }
 
-    public String getDate() {
-        return date.toString();
+    public LocalDateTime getDate() {
+        return date;
     }
 
     public void setDate(String date) {
