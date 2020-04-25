@@ -9,7 +9,7 @@ public class Filter {
     public Filter() {
     }
 
-    private void impressionsByAge(Multimap<String, ImpressionRecord> records) {
+    public void impressionsByAge(Multimap<String, ImpressionRecord> records) {
         int impressionsBelow25 = 0;
         int impressions25To34 = 0;
         int impressions35To44 = 0;
@@ -35,7 +35,7 @@ public class Filter {
         System.out.println("Impressions >54: " + impressionsAbove54);
     }
 
-    private void impressionsByGender(Multimap<String, Record> records) {
+    public void impressionsByGender(Multimap<String, ImpressionRecord> records) {
         int impressionsMale = 0;
         for (Record value : records.values()) {
             String stringValue = value.toString();
