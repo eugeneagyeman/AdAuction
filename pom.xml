@@ -52,6 +52,16 @@
             <artifactId>javafx-fxml</artifactId>
             <version>11</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.knowm.xchart</groupId>
+            <artifactId>xchart</artifactId>
+            <version>3.6.2</version>
+        </dependency>
     </dependencies>
 
 
@@ -65,7 +75,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>GUI.Main</mainClass>
+                            <mainClass>gui.Main</mainClass>
                         </configuration>
                     </execution>
                     <execution>
@@ -75,7 +85,7 @@
                             <options>
                                 <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005</option>
                             </options>
-                            <mainClass>GUI.Main</mainClass>
+                            <mainClass>gui.Main</mainClass>
                         </configuration>
                     </execution>
                 </executions>

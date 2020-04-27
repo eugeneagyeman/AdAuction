@@ -1,4 +1,4 @@
-package Configuration;
+package configuration;
 
 import POJOs.ClickRecord;
 import POJOs.ImpressionRecord;

@@ -1,6 +1,6 @@
-package GUI.Charts;
+package gui.charts;
 
-import Dashboard.DashboardModel;
+import dashboard.DashboardModel;
 
 public class ChartController {
     DashboardModel model;

@@ -1,25 +1,12 @@
-package GUI.Configuration;
+package gui.configuration;
 
-import Configuration.Configuration;
-import Dashboard.DashboardModel;
-import GUI.Controller;
-import GUI.Main;
-import javafx.event.EventHandler;
+import gui.Controller;
+import gui.Main;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ConfigController extends Controller {

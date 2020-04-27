@@ -25,7 +25,7 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" depthTest="DISABLE" maxHeight="-Infinity"
       maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0"
-      scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="GUI.Segments.SegmentsController">
+      scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="gui.segments.SegmentsController">
     <children>
         <MenuBar prefWidth="1400.0" style="-fx-font-size: 16px;" VBox.vgrow="ALWAYS">
             <menus>

@@ -1,6 +1,6 @@
-package GUI;
+package gui;
 
-import Dashboard.DashboardModel;
+import dashboard.DashboardModel;
 import POJOs.Campaign;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
