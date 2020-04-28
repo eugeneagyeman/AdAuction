@@ -1,5 +1,10 @@
 package configuration;
 
+import POJOs.ClickRecord;
+import POJOs.Record;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -36,15 +41,49 @@ public class ParserTest {
     }
 
     @Test
-    void serverLogsParser() {
+    @DisplayName("Test Server Log Parser")
+    void serverLogsParserTest() {
+        try {
+            Parser.serverLogsParser("TestData/server_log.csv");
+        } catch (Exception e) {
+            fail("Unexpected exception thrown");
+        }
     }
 
     @Test
-    void clickLogsParser() {
+    @DisplayName("Test Click Log Parser")
+    void clickLogsParserTest() {
+        try {
+            Parser.clickLogsParser("TestData/click_log.csv");
+        } catch (Exception e) {
+            fail("Unexpected exception thrown");
+        }
     }
 
     @Test
-    void impressionLogsParser() {
+    @DisplayName("Test Impression Log Parser")
+    void impressionLogsParserTest() {
+        try {
+            Parser.impressionLogsParser("TestData/impression_log.csv");
+        } catch (Exception e) {
+            fail("Unexpected exception thrown");
+        }
+    }
+
+    @Test
+    @DisplayName("Test how Click Log Parser Deals with Negative Costs")
+    void negClickCostParserTest() {
+        try {
+            Multimap<String, ClickRecord> map = ArrayListMultimap.create();
+            Multimap m = Parser.clickLogsParser("TestData/click_log_neg.csv");
+            map = Multimaps.filterValues(m, v -> v instanceof ClickRecord);
+            for (ClickRecord record : map.values()) {
+                if (!record.getClickCost().equals("0"))
+                    fail("Click costs below 0 should default to 0"); //TODO: Fix this
+            }
+        } catch (Exception e) {
+            fail("Unexpected exception thrown");
+        }
     }
 
     @Test

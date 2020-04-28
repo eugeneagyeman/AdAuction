@@ -4,14 +4,19 @@ import POJOs.*;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MetricsTest {
     private static Metrics metrics;
+    private ClickRecord c1;
 
     @BeforeEach
     public void setupTest() {
@@ -23,7 +28,7 @@ public class MetricsTest {
         // Manually build records for use in tests to maintain a separation from the parser class
         String id_1 = "97065088426436600";
         String id_2 = "97065088426436601";
-        ClickRecord c1 = new ClickRecord(id_1,"2015-01-04 13:30:24","10.635709");
+        c1 = new ClickRecord(id_1,"2015-01-04 13:30:24","10.635709");
         ClickRecord c2 = new ClickRecord(id_1,"2015-01-12 14:13:05","9.468576");
         ClickRecord c3 = new ClickRecord(id_2,"2015-01-12 15:13:05","11.416722");
         ImpressionRecord i1 = new ImpressionRecord(id_1,"2015-01-01 12:00:02" ,"Male","25-34","High","Blog","0.001713");
@@ -55,16 +60,7 @@ public class MetricsTest {
     @Test
     @DisplayName("Test Number of Clicks")
     public void numOfClicksTest() {
-
-        /* TODO: click cost
-        assertEquals(c1.getClickCost(), 10.635709);
-        assertEquals(c1.getClickCost(), 9.468576);*/
-
         assertEquals(3, metrics.calculateNumOfClicks());
-
-        /*model = new Configuration().buildDashboard();
-        Metrics metric1=model.getMetrics();
-        assertEquals(metric1.calculateNumOfClicks(),23924);*/
     }
 
     @Test
@@ -92,9 +88,15 @@ public class MetricsTest {
     }
 
     @Test
+    @DisplayName("Test Click Cost Calculation")
+    public void clickCostTest() {
+        assertEquals("10.635709", c1.getClickCost());
+    }
+
+    @Test
     @DisplayName("Test Bounce Rate")
     public void bounceRateTest() {
-        assertEquals(round_6(1.0 / 3.0 * 100.0), (metrics.calculateBouncerate()));
+        assertEquals(round_6(1.0 / 3.0 * 100.0), (metrics.calculateBouncerate())); //TODO: Fix this
     }
 
     @Test
