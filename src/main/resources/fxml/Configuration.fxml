@@ -85,12 +85,24 @@
                               <TitledPane fx:id="audienceSegmentsTab" animated="false" expanded="false" text="Audience Segments">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <CheckBox layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="Age" />
+                                          <CheckBox layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Gender" />
+                                          <CheckBox layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Income" />
+                                       </children>
                                     </AnchorPane>
                                  </content>
                               </TitledPane>
                               <TitledPane fx:id="contextTab" animated="false" expanded="false" text="Context">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <CheckBox layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="News" />
+                                          <CheckBox layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Shopping" />
+                                          <CheckBox layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Social Media" />
+                                          <CheckBox layoutX="50.0" layoutY="200.0" mnemonicParsing="false" text="Hobbies" />
+                                          <CheckBox layoutX="50.0" layoutY="250.0" mnemonicParsing="false" text="Travel" />
+                                       </children>
                                     </AnchorPane>
                                  </content>
                               </TitledPane>
