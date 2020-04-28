@@ -23,17 +23,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Context.ContextController">
-  <children>
-    <MenuBar prefWidth="1400.0" style="-fx-font-size: 16px;" VBox.vgrow="ALWAYS">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1"
+      fx:controller="gui.context.ContextController">
+    <children>
+        <MenuBar prefWidth="1400.0" style="-fx-font-size: 16px;" VBox.vgrow="ALWAYS">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="New"/>
+                        <MenuItem mnemonicParsing="false" text="Open…"/>
+                        <Menu mnemonicParsing="false" text="Open Recent"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Close"/>
             <MenuItem mnemonicParsing="false" text="Save" />
             <MenuItem mnemonicParsing="false" text="Save As…" />
             <MenuItem mnemonicParsing="false" text="Revert" />
@@ -97,11 +98,17 @@
                                  <content>
                                     <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="200.0">
                                        <children>
-                                          <CheckBox layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="News" />
-                                          <CheckBox layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Shopping" />
-                                          <CheckBox layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Social Media" />
-                                          <CheckBox layoutX="50.0" layoutY="200.0" mnemonicParsing="false" text="Hobbies" />
-                                          <CheckBox layoutX="50.0" layoutY="250.0" mnemonicParsing="false" text="Travel" />
+                                           <CheckBox fx:id="newsBttn" accessibleText="News" layoutX="50.0"
+                                                     layoutY="50.0" mnemonicParsing="false" text="News"/>
+                                           <CheckBox fx:id="shoppingBttn" accessibleText="Shopping" layoutX="50.0"
+                                                     layoutY="100.0" mnemonicParsing="false" text="Shopping"/>
+                                           <CheckBox fx:id="socialMediaBttn" accessibleText="Social Media"
+                                                     layoutX="50.0" layoutY="150.0" mnemonicParsing="false"
+                                                     text="Social Media"/>
+                                           <CheckBox fx:id="hobbiesBttn" accessibleText="Hobbies" layoutX="50.0"
+                                                     layoutY="200.0" mnemonicParsing="false" text="Hobbies"/>
+                                           <CheckBox fx:id="travelBttn" accessibleText="Travel" layoutX="50.0"
+                                                     layoutY="250.0" mnemonicParsing="false" text="Travel"/>
                                        </children>
                                     </AnchorPane>
                                  </content>
@@ -114,7 +121,7 @@
                                        </children></AnchorPane>
                                  </content>
                               </TitledPane>
-                              <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="Configuration">
+                              <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="configuration">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                  </content>

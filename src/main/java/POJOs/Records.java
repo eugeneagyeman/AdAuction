@@ -23,6 +23,14 @@ public class Records {
 
     }
 
+    public Records(Multimap<String, Record> overallRecords) {
+
+        this.recordMultimap = overallRecords;
+        this.impressionRecords = setImpressionRecords();
+        this.clickRecords = setClickRecords();
+        this.serverRecords = setServerRecords();
+    }
+
     public Multimap<String, Record> getAllRecords() {
         return recordMultimap;
     }
@@ -40,11 +48,13 @@ public class Records {
     }
 
     public Multimap setImpressionRecords() {
-        /*for (String k: impressionView.keySet()) {
-            System.out.println(k + "\t" +impressionView.get(k));
-        }*/
 
-        return Multimaps.filterValues(recordMultimap, v -> v instanceof ImpressionRecord);
+
+        Multimap<String, Record> multimap = Multimaps.filterValues(recordMultimap, v -> v instanceof ImpressionRecord);
+        /*for (String k: multimap.keySet()) {
+            System.out.println(k + "\t" +multimap.get(k));
+        }*/
+        return multimap;
     }
 
     public Multimap setServerRecords() {

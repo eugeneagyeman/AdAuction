@@ -1,5 +1,7 @@
 package POJOs;
 
+import metrics.Metrics;
+
 public class Campaign {
     private String campaignID;
     private Records records;
@@ -48,4 +50,6 @@ public class Campaign {
         this.bounceDefinition = bounceDefinition;
         return this;
     }
+
+
 }

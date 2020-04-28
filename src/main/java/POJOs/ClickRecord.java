@@ -1,22 +1,27 @@
 package POJOs;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static configuration.Parser.parseDateTime;
+
 public class ClickRecord extends Record {
-    private String date;
+    private LocalDateTime date;
     private String clickCost;
 
 
     public ClickRecord(String uniqueID, String date, String clickCost) {
         super(uniqueID);
-        this.date = date;
+        this.date = parseDateTime(date);
         this.clickCost = clickCost;
     }
 
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.date = parseDateTime(date);
     }
 
     public String getClickCost() {
@@ -29,9 +34,13 @@ public class ClickRecord extends Record {
 
     @Override
     public String toString() {
-        return "ClickRecord{" +
-                "date='" + date + '\'' +
-                ", clickCost='" + clickCost + '\'' +
-                '}';
+        return String.format("ClickRecord{date='%s', clickCost='%s'}", date, clickCost);
+    }
+
+    @Override
+    public Boolean dateInBetween(LocalDate start, LocalDate end) {
+        LocalDate date = this.date.toLocalDate();
+        if (date.isEqual(start) || date.isEqual(end)) return true;
+        return date.isAfter(start) && date.isBefore(end);
     }
 }

@@ -1,8 +1,13 @@
 package POJOs;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static configuration.Parser.parseDateTime;
+
 public class ImpressionRecord extends Record {
 
-    private String date;
+    private LocalDateTime date;
     private String gender;
     private String age;
     private String income;
@@ -11,7 +16,7 @@ public class ImpressionRecord extends Record {
 
     public ImpressionRecord(String uniqueID, String date, String gender, String age, String income, String context, String impressionCost) {
         super(uniqueID);
-        this.date = date;
+        this.date = parseDateTime(date);
         this.gender = gender;
         this.age = age;
         this.income = income;
@@ -19,12 +24,12 @@ public class ImpressionRecord extends Record {
         this.impressionCost = Float.valueOf(impressionCost);
     }
 
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.date = parseDateTime(date);
     }
 
     public String getGender() {
@@ -69,13 +74,13 @@ public class ImpressionRecord extends Record {
 
     @Override
     public String toString() {
-        return "ImpressionRecord{" +
-                "date='" + date + '\'' +
-                ", gender='" + gender + '\'' +
-                ", age='" + age + '\'' +
-                ", income='" + income + '\'' +
-                ", context='" + context + '\'' +
-                ", impressionCost='" + impressionCost + '\'' +
-                '}';
+        return String.format("ImpressionRecord{date='%s', gender='%s', age='%s', income='%s', context='%s', impressionCost='%s'}", date.toString(), gender, age, income, context, impressionCost);
+    }
+
+    @Override
+    public Boolean dateInBetween(LocalDate start, LocalDate end) {
+        LocalDate date = this.date.toLocalDate();
+        if (date.isEqual(start) || date.isEqual(end)) return true;
+        return date.isAfter(start) && date.isBefore(end);
     }
 }
