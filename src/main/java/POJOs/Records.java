@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static java.util.stream.Collectors.groupingByConcurrent;
+import static java.util.stream.Collectors.*;
 
 public class Records {
     private Multimap<String, Record> recordMultimap;
@@ -104,15 +104,20 @@ public class Records {
 
     public Map<LocalDate, Integer> dateToClickCountMap() {
         return Maps.transformValues(dateToClickRecordsMap(), CollectionUtils::size);
-
     }
 
     public Map<LocalDate, Integer> dateToImpressionCountMap() {
         return Maps.transformValues(dateToImpressionMap(),CollectionUtils::size);
-
     }
 
     public Map<LocalDate, Integer> dateToServerCountMap() {
         return Maps.transformValues(dateToServerRecordMap(),CollectionUtils::size);
+    }
+
+    public Map<LocalDate, Float> dateToAdCostMap() {
+        return Maps.transformValues(dateToImpressionMap(),
+                x -> x.stream()
+                        .map(ImpressionRecord::getImpressionCost)
+                        .reduce((float) 0.00,Float::sum));
     }
 }

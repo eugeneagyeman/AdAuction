@@ -1,6 +1,7 @@
 package metrics;
 
 import POJOs.*;
+import com.google.common.collect.Maps;
 import dashboard.DateRange;
 import gui.charts.ChartBuilder;
 import javafx.scene.chart.BarChart;
@@ -9,7 +10,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedBarChart;
 import org.apache.commons.math3.stat.Frequency;
 import org.apache.commons.math3.util.Precision;
-import org.checkerframework.checker.units.qual.C;
 
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -18,7 +18,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static configuration.Parser.dateDifference;
 import static gui.charts.ChartBuilder.buildHistogramChart;
@@ -396,19 +395,50 @@ public class Metrics {
         }
 
         public Map getClickThroughRateChartData() {
-            return null;
+            Map<LocalDate, Integer> numOfClicks = records.dateToClickCountMap();
+            Map<LocalDate,Integer> numOfImpressions = records.dateToImpressionCountMap();
+            Map<LocalDate, Integer> ctrByDay = new ConcurrentHashMap<>(numOfClicks.size());
+            numOfClicks.forEach((k,v) -> {
+                int numOfDayClicks = v;
+                int numOfImpressionDay = numOfImpressions.get(k);
+                int ctr = numOfDayClicks/numOfImpressionDay;
+                ctrByDay.put(k,ctr);
+
+            });
+            return ctrByDay;
         }
 
-        public Map getCostPerActionChartData() {
-            return null;
+        //TODO: Equality by value of LocalDate... Convert toString
+        public Map<LocalDate,Float> getCostPerActionChartData() {
+            Map<LocalDate,Float> costPerDay = records.dateToAdCostMap();
+            Map<LocalDate,Integer> impressionsDay = records.dateToImpressionCountMap();
+            Map<LocalDate, Float> cpaPerDayMap = new TreeMap<>(LocalDate::compareTo);
+            costPerDay.forEach((k,v) -> {
+                Float adSpend = v;
+                Float numOfImpressionDay = impressionsDay.get(k).floatValue();
+                Float ctr = adSpend/numOfImpressionDay;
+                cpaPerDayMap.put(k,ctr);
+
+            });
+            return cpaPerDayMap;
         }
 
         public Map getCostPerClickChartData() {
-            return null;
+            Map<LocalDate,Float> costPerDay = records.dateToAdCostMap();
+            Map<LocalDate,Integer> clicksPerDay = records.dateToClickCountMap();
+            Map<LocalDate, Float> cpcPerDay = Maps.newTreeMap(LocalDate::compareTo);
+
+            costPerDay.forEach((key,value) -> {
+                Float cost = value;
+                Float clicks = clicksPerDay.get(key).floatValue();
+                Float cpc = cost/clicks;
+                cpcPerDay.put(key,cpc);
+            });
+            return cpcPerDay;
         }
 
         public Map getCostPerThousandChartData() {
-            return null;
+            return Maps.transformValues(getCostPerActionChartData(),value -> value*1000f);
         }
 
         public Map getBounceRateChartData() {
@@ -476,6 +506,8 @@ public class Metrics {
                 return Double.compare(binValue, bin2Value);
             }
         }
+
+
 
     }
 
