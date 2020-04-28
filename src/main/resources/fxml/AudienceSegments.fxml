@@ -2,7 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -12,6 +12,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,215 +23,158 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" depthTest="DISABLE" maxHeight="-Infinity"
-      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0"
-      scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="gui.segments.SegmentsController">
+<VBox alignment="CENTER" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.segments.SegmentsController">
     <children>
         <MenuBar prefWidth="1400.0" style="-fx-font-size: 16px;" VBox.vgrow="ALWAYS">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="New"/>
-                        <MenuItem mnemonicParsing="false" text="Open…"/>
-                        <Menu mnemonicParsing="false" text="Open Recent"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Close"/>
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="900.0" prefWidth="1400.0" VBox.vgrow="NEVER">
-         <children>
-            <HBox alignment="CENTER" layoutX="0" prefHeight="860.0" prefWidth="1400.0">
-               <children>
-                  <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="860.0" prefWidth="275.0" style="-fx-border-color: #ababab;">
-                     <children>
-                        <ImageView fitHeight="275.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-                           <image>
-                              <Image url="@Logo.png" />
-                           </image>
-                        </ImageView>
-                        <Accordion fx:id="accordion" style="-fx-font-size: 18px;" VBox.vgrow="ALWAYS">
-                          <panes>
-                            <TitledPane fx:id="overviewTab" animated="false" collapsible="false" expanded="false" text="Overview">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                              </content>
-                            </TitledPane>
-                            <TitledPane fx:id="audienceSegmentsTab" animated="false" text="Audience Segments">
-                              <content>
-                                <AnchorPane minHeight="330.0" minWidth="0.0" scaleShape="false">
-                                       <children>
-                                          <CheckBox layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="Age" />
-                                          <CheckBox layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Gender" />
-                                          <CheckBox layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Income" />
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </TitledPane>
-                            <TitledPane fx:id="contextTab" animated="false" expanded="false" text="Context">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <CheckBox layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="News" />
-                                          <CheckBox layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Shopping" />
-                                          <CheckBox layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Social Media" />
-                                          <CheckBox layoutX="50.0" layoutY="200.0" mnemonicParsing="false" text="Hobbies" />
-                                          <CheckBox layoutX="50.0" layoutY="250.0" mnemonicParsing="false" text="Travel" />
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </TitledPane>
-                              <TitledPane fx:id="campaignsTab" animated="false" expanded="false" prefHeight="691.0" prefWidth="275.0" text="Campaigns">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <ListView fx:id="campaignsList" prefWidth="275.0" />
-                                       </children></AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="configuration">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                 </content>
-                              </TitledPane>
-                          </panes>
-                           <cursor>
-                              <Cursor fx:constant="DEFAULT" />
-                           </cursor>
-                        </Accordion>
-                     </children>
-                  </VBox>
-                  <Pane HBox.hgrow="ALWAYS">
-                     <children>
-                        <Text layoutX="311.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Audience Segments" textAlignment="CENTER" textOrigin="CENTER">
-                           <font>
-                              <Font size="40.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="890.0" layoutY="30.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Profile.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="68.0" fitWidth="68.0" layoutX="992.0" layoutY="26.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Settings.png" />
-                           </image>
-                        </ImageView>
-                        <Text layoutX="35.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+                        <MenuItem mnemonicParsing="false" text="New" />
+                        <MenuItem mnemonicParsing="false" text="Open…" />
+                        <Menu mnemonicParsing="false" text="Open Recent" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="Save" />
+                        <MenuItem mnemonicParsing="false" text="Save As…" />
+                        <MenuItem mnemonicParsing="false" text="Revert" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Preferences…" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Quit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Undo" />
+                        <MenuItem mnemonicParsing="false" text="Redo" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Cut" />
+                        <MenuItem mnemonicParsing="false" text="Copy" />
+                        <MenuItem mnemonicParsing="false" text="Paste" />
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Select All" />
+                        <MenuItem mnemonicParsing="false" text="Unselect All" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="900.0" prefWidth="1400.0" VBox.vgrow="NEVER">
+            <children>
+                <HBox alignment="CENTER" layoutX="0" prefHeight="860.0" prefWidth="1400.0">
+                    <children>
+                        <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="860.0" prefWidth="275.0" style="-fx-border-color: #ababab;">
+                            <children>
+                                <ImageView fitHeight="275.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                                    <image>
+                                        <Image url="@Logo.png" />
+                                    </image>
+                                </ImageView>
+                                <Accordion fx:id="accordion" style="-fx-font-size: 18px;" VBox.vgrow="ALWAYS">
+                                    <panes>
+                                        <TitledPane fx:id="overviewTab" animated="false" collapsible="false" expanded="false" text="Overview">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                            </content>
+                                        </TitledPane>
+                                        <TitledPane fx:id="audienceSegmentsTab" animated="false" text="Audience Segments">
+                                            <content>
+                                                <AnchorPane minHeight="330.0" minWidth="0.0" scaleShape="false">
+                                                    <children>
+                                                        <TreeView fx:id="segmentsTreeView" layoutX="-2.0" prefHeight="413.0" prefWidth="275.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </TitledPane>
+                                        <TitledPane fx:id="contextTab" animated="false" expanded="false" text="Context">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                            </content>
+                                        </TitledPane>
+                                        <TitledPane fx:id="campaignsTab" animated="false" expanded="false" prefHeight="691.0" prefWidth="275.0" text="Campaigns">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                    <children>
+                                                        <ListView fx:id="campaignsList" prefWidth="275.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </TitledPane>
+                                        <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="configuration">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                            </content>
+                                        </TitledPane>
+                                    </panes>
+                                    <cursor>
+                                        <Cursor fx:constant="DEFAULT" />
+                                    </cursor>
+                                </Accordion>
+                            </children>
+                        </VBox>
+                        <Pane HBox.hgrow="ALWAYS">
+                            <children>
+                                <Text layoutX="311.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Audience Segments" textAlignment="CENTER" textOrigin="CENTER">
+                                    <font>
+                                        <Font size="40.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="890.0" layoutY="30.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@Profile.jpg" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="68.0" fitWidth="68.0" layoutX="992.0" layoutY="26.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@Settings.png" />
+                                    </image>
+                                </ImageView>
+                                <Text layoutX="35.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Text>
+                                <TextField fx:id="currentDate" alignment="TOP_LEFT" layoutX="85.0" layoutY="40.0" prefWidth="150.0">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </TextField>
+                                <SplitPane dividerPositions="0.03" layoutY="220.0" prefHeight="645.0" prefWidth="1124.0">
+                                    <items>
+                                        <AnchorPane>
+                                            <children>
+                                                <ScrollBar max="-1.0" min="10.0" orientation="VERTICAL" prefHeight="645.0" prefWidth="30.0" />
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane>
+                                            <children>
+                                                <TilePane fx:id="audienceSegmentsGraphs" alignment="BOTTOM_CENTER" hgap="50.0" prefColumns="3" prefHeight="645.0" prefWidth="1084.0" tileAlignment="TOP_CENTER" vgap="50.0" />
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                </SplitPane>
+                        <Text layoutX="112.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="currentDate" alignment="TOP_LEFT" layoutX="85.0" layoutY="40.0" prefWidth="150.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <Text layoutX="62.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:">
+                        <Text layoutX="677.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text layoutX="594.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Pane layoutX="133.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text fx:id="fromDateDay" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="day">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children></Pane>
-                        <Pane layoutX="249.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text fx:id="fromDateMonth" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="month">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children></Pane>
-                        <Pane layoutX="365.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text fx:id="fromDateYear" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="year">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children></Pane>
-                        <Pane layoutX="668.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text fx:id="untilDateDay" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="day">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children></Pane>
-                        <Pane layoutX="784.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text fx:id="untilDateMonth" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="month">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children></Pane>
-                        <Pane layoutX="900.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text fx:id="untilDateYear" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="year">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children></Pane>
-                        <SplitPane dividerPositions="0.03" layoutY="220.0" prefHeight="645.0" prefWidth="1124.0">
-                          <items>
-                            <AnchorPane>
-                                 <children>
-                                    <ScrollBar max="-1.0" min="10.0" orientation="VERTICAL" prefHeight="645.0" prefWidth="30.0" />
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane>
-                                 <children>
-                                    <TilePane fx:id="audienceSegmentsGraphs" alignment="BOTTOM_CENTER" hgap="50.0" prefColumns="3" prefHeight="645.0" prefWidth="1084.0" tileAlignment="TOP_CENTER" vgap="50.0" />
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
-                     </children>
-                  </Pane>
-               </children>
-            </HBox>
-         </children>
-    </AnchorPane>
-  </children>
+                        <DatePicker fx:id="fromDatePicker" layoutX="173.0" layoutY="124.0" prefHeight="37.0" prefWidth="158.0" />
+                        <DatePicker fx:id="untilDatePicker" layoutX="732.0" layoutY="124.0" prefHeight="37.0" prefWidth="158.0" />
+                            </children>
+                        </Pane>
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </children>
 </VBox>

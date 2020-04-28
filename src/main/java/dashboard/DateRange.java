@@ -12,6 +12,9 @@ public class DateRange implements Iterable<LocalDate> {
     private final LocalDate startDate;
     private final LocalDate endDate;
 
+    public LocalDate getStartDate() { return startDate; }
+    public LocalDate getEndDate() { return endDate; }
+
     public DateRange(LocalDate startDate, LocalDate endDate) {
         //check that range is valid (null, start < end)
         this.startDate = startDate;
