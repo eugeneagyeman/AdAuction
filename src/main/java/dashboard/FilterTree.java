@@ -1,4 +1,4 @@
-package Dashboard;
+package dashboard;
 
 import java.util.ArrayList;
 import java.util.List;

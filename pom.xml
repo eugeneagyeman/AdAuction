@@ -79,7 +79,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <!-- Configuration for debugging -->
+                        <!-- configuration for debugging -->
                         <id>debug</id>
                         <configuration>
                             <options>

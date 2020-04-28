@@ -114,7 +114,7 @@
                                        </children></AnchorPane>
                                  </content>
                               </TitledPane>
-                              <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="Configuration">
+                              <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="configuration">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                  </content>
@@ -128,7 +128,7 @@
                   </VBox>
                   <Pane HBox.hgrow="ALWAYS">
                      <children>
-                        <Text layoutX="388.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Configuration" textAlignment="CENTER" textOrigin="CENTER">
+                        <Text layoutX="388.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="configuration" textAlignment="CENTER" textOrigin="CENTER">
                            <font>
                               <Font size="40.0" />
                            </font>

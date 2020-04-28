@@ -113,7 +113,7 @@ public class Parser {
 
     public static Long dateDifference(LocalDateTime entry, LocalDateTime exit) {
         // Edge cases eg new day, month, or year, daylight saving time
-        long time = 0;
+        long time;
 
         if (!exit.isEqual(LocalDateTime.MAX)) {
             Duration difference = Duration.between(entry, exit);
