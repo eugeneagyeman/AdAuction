@@ -9,17 +9,20 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedBarChart;
 import org.apache.commons.math3.stat.Frequency;
 import org.apache.commons.math3.util.Precision;
+import org.checkerframework.checker.units.qual.C;
 
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static configuration.Parser.dateDifference;
 import static gui.charts.ChartBuilder.buildHistogramChart;
-import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.*;
 
 public class Metrics {
     private final ChartMetrics chartMetrics;
@@ -35,9 +38,9 @@ public class Metrics {
     private float costPerClick;
     private float costPerThousand;
     private float bounceRate;
-    private Records records;
-    private List<String> ageRanges;
-    private ArrayList<String> recommendations = new ArrayList<>();
+    private final Records records;
+    private final List<String> ageRanges;
+    private final ArrayList<String> recommendations = new ArrayList<>();
 
     public Metrics(Records records) {
         this.records = records;
@@ -245,16 +248,15 @@ public class Metrics {
 
 
     public class ChartMetrics {
-        private static final int BIN_WIDTH = 2;
-        private List<String> frequencyOfClickCosts = getListOfClickCosts();
         private final List listOfCharts = new ArrayList();
         private Map<String, Integer> distributionMap;
 
         public ChartMetrics() {
+
         }
 
         private List convertToInteger() {
-
+            final List<String> frequencyOfClickCosts = getListOfClickCosts();
             return frequencyOfClickCosts
                     .parallelStream()
                     .map(s -> {
@@ -264,6 +266,8 @@ public class Metrics {
         }
 
         private Map<String, Integer> getHistogramData() {
+            int BIN_WIDTH = 2;
+
             Frequency frequency = new Frequency();
             List<Double> streamOfClicks = convertToInteger();
             streamOfClicks.forEach(frequency::addValue);
@@ -291,6 +295,7 @@ public class Metrics {
         }
 
         private void updateHistogramBins(int lowerBoundary, String bin, int observationFrequency) {
+            int BIN_WIDTH = 2;
 
             int prevLowerBoundary;
             if (lowerBoundary > BIN_WIDTH) prevLowerBoundary = lowerBoundary - BIN_WIDTH;
@@ -315,12 +320,12 @@ public class Metrics {
         }
 
         private LineChart buildImpressionsChart() {
-            Map impressionChartData = getNumOfImpressionsChartInRange();
+            Map impressionChartData = getNumOfImpressionsDateMap();
             return ChartBuilder.buildTimeSeriesChart(impressionChartData, "Date", "Count");
         }
 
         private LineChart buildClickChart() {
-            Map clickChartData = getNumOfClicksChartInRange();
+            Map clickChartData = getNumOfClicksDateMap();
             return ChartBuilder.buildTimeSeriesChart(clickChartData, "Date", "Count");
         }
 
@@ -334,18 +339,18 @@ public class Metrics {
             return chart;
         }
 
-        private Map getNumOfImpressionsChartInRange(DateRange dateRange) {
+        private Map getNumOfImpressionsDateMap(DateRange dateRange) {
             List<ImpressionRecord> impressionRecords = (List) records.getImpressionRecords();
             var datesInBetween = dateRange.toList();
             return impressionRecords.stream()
                     .map(impressionRecord -> {
                         return impressionRecord.getDate().toLocalDate();
                     })
-                    .filter(date -> datesInBetween.contains(date))
+                    .filter(datesInBetween::contains)
                     .collect(groupingBy(date -> date, Collectors.counting()));
         }
 
-        private Map getNumOfImpressionsChartInRange() {
+        private Map getNumOfImpressionsDateMap() {
             Collection<ImpressionRecord> impressionRecords = records.getImpressionRecords().values();
             Map<LocalDate, Long> reverse = new TreeMap<>(Collections.reverseOrder());
             reverse.putAll(impressionRecords
@@ -355,7 +360,7 @@ public class Metrics {
             return reverse;
         }
 
-        private Map getNumOfClicksChartInRange() {
+        private Map getNumOfClicksDateMap() {
             Collection<ClickRecord> clickRecords = records.getClickRecords().values();
             Map<LocalDate, Long> reverse = new TreeMap<>(Collections.reverseOrder(LocalDate::compareTo));
 
@@ -410,6 +415,23 @@ public class Metrics {
             return null;
         }
 
+        public Map<LocalDate,Long> getNumOfUniques() {
+            Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords().asMap();
+            Map<String,LocalDate> uniquesPerDateMap = new HashMap<>();
+            clickRecords.forEach((k, v) -> {
+                LocalDate earliestDate = v.stream()
+                        .map(ClickRecord::getLocalDate)
+                        .min(LocalDate::compareTo)
+                        .get();
+
+                uniquesPerDateMap.put(k,earliestDate);
+            });
+
+            return uniquesPerDateMap.values()
+                    .parallelStream()
+                    .collect(groupingBy(date -> date, counting()));
+        }
+
         public BarChart getHistogram() {
             return this.buildHistogram();
         }
@@ -437,7 +459,6 @@ public class Metrics {
             return ChartBuilder.buildPieChart(data);
         }
 
-
         public List getListOfCharts() {
             return listOfCharts;
         }
@@ -457,4 +478,6 @@ public class Metrics {
         }
 
     }
+
+
 }

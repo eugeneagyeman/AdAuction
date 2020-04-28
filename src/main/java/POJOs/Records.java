@@ -1,8 +1,14 @@
 package POJOs;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
+import com.google.common.collect.*;
+import org.apache.commons.collections.CollectionUtils;
+
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import static java.util.stream.Collectors.groupingByConcurrent;
 
 public class Records {
     private Multimap<String, Record> recordMultimap;
@@ -71,5 +77,42 @@ public class Records {
             System.out.println(k + "\t" +clickView.get(k));
         }*/
         return Multimaps.filterValues(recordMultimap, v -> v instanceof ClickRecord);
+    }
+
+    public Map<LocalDate,Collection<ClickRecord>> dateToClickRecordsMap() {
+        Map<LocalDate, Collection<ClickRecord>> dateToClickRecords = new ConcurrentHashMap<>();
+        Collection<ClickRecord> clickRecords = getClickRecords().values();
+        dateToClickRecords.putAll(clickRecords.parallelStream().collect(groupingByConcurrent(ClickRecord::getLocalDate)));
+
+        return dateToClickRecords;
+    }
+
+    public Map<LocalDate,Collection<ImpressionRecord>> dateToImpressionMap() {
+        Map<LocalDate, Collection<ImpressionRecord>> dateToImpressionRecordMap = new ConcurrentHashMap<>();
+        Collection<ImpressionRecord> impressionRecords = getImpressionRecords().values();
+        dateToImpressionRecordMap.putAll(impressionRecords.parallelStream().collect(groupingByConcurrent(ImpressionRecord::getLocalDate)));
+
+        return dateToImpressionRecordMap;
+    }
+
+    public Map<LocalDate,Collection<ServerRecord>> dateToServerRecordMap() {
+        Map<LocalDate,Collection<ServerRecord>> dateToServerRecordMap = new ConcurrentHashMap<>();
+        Collection<ServerRecord> serverRecords = getServerRecords().values();
+        dateToServerRecordMap.putAll(serverRecords.parallelStream().collect(groupingByConcurrent(ServerRecord::getEntryLocalDate)));
+        return dateToServerRecordMap;
+    }
+
+    public Map<LocalDate, Integer> dateToClickCountMap() {
+        return Maps.transformValues(dateToClickRecordsMap(), CollectionUtils::size);
+
+    }
+
+    public Map<LocalDate, Integer> dateToImpressionCountMap() {
+        return Maps.transformValues(dateToImpressionMap(),CollectionUtils::size);
+
+    }
+
+    public Map<LocalDate, Integer> dateToServerCountMap() {
+        return Maps.transformValues(dateToServerRecordMap(),CollectionUtils::size);
     }
 }

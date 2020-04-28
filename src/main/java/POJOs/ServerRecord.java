@@ -24,6 +24,10 @@ public class ServerRecord extends Record {
         return entryDate;
     }
 
+    public LocalDate getEntryLocalDate() {
+        return entryDate.toLocalDate();
+    }
+
     public void setEntryDate(String entryDate) {
         this.entryDate = parseDateTime(entryDate);
     }
@@ -69,4 +73,6 @@ public class ServerRecord extends Record {
         if (entryDate.isEqual(start) || exitDate.isEqual(end)) return true;
         return entryDate.isAfter(start) && exitDate.isBefore(end);
     }
+
+
 }
