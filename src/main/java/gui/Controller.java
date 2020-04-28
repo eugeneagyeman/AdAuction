@@ -51,7 +51,7 @@ public class Controller implements Initializable {
         });
         audienceSegmentsTab.setOnMouseClicked(event -> {
             try {
-                Main.changeScene("/fxml/AudienceSegmentsEdit.fxml");
+                Main.changeScene("/fxml/AudienceSegments.fxml");
             } catch (IOException i) {
                 i.printStackTrace();
             }

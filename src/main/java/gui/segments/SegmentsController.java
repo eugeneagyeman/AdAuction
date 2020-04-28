@@ -3,10 +3,10 @@ package gui.segments;
 import gui.Controller;
 import gui.Main;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.TilePane;
-import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,17 +14,17 @@ import java.util.ResourceBundle;
 public class SegmentsController extends Controller {
 
     @FXML
-    private Text fromDateDay = new Text();
+    private TextField fromDateDay = new TextField();
     @FXML
-    private Text fromDateMonth = new Text();
+    private TextField fromDateMonth = new TextField();
     @FXML
-    private Text fromDateYear = new Text();
+    private TextField fromDateYear = new TextField();
     @FXML
-    private Text untilDateDay = new Text();
+    private TextField toDateDay = new TextField();
     @FXML
-    private Text untilDateMonth = new Text();
+    private TextField toDateMonth = new TextField();
     @FXML
-    private Text untilDateYear = new Text();
+    private TextField toDateYear = new TextField();
     @FXML
     private TilePane audienceSegmentsGraphs = new TilePane();
     @FXML
@@ -34,22 +34,23 @@ public class SegmentsController extends Controller {
         accordion.expandedPaneProperty().setValue(audienceSegmentsTab);
         TreeItem<String> rootItem = new TreeItem<>("Segments");
 
-        TreeItem<?> ageItem = new TreeItem<Object>("Age");
-        for (Object range : model.getCurrentCampaign().getMetrics().getAgeRanges()) {
-            ageItem.getChildren().add(new TreeItem(range));
-        }
+        TreeItem<String> ageItem = new TreeItem<>("Age");
+        TreeItem<String> youngerThan25option = new TreeItem<>("<25");
+        TreeItem<String> between25and34option = new TreeItem<>("25-34");
+        TreeItem<String> between35and44option = new TreeItem<>("35-44");
+        TreeItem<String> between45and54option = new TreeItem<>("45-54");
+        TreeItem<String> olderThan54option = new TreeItem<>(">54");
+        ageItem.getChildren().addAll(youngerThan25option,between25and34option,between35and44option,between45and54option,olderThan54option);
 
         TreeItem<String> genderItem = new TreeItem<>("Gender");
         TreeItem<String> maleGenderItem = new TreeItem<>("Male");
         TreeItem<String> femaleGenderItem = new TreeItem<>("Female");
-
         genderItem.getChildren().addAll(maleGenderItem, femaleGenderItem);
 
         TreeItem<String> incomeItem = new TreeItem<>("Income");
         TreeItem<String> lowItem = new TreeItem<>("Low");
         TreeItem<String> mediumItem = new TreeItem<>("Medium");
         TreeItem<String> highItem = new TreeItem<>("High");
-
         incomeItem.getChildren().addAll(lowItem, mediumItem, highItem);
 
         rootItem.getChildren().addAll((TreeItem<String>) ageItem, genderItem, incomeItem);
@@ -62,7 +63,5 @@ public class SegmentsController extends Controller {
         model = Main.getModel();
         initialiseController();
         initialiseSegments();
-
-
     }
 }

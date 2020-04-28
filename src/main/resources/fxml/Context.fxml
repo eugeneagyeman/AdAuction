@@ -23,18 +23,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1"
-      fx:controller="gui.context.ContextController">
+<?import javafx.scene.control.TreeView?>
+<VBox prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.context.ContextController">
     <children>
         <MenuBar prefWidth="1400.0" style="-fx-font-size: 16px;" VBox.vgrow="ALWAYS">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="New"/>
-                        <MenuItem mnemonicParsing="false" text="Open…"/>
-                        <Menu mnemonicParsing="false" text="Open Recent"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Close"/>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                        <MenuItem mnemonicParsing="false" text="Open…" />
+                        <Menu mnemonicParsing="false" text="Open Recent" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
             <MenuItem mnemonicParsing="false" text="Save" />
             <MenuItem mnemonicParsing="false" text="Save As…" />
             <MenuItem mnemonicParsing="false" text="Revert" />
@@ -86,30 +86,15 @@
                               <TitledPane fx:id="audienceSegmentsTab" animated="false" expanded="false" text="Audience Segments">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <CheckBox layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="Age" />
-                                          <CheckBox layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Gender" />
-                                          <CheckBox layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Income" />
-                                       </children>
                                     </AnchorPane>
                                  </content>
                               </TitledPane>
                               <TitledPane fx:id="contextTab" animated="false" text="Context">
                                  <content>
                                     <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="200.0">
-                                       <children>
-                                           <CheckBox fx:id="newsBttn" accessibleText="News" layoutX="50.0"
-                                                     layoutY="50.0" mnemonicParsing="false" text="News"/>
-                                           <CheckBox fx:id="shoppingBttn" accessibleText="Shopping" layoutX="50.0"
-                                                     layoutY="100.0" mnemonicParsing="false" text="Shopping"/>
-                                           <CheckBox fx:id="socialMediaBttn" accessibleText="Social Media"
-                                                     layoutX="50.0" layoutY="150.0" mnemonicParsing="false"
-                                                     text="Social Media"/>
-                                           <CheckBox fx:id="hobbiesBttn" accessibleText="Hobbies" layoutX="50.0"
-                                                     layoutY="200.0" mnemonicParsing="false" text="Hobbies"/>
-                                           <CheckBox fx:id="travelBttn" accessibleText="Travel" layoutX="50.0"
-                                                     layoutY="250.0" mnemonicParsing="false" text="Travel"/>
-                                       </children>
+                                        <children>
+                                            <TreeView fx:id="contextTreeView" layoutX="-2.0" prefHeight="413.0" prefWidth="275.0" />
+                                        </children>
                                     </AnchorPane>
                                  </content>
                               </TitledPane>
@@ -135,60 +120,6 @@
                   </VBox>
                   <Pane HBox.hgrow="ALWAYS">
                      <children>
-                        <Pane layoutX="133.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text fx:id="fromDateDay" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="day">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
-                        <Pane layoutX="249.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text fx:id="fromDateMonth" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="month">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
-                        <Pane layoutX="365.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text fx:id="fromDateYear" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="year">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
-                        <Pane layoutX="668.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text fx:id="untilDateDay" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="day">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
-                        <Pane layoutX="784.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text fx:id="untilDateMonth" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="month">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
-                        <Pane layoutX="900.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0" style="-fx-border-color: black;">
-                           <children>
-                              <Text fx:id="untilDateYear" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="year">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
                         <Text layoutX="388.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Context" textAlignment="CENTER" textOrigin="CENTER">
                            <font>
                               <Font size="40.0" />
@@ -209,7 +140,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="currentDate" alignment="TOP_LEFT" layoutX="85.0" layoutY="27.0" prefWidth="150.0">
+                        <TextField fx:id="currentDate" alignment="TOP_LEFT" layoutX="85.0" layoutY="40.0" prefWidth="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -224,7 +155,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <SplitPane dividerPositions="0.03" layoutY="220.0" prefHeight="647.0" prefWidth="865.0">
+                        <SplitPane dividerPositions="0.03" layoutY="220.0" prefHeight="645.0" prefWidth="1124.0">
                           <items>
                             <AnchorPane>
                                  <children>
@@ -233,63 +164,17 @@
                               </AnchorPane>
                             <AnchorPane>
                                  <children>
-                                    <TilePane fx:id="contextGraphs" alignment="BOTTOM_CENTER" hgap="50.0" prefColumns="2" prefHeight="645.0" prefWidth="811.0" tileAlignment="TOP_CENTER" vgap="50.0" />
+                                    <TilePane fx:id="contextGraphs" alignment="BOTTOM_CENTER" hgap="50.0" prefColumns="2" prefHeight="645.0" prefWidth="1084.0" tileAlignment="TOP_CENTER" vgap="50.0" />
                                  </children>
                               </AnchorPane>
                           </items>
                         </SplitPane>
-                        <VBox layoutX="865.0" layoutY="220.0" prefHeight="645.0" prefWidth="260.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter ages by:">
-                                 <VBox.margin>
-                                    <Insets bottom="20.0" left="20.0" top="30.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Text>
-                              <CheckBox mnemonicParsing="false" text="Younger than 25">
-                                 <VBox.margin>
-                                    <Insets left="20.0" top="30.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </CheckBox>
-                              <CheckBox mnemonicParsing="false" text="Between 25 and 34">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="20.0" top="30.0" />
-                                 </VBox.margin>
-                              </CheckBox>
-                              <CheckBox mnemonicParsing="false" text="Between 35 and 44">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="20.0" top="30.0" />
-                                 </VBox.margin>
-                              </CheckBox>
-                              <CheckBox mnemonicParsing="false" text="Between 45 and 54">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="20.0" top="30.0" />
-                                 </VBox.margin>
-                              </CheckBox>
-                              <CheckBox mnemonicParsing="false" text="Older than 54">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="20.0" top="30.0" />
-                                 </VBox.margin>
-                              </CheckBox>
-                           </children>
-                        </VBox>
+                        <TextField fx:id="fromDateDay" layoutX="126.0" layoutY="122.0" prefHeight="39.0" prefWidth="116.0" promptText="day" />
+                        <TextField fx:id="fromDateMonth" layoutX="242.0" layoutY="122.0" prefHeight="39.0" prefWidth="116.0" promptText="month" />
+                        <TextField fx:id="fromDateYear" layoutX="358.0" layoutY="122.0" prefHeight="39.0" prefWidth="116.0" promptText="year" />
+                        <TextField fx:id="toDateDay" layoutX="657.0" layoutY="122.0" prefHeight="39.0" prefWidth="116.0" promptText="day" />
+                        <TextField fx:id="toDateMonth" layoutX="773.0" layoutY="122.0" prefHeight="39.0" prefWidth="116.0" promptText="month" />
+                        <TextField fx:id="toDateYear" layoutX="889.0" layoutY="122.0" prefHeight="39.0" prefWidth="116.0" promptText="year" />
                      </children>
                   </Pane>
                </children>

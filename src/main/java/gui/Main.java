@@ -52,7 +52,6 @@ public class Main extends Application {
         Main.loader = loader;
     }
 
-
     private static FXMLLoader loader;
 
     public static void changeScene(String fxml) throws IOException {
@@ -70,25 +69,24 @@ public class Main extends Application {
         mainWindow.setScene(scene);
         mainWindow.show();
 
-        BarChart barChart = model.getChartMetrics().getHistogram();
-        LineChart numOfImpressions = model.getChartMetrics().getImpressionTimeChart();
-        LineChart numOfClicks = model.getChartMetrics().getNumOfClickChart();
-        StackedBarChart numOfConversion = model.getChartMetrics().getConversionChart();
-        PieChart pieChart = model.getChartMetrics().getContextChart();
+//        BarChart barChart = model.getChartMetrics().getHistogram();
+//        LineChart numOfImpressions = model.getChartMetrics().getImpressionTimeChart();
+//        LineChart numOfClicks = model.getChartMetrics().getNumOfClickChart();
+//        StackedBarChart numOfConversion = model.getChartMetrics().getConversionChart();
+//        PieChart pieChart = model.getChartMetrics().getContextChart();
 
-        Stage chartPreviewWindow = new Stage();
-        VBox vBox = new VBox();
-        vBox.getChildren().addAll(barChart, numOfImpressions, numOfClicks, numOfConversion, pieChart);
+//        Stage chartPreviewWindow = new Stage();
+//        VBox vBox = new VBox();
+//        vBox.getChildren().addAll(barChart, numOfImpressions, numOfClicks, numOfConversion, pieChart);
 
-        StackPane root = new StackPane();
-        root.getChildren().add(vBox);
+//        StackPane root = new StackPane();
+//        root.getChildren().add(vBox);
 
-        Scene previewScene = new Scene(root, 800, 450);
-
-        chartPreviewWindow.setTitle("Test Histogram");
-        mainWindow.setScene(previewScene);
+//        Scene previewScene = new Scene(root, 800, 450);
+//
+//        chartPreviewWindow.setTitle("Test Histogram");
+//        mainWindow.setScene(previewScene);
         mainWindow.show();
-
 
     }
 }
