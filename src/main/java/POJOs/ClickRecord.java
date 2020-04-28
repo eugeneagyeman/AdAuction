@@ -20,6 +20,10 @@ public class ClickRecord extends Record {
         return date;
     }
 
+    public LocalDate getLocalDate() {
+        return date.toLocalDate();
+    }
+
     public void setDate(String date) {
         this.date = parseDateTime(date);
     }

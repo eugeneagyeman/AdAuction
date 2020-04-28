@@ -32,6 +32,10 @@ public class ImpressionRecord extends Record {
         this.date = parseDateTime(date);
     }
 
+    public LocalDate getLocalDate() {
+        return date.toLocalDate();
+    }
+
     public String getGender() {
         return gender;
     }

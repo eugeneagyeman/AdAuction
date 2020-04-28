@@ -70,7 +70,7 @@ public class Main extends Application {
         mainWindow.setScene(scene);
         mainWindow.show();
 
-        BarChart barChart = model.getChartMetrics().getHistogram();
+        /*BarChart barChart = model.getChartMetrics().getHistogram();
         LineChart numOfImpressions = model.getChartMetrics().getImpressionTimeChart();
         LineChart numOfClicks = model.getChartMetrics().getNumOfClickChart();
         StackedBarChart numOfConversion = model.getChartMetrics().getConversionChart();
@@ -87,7 +87,7 @@ public class Main extends Application {
 
         chartPreviewWindow.setTitle("Test Histogram");
         mainWindow.setScene(previewScene);
-        mainWindow.show();
+        mainWindow.show();*/
 
 
     }
