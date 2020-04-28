@@ -3,11 +3,13 @@ package gui.segments;
 import gui.Controller;
 import gui.Main;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +20,7 @@ public class SegmentsController extends Controller {
     @FXML
     private DatePicker untilDatePicker = new DatePicker();
     @FXML
-    private TilePane audienceSegmentsGraphs = new TilePane();
+    private VBox audienceSegmentsGraphs = new VBox();
     @FXML
     private TreeView<String> segmentsTreeView;
 
@@ -44,6 +46,13 @@ public class SegmentsController extends Controller {
         rootItem.getChildren().addAll((TreeItem<String>) ageItem, genderItem, incomeItem);
         segmentsTreeView.setRoot(rootItem);
         segmentsTreeView.setShowRoot(false);
+
+        audienceSegmentsGraphs.getChildren().addAll(model.getChartMetrics().getCharts());
+        audienceSegmentsGraphs.getChildren().forEach(node -> {
+            node.scaleXProperty();
+            node.scaleYProperty();
+            node.scaleZProperty();
+        });
     }
 
     @Override

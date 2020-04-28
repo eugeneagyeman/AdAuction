@@ -5,7 +5,6 @@ import com.google.common.collect.Maps;
 import dashboard.DateRange;
 import gui.charts.ChartBuilder;
 import javafx.scene.chart.*;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.math3.stat.Frequency;
 import org.apache.commons.math3.util.Precision;
 
@@ -314,23 +313,22 @@ public class Metrics {
         private BarChart buildHistogram() {
             distributionMap = new TreeMap<>(new DoublesComparator());
             distributionMap = getHistogramData();
-            return buildHistogramChart(distributionMap);
+            return buildHistogramChart(distributionMap, "Histogram of Click Costs");
         }
 
         private LineChart buildImpressionsChart() {
             Map impressionChartData = getNumOfImpressionsDateMap();
-            return buildTimeSeriesChart(impressionChartData, "Date", "Count", "Impressions");
+            return buildTimeSeriesChart(impressionChartData, "Date", "Count", "Impressions", "Number of Impressions Daily");
         }
 
         private LineChart buildClickChart() {
             Map clickChartData = getNumOfClicksDateMap();
-            return buildTimeSeriesChart(clickChartData, "Date", "Count", "Number Of Clicks");
+            return buildTimeSeriesChart(clickChartData, "Date", "Count", "Number Of Clicks", "Number of Clicks Daily");
         }
 
         private StackedBarChart buildConversionChart() {
             Map data = getConversionsDateMap();
-            StackedBarChart chart = ChartBuilder.buildStackedBarChart(data, "Date", "Count", "Converted");
-            chart.setTitle("Conversion Chart");
+            StackedBarChart chart = ChartBuilder.buildStackedBarChart(data, "Date", "Count", "Converted", "Conversion Chart");
 
             Map unconverted = getUnconvertedDateMap();
             chart.getData().add(ChartBuilder.buildSeries(unconverted, "Unconverted"));
@@ -447,7 +445,7 @@ public class Metrics {
         public Map getTotalCostPerDayData() {
             return records.dateToAdCostMap();
         }
-        public Map<LocalDate, Long> getNumOfUniquesChartData() {
+        public Map<String, Long> getNumOfUniquesChartData() {
             Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords().asMap();
             Map<String, LocalDate> uniquesPerDateMap = new HashMap<>();
             clickRecords.forEach((k, v) -> {
@@ -460,20 +458,22 @@ public class Metrics {
             });
 
             return uniquesPerDateMap.values()
-                    .parallelStream()
-                    .collect(groupingBy(date -> date, counting()));
+                                .parallelStream()
+                                .map(LocalDate::toString)
+                                .collect(groupingBy(date -> date, counting()));
+
         }
 
         public Collection<Chart> getCharts() {
-            Collection<Chart> collection = CollectionUtils.EMPTY_COLLECTION;
+            Collection<Chart> collection = new ArrayList<>();
 
             BarChart histogram = buildHistogram();
             StackedBarChart conversionsChart = buildConversionChart();
             LineChart impressionsChart = buildImpressionsChart();
             LineChart numOfClicksChart = buildClickChart();
-            BarChart numOfUniquesChart = ChartBuilder.buildBarChart(getNumOfUniquesChartData());
-            LineChart totalCostChart = ChartBuilder.buildTimeSeriesChart(getTotalCostPerDayData(),"Date","Cost","Total Cost");
-            LineChart costChart = ChartBuilder.buildTimeSeriesChart(getClickThroughRateChartData(),"Date","Amount", "Click Through Rate");
+            BarChart numOfUniquesChart = ChartBuilder.buildBarChart(getNumOfUniquesChartData(), "Number of Uniques");
+            LineChart totalCostChart = ChartBuilder.buildTimeSeriesChart(getTotalCostPerDayData(),"Date","Cost","Total Cost", "Total Cost Per Day");
+            LineChart costChart = ChartBuilder.buildTimeSeriesChart(getClickThroughRateChartData(),"Date","Amount", "Click Through Rate", "Click Calculations");
             costChart.getData()
                      .addAll(ChartBuilder.buildSeries(getCostPerActionChartData(), "Cost Per Action"),
                              ChartBuilder.buildSeries(getCostPerClickChartData(), "Cost per click"),
@@ -491,31 +491,9 @@ public class Metrics {
 
         }
 
-        public BarChart getHistogram() {
-            return this.buildHistogram();
-        }
-
-        public LineChart getImpressionTimeChart() {
-            return this.buildImpressionsChart();
-        }
-
-        public LineChart getNumOfClickChart() {
-            return this.buildClickChart();
-        }
-
-        public StackedBarChart getConversionChart() {
-            return this.buildConversionChart();
-
-        }
-
-        public PieChart getContextChart() {
-            return this.buildContextDistribution();
-
-        }
-
-        private PieChart buildContextDistribution() {
+        public PieChart buildContextDistribution() {
             Map data = percentagesOfContext();
-            return ChartBuilder.buildPieChart(data);
+            return ChartBuilder.buildPieChart(data, "Context");
         }
 
         public List getListOfCharts() {

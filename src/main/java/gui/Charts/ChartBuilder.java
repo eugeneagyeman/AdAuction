@@ -7,7 +7,7 @@ import javafx.scene.chart.*;
 import java.util.Map;
 
 public class ChartBuilder {
-    public static BarChart buildHistogramChart(Map xyMap) {
+    public static BarChart buildHistogramChart(Map xyMap, String title) {
 
         // Create Chart
         final CategoryAxis xAxis = new CategoryAxis();
@@ -15,8 +15,8 @@ public class ChartBuilder {
         xAxis.setLabel("Costs in Pence");
         yAxis.setLabel("Frequency");
 
-        final BarChart<String, Number> histogram =
-                new BarChart<>(xAxis, yAxis);
+        final BarChart<String, Number> histogram = new BarChart<>(xAxis, yAxis);
+        histogram.setTitle(title);
 
         XYChart.Series<String, Number> series = new XYChart.Series();
         series.setName("Histogram");
@@ -26,21 +26,22 @@ public class ChartBuilder {
         return histogram;
     }
 
-    public static LineChart buildTimeSeriesChart(Map xyMap, String xLabel, String yLabel) {
+    public static LineChart buildTimeSeriesChart(Map xyMap, String xLabel, String yLabel, String seriesLbl, String title) {
         final CategoryAxis dateAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
 
-        dateAxis.setLabel("Date in: " + xLabel);
+        dateAxis.setLabel(xLabel);
         yAxis.setLabel(yLabel);
 
         final LineChart timeSeriesChart = new LineChart(dateAxis, yAxis);
+        timeSeriesChart.setTitle(title);
 
-        XYChart.Series<String, Number> series = buildSeries(xyMap);
+        XYChart.Series<String, Number> series = buildSeries(xyMap, seriesLbl);
         timeSeriesChart.getData().addAll(series);
         return timeSeriesChart;
     }
 
-    public static StackedBarChart buildStackedBarChart(Map xyMap, String xLabel, String yLabel) {
+    public static StackedBarChart buildStackedBarChart(Map xyMap, String xLabel, String yLabel, String seriesLbl, String title) {
         final CategoryAxis dateAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
 
@@ -48,39 +49,41 @@ public class ChartBuilder {
         yAxis.setLabel(yLabel);
 
         final StackedBarChart stackedBarChart = new StackedBarChart(dateAxis, yAxis);
+        stackedBarChart.setTitle(title);
 
-        XYChart.Series<String, Number> series = buildSeries(xyMap);
+        XYChart.Series<String, Number> series = buildSeries(xyMap, seriesLbl);
         stackedBarChart.getData().addAll(series);
 
         return stackedBarChart;
     }
 
-    public static PieChart buildPieChart(Map xyMap) {
+    public static PieChart buildPieChart(Map xyMap, String title) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         xyMap.forEach((key, value) -> {
             Double val = Double.parseDouble(Long.toString((long) value));
             pieChartData.add(new PieChart.Data((String) key, val));
         });
+
         final PieChart chart = new PieChart(pieChartData);
-        chart.setTitle("Context");
+        chart.setTitle(title);
         return chart;
 
     }
 
-    public static BarChart buildBarChart(Map xyMap) {
+    public static BarChart buildBarChart(Map xyMap, String title) {
         final CategoryAxis dateAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart bc = new BarChart(dateAxis, yAxis);
-        bc.setTitle("Bar Chart");
+        bc.setTitle(title);
         XYChart.Series series = new XYChart.Series();
         xyMap.forEach((key, val) -> series.getData().add(new XYChart.Data(key, val)));
         bc.getData().add(series);
         return bc;
     }
 
-    public static XYChart.Series<String, Number> buildSeries(Map xyMap) {
+    public static XYChart.Series<String, Number> buildSeries(Map xyMap, String seriesLbl) {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Timeseries");
+        series.setName(seriesLbl);
 
         xyMap.forEach((k, v) -> {
             String date = k.toString();
