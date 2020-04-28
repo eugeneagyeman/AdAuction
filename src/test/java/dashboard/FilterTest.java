@@ -14,6 +14,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -100,5 +101,97 @@ public class FilterTest {
                 break;
         }
         assertTrue(filteredTestMap.containsKey(expected));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Male", "Female"})
+    @DisplayName("Test Filtering by Gender")
+    public void impressionsGenderFilterTest(String gender) {
+        Multimap<String, Record> filteredTestMap = model.getFilter().impressionsGenderFilter(gender); //TODO: Can throw null pointer exception because rec instead of records and all reference class variable. Add NullPointerException catch here and update Eugene
+        ArrayList<String> expected = new ArrayList<>();
+        switch (gender) {
+            case "Male":
+                expected.add(id_1); expected.add(id_5);
+                break;
+            case "Female":
+                expected.add(id_2); expected.add(id_3);
+                expected.add(id_4);
+                break;
+        }
+        boolean match = true;
+        for (String exp : expected) {
+            if (!filteredTestMap.containsKey(exp)) {
+                match = false;
+            }
+        } if (filteredTestMap.keySet().size() != expected.size())
+            match = false;
+
+        assertTrue(match);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"High", "Medium", "Low"})
+    @DisplayName("Test Filtering by Income")
+    public void impressionsIncomeFilterTest(String income) {
+        Multimap<String, Record> filteredTestMap = model.getFilter().impressionsIncomeFilter(income);
+        ArrayList<String> expected = new ArrayList<>();
+        switch (income) {
+            case "High":
+                expected.add(id_1);
+                break;
+            case "Medium":
+                expected.add(id_2); expected.add(id_3);
+                expected.add(id_5);
+                break;
+            case "Low":
+                expected.add(id_4);
+                break;
+        }
+        boolean match = true;
+        for (String exp : expected) {
+            if (!filteredTestMap.containsKey(exp)) {
+                match = false;
+            }
+        } if (filteredTestMap.keySet().size() != expected.size())
+            match = false;
+
+        assertTrue(match);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Blog", "Social Media", "Shopping", "News"})
+    @DisplayName("Test Filtering by Context")
+    public void impressionsContextFilterTest(String context) {
+        Multimap<String, Record> filteredTestMap = model.getFilter().contextFilter(context);
+        ArrayList<String> expected = new ArrayList<>();
+        switch (context) {
+            case "Blog":
+                expected.add(id_1);
+                break;
+            case "Social Media":
+                expected.add(id_2);
+                expected.add(id_5);
+                break;
+            case "Shopping":
+                expected.add(id_3);
+                break;
+            case "News":
+                expected.add(id_4);
+                break;
+        }
+        boolean match = true;
+        for (String exp : expected) {
+            if (!filteredTestMap.containsKey(exp)) {
+                match = false;
+            }
+        } if (filteredTestMap.keySet().size() != expected.size())
+            match = false;
+
+        assertTrue(match);
+        ImpressionRecord i1 = new ImpressionRecord(id_1,"2015-01-01 12:00:02" ,"Male","25-34","High","Blog","0.001713");
+        ImpressionRecord i2 = new ImpressionRecord(id_2,"2015-02-02 14:12:05" ,"Female","<25","Medium","Social Media","0.000001");
+        ImpressionRecord i3 = new ImpressionRecord(id_3,"2015-02-02 14:13:05" ,"Female","35-44","Medium","Shopping","0.000000");
+        ImpressionRecord i4 = new ImpressionRecord(id_4,"2015-02-02 14:14:05" ,"Female","45-54","Low","News","0.000000");
+        ImpressionRecord i5 = new ImpressionRecord(id_5,"2015-02-02 14:14:05" ,"Male",">54","Medium","Social Media","0.000000");
     }
 }

@@ -25,29 +25,29 @@ public class Filter {
 
     //TODO: Implement Multimap as a Parameter
     public Multimap<String, Record> impressionsAgeFilter(String ageRange) {
-        records = model.getCurrentCampaign().getRecords();
-        Multimap<String, Record> filteredRecordMap = records.getAllRecords();
+        Records rec = model.getCurrentCampaign().getRecords();
+        Multimap<String, Record> filteredRecordMap = rec.getAllRecords();
         Set<String> setOfFilteredUsers;
 
         switch (ageRange) {
             case "<25":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap("<25", records.getImpressionRecords()).keySet();
+                setOfFilteredUsers = getImpressionFilteredByAgeMap("<25", rec.getImpressionRecords()).keySet();
                 filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
                 break;
             case "25-34":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap("25-34", records.getImpressionRecords()).keySet();
+                setOfFilteredUsers = getImpressionFilteredByAgeMap("25-34", rec.getImpressionRecords()).keySet();
                 filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
                 break;
             case "35-44":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap("35-44", records.getImpressionRecords()).keySet();
+                setOfFilteredUsers = getImpressionFilteredByAgeMap("35-44", rec.getImpressionRecords()).keySet();
                 filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
                 break;
             case "45-54":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap("45-54", records.getImpressionRecords()).keySet();
+                setOfFilteredUsers = getImpressionFilteredByAgeMap("45-54", rec.getImpressionRecords()).keySet();
                 filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
                 break;
             case ">54":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap(">54", records.getImpressionRecords()).keySet();
+                setOfFilteredUsers = getImpressionFilteredByAgeMap(">54", rec.getImpressionRecords()).keySet();
                 filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
                 break;
             default:
@@ -61,10 +61,10 @@ public class Filter {
     public Multimap<String, Record> contextFilter(String context) {
         Set<String> setOfFilteredUsers;
 
-        records = model.getCurrentCampaign().getRecords();
-        Multimap<String, Record> filteredRecordMap = records.getAllRecords();
+        Records rec = model.getCurrentCampaign().getRecords();
+        Multimap<String, Record> filteredRecordMap = rec.getAllRecords();
 
-        setOfFilteredUsers = getImpressionsByContextMap(context, records.getImpressionRecords()).keySet();
+        setOfFilteredUsers = getImpressionsByContextMap(context, rec.getImpressionRecords()).keySet();
         filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
 
         return filteredRecordMap;
@@ -75,7 +75,7 @@ public class Filter {
     public Multimap<String, Record> impressionsIncomeFilter(String incomeLevel) {
         Records rec = model.getCurrentCampaign().getRecords();
         Set<String> setOfFilteredUsers;
-        Multimap<String, Record> filteredRecordMap = records.getAllRecords();
+        Multimap<String, Record> filteredRecordMap = rec.getAllRecords();
         setOfFilteredUsers = getImpressionsByIncomeMap(incomeLevel, rec.getImpressionRecords()).keySet();
         filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
         return filteredRecordMap;
@@ -84,7 +84,7 @@ public class Filter {
     //TODO: Implement Multimap as a Parameter
     public Multimap<String, Record> impressionsGenderFilter(String gender) {
         Records rec = model.getCurrentCampaign().getRecords();
-        Multimap<String, Record> filteredRecordMap = records.getAllRecords();
+        Multimap<String, Record> filteredRecordMap = rec.getAllRecords();
         Set<String> setOfFilteredUsers;
         if (gender.equalsIgnoreCase("male")) {
             setOfFilteredUsers = getImpressionByGenderMap("male", rec.getImpressionRecords()).keySet();
@@ -101,10 +101,10 @@ public class Filter {
     //TODO: Implement Multimap as a Parameter
     private Multimap<String, Record> dateFilter(LocalDate startDate, LocalDate endDate) {
         Records rec = model.getCurrentCampaign().getRecords();
-        Multimap<String, Record> allRecords = records.getAllRecords();
+        Multimap<String, Record> allRecords = rec.getAllRecords();
         Multimap<String, Record> filteredDateMap = ArrayListMultimap.create();
 
-        allRecords.asMap().forEach((id, records) -> records.parallelStream()
+        allRecords.asMap().forEach((id, recs) -> recs.parallelStream()
                 .filter(r -> r.dateInBetween(startDate, endDate))
                 .forEach(r -> filteredDateMap.put(id, r)));
 
