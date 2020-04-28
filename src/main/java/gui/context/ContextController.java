@@ -2,32 +2,27 @@ package gui.context;
 
 import gui.Controller;
 import gui.Main;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ContextController extends Controller {
 
     @FXML
-    private TextField fromDateDay = new TextField();
+    private DatePicker fromDatePicker = new DatePicker();
     @FXML
-    private TextField fromDateMonth = new TextField();
-    @FXML
-    private TextField fromDateYear = new TextField();
-    @FXML
-    private TextField toDateDay = new TextField();
-    @FXML
-    private TextField toDateMonth = new TextField();
-    @FXML
-    private TextField toDateYear = new TextField();
+    private DatePicker untilDatePicker = new DatePicker();
     @FXML
     private TilePane contextGraphs = new TilePane();
     @FXML

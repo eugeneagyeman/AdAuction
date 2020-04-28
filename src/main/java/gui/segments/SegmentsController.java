@@ -3,6 +3,7 @@ package gui.segments;
 import gui.Controller;
 import gui.Main;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -14,17 +15,9 @@ import java.util.ResourceBundle;
 public class SegmentsController extends Controller {
 
     @FXML
-    private TextField fromDateDay = new TextField();
+    private DatePicker fromDatePicker = new DatePicker();
     @FXML
-    private TextField fromDateMonth = new TextField();
-    @FXML
-    private TextField fromDateYear = new TextField();
-    @FXML
-    private TextField toDateDay = new TextField();
-    @FXML
-    private TextField toDateMonth = new TextField();
-    @FXML
-    private TextField toDateYear = new TextField();
+    private DatePicker untilDatePicker = new DatePicker();
     @FXML
     private TilePane audienceSegmentsGraphs = new TilePane();
     @FXML
