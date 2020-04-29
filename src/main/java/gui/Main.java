@@ -52,24 +52,29 @@ public class Main extends Application {
         Main.loader = loader;
     }
 
-
     private static FXMLLoader loader;
 
     public static void changeScene(String fxml) throws IOException {
-        Parent pane = FXMLLoader.load(
-                Main.class.getResource(fxml));
+        Parent pane = FXMLLoader.load(Main.class.getResource(fxml));
         mainWindow.getScene().setRoot(pane);
+    }
+    public static void changeSceneAndResize(String fxml) throws IOException {
+        mainWindow.close();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/fxml/Overview.fxml"));
+        Scene scene = new Scene(loader.load());
+        mainWindow.setScene(scene);
+        mainWindow.show();
+//        Parent pane = FXMLLoader.load(Main.class.getResource(fxml));
+//        mainWindow.getScene().setRoot(pane);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         mainWindow = stage;
         model = new Configuration().buildDashboard();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Overview.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
         Scene scene = new Scene(loader.load());
         mainWindow.setScene(scene);
         mainWindow.show();
-
-
     }
 }
