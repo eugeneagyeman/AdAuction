@@ -3,8 +3,10 @@ package metrics;
 import POJOs.*;
 import com.google.common.collect.Maps;
 import dashboard.DateRange;
+import dashboard.Filter;
 import gui.charts.ChartBuilder;
 import javafx.scene.chart.*;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.math3.stat.Frequency;
 import org.apache.commons.math3.util.Precision;
 
@@ -22,7 +24,8 @@ import static gui.charts.ChartBuilder.buildTimeSeriesChart;
 import static java.util.stream.Collectors.*;
 
 public class Metrics {
-    private final ChartMetrics chartMetrics;
+    private ChartMetrics chartMetrics;
+    private String context;
     private Campaign campaign;
     private int numOfImpressions;
     private int numOfClicks;
@@ -35,9 +38,9 @@ public class Metrics {
     private float costPerClick;
     private float costPerThousand;
     private float bounceRate;
-    private final Records records;
-    private final List<String> ageRanges;
-    private final ArrayList<String> recommendations = new ArrayList<>();
+    private Records records;
+    private List<String> ageRanges;
+    private ArrayList<String> recommendations = new ArrayList<>();
 
     public Metrics(Records records) {
         this.records = records;
@@ -47,6 +50,18 @@ public class Metrics {
         //printMetrics();
         chartMetrics = new ChartMetrics();
     }
+
+    public Metrics(Records records, String context) {
+        this.context = context;
+        this.records = records;
+        this.ageRanges = getAgeRanges();
+        calculateMetrics();
+        calculateRecommendations();
+        //printMetrics();
+        chartMetrics = new ChartMetrics();
+    }
+
+
 
     public List<String> getAgeRanges() {
 
@@ -240,15 +255,18 @@ public class Metrics {
     }
 
     public ChartMetrics getChartMetrics() {
-        return chartMetrics;
+        return this.chartMetrics;
     }
 
 
     public class ChartMetrics {
         private final List listOfCharts = new ArrayList();
         private Map<String, Integer> distributionMap;
+        private final Collection<Chart> segmentCollection = new ArrayList<>();
+        private final Collection<Chart> contextCollection = new ArrayList<>();
 
         public ChartMetrics() {
+
 
         }
 
@@ -313,22 +331,27 @@ public class Metrics {
         private BarChart buildHistogram() {
             distributionMap = new TreeMap<>(new DoublesComparator());
             distributionMap = getHistogramData();
-            return buildHistogramChart(distributionMap, "Histogram of Click Costs");
+            return buildHistogramChart(distributionMap, buildTitle("Histogram of Click Costs"));
+        }
+
+        private String buildTitle(String title) {
+            if(context!=null) return title +" by"+ context;
+            return title;
         }
 
         private LineChart buildImpressionsChart() {
             Map impressionChartData = getNumOfImpressionsDateMap();
-            return buildTimeSeriesChart(impressionChartData, "Date", "Count", "Impressions", "Number of Impressions Daily");
+            return buildTimeSeriesChart(impressionChartData, "Date", "Count", "Impressions", buildTitle("Number of Impressions Daily"));
         }
 
         private LineChart buildClickChart() {
             Map clickChartData = getNumOfClicksDateMap();
-            return buildTimeSeriesChart(clickChartData, "Date", "Count", "Number Of Clicks", "Number of Clicks Daily");
+            return buildTimeSeriesChart(clickChartData, "Date", "Count", "Number Of Clicks", buildTitle("Number of Clicks Daily"));
         }
 
         private StackedBarChart buildConversionChart() {
             Map data = getConversionsDateMap();
-            StackedBarChart chart = ChartBuilder.buildStackedBarChart(data, "Date", "Count", "Converted", "Conversion Chart");
+            StackedBarChart chart = ChartBuilder.buildStackedBarChart(data, "Date", "Count", "Converted", buildTitle("Conversion Chart"));
 
             Map unconverted = getUnconvertedDateMap();
             chart.getData().add(ChartBuilder.buildSeries(unconverted, "Unconverted"));
@@ -445,9 +468,9 @@ public class Metrics {
         public Map getTotalCostPerDayData() {
             return records.dateToAdCostMap();
         }
-        public Map<String, Long> getNumOfUniquesChartData() {
+        public Map getNumOfUniquesChartData() {
             Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords().asMap();
-            Map<String, LocalDate> uniquesPerDateMap = new HashMap<>();
+            Map<String, LocalDate> uniquesPerDateMap = new TreeMap<>();
             clickRecords.forEach((k, v) -> {
                 LocalDate earliestDate = v.stream()
                         .map(ClickRecord::getLocalDate)
@@ -457,38 +480,41 @@ public class Metrics {
                 uniquesPerDateMap.put(k, earliestDate);
             });
 
-            return uniquesPerDateMap.values()
-                                .parallelStream()
-                                .map(LocalDate::toString)
-                                .collect(groupingBy(date -> date, counting()));
+            Map<LocalDate,Long> result = new TreeMap<>(LocalDate::compareTo);
+            result.putAll(uniquesPerDateMap.values()
+                                .stream()
+                                .collect(groupingBy(date -> date, counting())));
+
+            Map<String, Long> newMap = result
+                    .entrySet()
+                    .stream()
+                    .collect(Collectors.toMap(e -> e.getKey().toString(),Map.Entry::getValue));
+
+            return newMap;
 
         }
 
-        public Collection<Chart> getCharts() {
-            Collection<Chart> collection = new ArrayList<>();
+        public Collection<Chart> buildSetOfCharts() {
 
             BarChart histogram = buildHistogram();
             StackedBarChart conversionsChart = buildConversionChart();
             LineChart impressionsChart = buildImpressionsChart();
             LineChart numOfClicksChart = buildClickChart();
-            BarChart numOfUniquesChart = ChartBuilder.buildBarChart(getNumOfUniquesChartData(), "Number of Uniques");
-            LineChart totalCostChart = ChartBuilder.buildTimeSeriesChart(getTotalCostPerDayData(),"Date","Cost","Total Cost", "Total Cost Per Day");
-            LineChart costChart = ChartBuilder.buildTimeSeriesChart(getClickThroughRateChartData(),"Date","Amount", "Click Through Rate", "Click Calculations");
+            BarChart numOfUniquesChart = ChartBuilder.buildBarChart(getNumOfUniquesChartData(), buildTitle("Number of Uniques"));
+            LineChart totalCostChart = ChartBuilder.buildTimeSeriesChart(getTotalCostPerDayData(),"Date","Cost","Total Cost", buildTitle("Total Cost Per Day"));
+            LineChart costChart = ChartBuilder.buildTimeSeriesChart(getClickThroughRateChartData(),"Date","Amount", "Click Through Rate", buildTitle("Click Calculations"));
             costChart.getData()
                      .addAll(ChartBuilder.buildSeries(getCostPerActionChartData(), "Cost Per Action"),
-                             ChartBuilder.buildSeries(getCostPerClickChartData(), "Cost per click"),
-                             ChartBuilder.buildSeries(getCostPerThousandChartData(), "Cost Per Thousand"));
+                             ChartBuilder.buildSeries(getCostPerClickChartData(), "Cost per click"));
 
-            collection.add(histogram);
-            collection.add(impressionsChart);
-            collection.add(numOfClicksChart);
-            collection.add(numOfUniquesChart);
-            collection.add(conversionsChart);
-            collection.add(totalCostChart);
-            collection.add(costChart);
-
-            return collection;
-
+            segmentCollection.add(histogram);
+            segmentCollection.add(impressionsChart);
+            segmentCollection.add(numOfClicksChart);
+            segmentCollection.add(numOfUniquesChart);
+            segmentCollection.add(conversionsChart);
+            segmentCollection.add(totalCostChart);
+            segmentCollection.add(costChart);
+            return segmentCollection;
         }
 
         public PieChart buildContextDistribution() {
@@ -496,9 +522,35 @@ public class Metrics {
             return ChartBuilder.buildPieChart(data, "Context");
         }
 
-        public List getListOfCharts() {
-            return listOfCharts;
+        public Collection<Chart> getSegmentCharts() {
+            if (segmentCollection.isEmpty()) return buildSetOfCharts();
+            return segmentCollection;
         }
+
+        public Collection<Chart> buildContextCharts() {
+            Filter contextRecords = new Filter(records);
+            Metrics newsRec = contextRecords.contextFilter("News").buildMetrics();
+            Metrics shoppingRec = contextRecords.contextFilter("Shopping").buildMetrics();
+            Metrics socialMediaRec = contextRecords.contextFilter("Social Media").buildMetrics();
+            Metrics hobbiesRec = contextRecords.contextFilter("Hobbies").buildMetrics();
+            Metrics travelRec = contextRecords.contextFilter("Travel").buildMetrics();
+
+            contextCollection.addAll(newsRec.getChartMetrics().getContextCharts());
+           /* contextCollection.addAll(shoppingRec.getChartMetrics().buildSetOfCharts());
+            contextCollection.addAll(socialMediaRec.getChartMetrics().buildSetOfCharts());
+            contextCollection.addAll(hobbiesRec.getChartMetrics().buildSetOfCharts());
+            contextCollection.addAll(newsRec.getChartMetrics().buildSetOfCharts());
+            contextCollection.addAll(travelRec.getChartMetrics().buildSetOfCharts());*/
+
+            return contextCollection;
+
+        }
+        public Collection<Chart> getContextCharts() {
+            if(contextCollection.isEmpty()) return buildContextCharts();
+            return contextCollection;
+        }
+
+
 
         private class DoublesComparator implements Comparator {
             @Override
@@ -513,7 +565,6 @@ public class Metrics {
                 return Double.compare(binValue, bin2Value);
             }
         }
-
 
     }
 

@@ -12,20 +12,19 @@ import java.time.LocalDate;
 import java.util.Set;
 
 public class Filter {
-    private DashboardModel model;
     private Records records;
 
     public Filter(DashboardModel model) {
-        this.model = model;
+        this.records = model.getCurrentCampaign().getRecords();
     }
 
-    public Metrics calculateMetrics(Multimap<String, Record> filteredMap) {
-        return new Metrics(new Records(filteredMap));
+    public Filter(Records records) {
+        this.records = records;
     }
 
     //TODO: Implement Multimap as a Parameter
     public Multimap<String, Record> impressionsAgeFilter(String ageRange) {
-        Records rec = model.getCurrentCampaign().getRecords();
+        Records rec = records;
         Multimap<String, Record> filteredRecordMap = rec.getAllRecords();
         Set<String> setOfFilteredUsers;
 
@@ -58,22 +57,23 @@ public class Filter {
     }
 
     //TODO: Implement Multimap as a Parameter
-    public Multimap<String, Record> contextFilter(String context) {
+    public Records contextFilter(String context) {
         Set<String> setOfFilteredUsers;
 
-        Records rec = model.getCurrentCampaign().getRecords();
+        Records rec = records;
         Multimap<String, Record> filteredRecordMap = rec.getAllRecords();
 
         setOfFilteredUsers = getImpressionsByContextMap(context, rec.getImpressionRecords()).keySet();
         filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
 
-        return filteredRecordMap;
+        Records filter = new Records(filteredRecordMap,context,true);
+        return filter;
 
     }
 
     //TODO: Implement Multimap as a Parameter
     public Multimap<String, Record> impressionsIncomeFilter(String incomeLevel) {
-        Records rec = model.getCurrentCampaign().getRecords();
+        Records rec = records;
         Set<String> setOfFilteredUsers;
         Multimap<String, Record> filteredRecordMap = rec.getAllRecords();
         setOfFilteredUsers = getImpressionsByIncomeMap(incomeLevel, rec.getImpressionRecords()).keySet();
@@ -83,7 +83,7 @@ public class Filter {
 
     //TODO: Implement Multimap as a Parameter
     public Multimap<String, Record> impressionsGenderFilter(String gender) {
-        Records rec = model.getCurrentCampaign().getRecords();
+        Records rec = records;
         Multimap<String, Record> filteredRecordMap = rec.getAllRecords();
         Set<String> setOfFilteredUsers;
         if (gender.equalsIgnoreCase("male")) {
@@ -100,7 +100,7 @@ public class Filter {
 
     //TODO: Implement Multimap as a Parameter
     private Multimap<String, Record> dateFilter(LocalDate startDate, LocalDate endDate) {
-        Records rec = model.getCurrentCampaign().getRecords();
+        Records rec = records;
         Multimap<String, Record> allRecords = rec.getAllRecords();
         Multimap<String, Record> filteredDateMap = ArrayListMultimap.create();
 

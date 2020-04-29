@@ -2,19 +2,11 @@ package gui.context;
 
 import gui.Controller;
 import gui.Main;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ContextController extends Controller {
@@ -24,7 +16,7 @@ public class ContextController extends Controller {
     @FXML
     private DatePicker untilDatePicker = new DatePicker();
     @FXML
-    private TilePane contextGraphs = new TilePane();
+    private VBox contextGraphs = new VBox();
     @FXML
     private TreeView<String> contextTreeView;
 
@@ -41,6 +33,13 @@ public class ContextController extends Controller {
         rootItem.getChildren().addAll(newsItem, shoppingItem, socialMediaItem, hobbiesItem, travelItem);
         contextTreeView.setRoot(rootItem);
         contextTreeView.setShowRoot(false);
+
+        contextGraphs.getChildren().addAll(model.getChartMetrics().getSegmentCharts());
+        contextGraphs.getChildren().forEach(node -> {
+            node.scaleXProperty();
+            node.scaleYProperty();
+            node.scaleZProperty();
+        });
     }
 
     @Override

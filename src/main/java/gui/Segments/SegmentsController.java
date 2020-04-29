@@ -3,12 +3,9 @@ package gui.segments;
 import gui.Controller;
 import gui.Main;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -47,7 +44,7 @@ public class SegmentsController extends Controller {
         segmentsTreeView.setRoot(rootItem);
         segmentsTreeView.setShowRoot(false);
 
-        audienceSegmentsGraphs.getChildren().addAll(model.getChartMetrics().getCharts());
+        audienceSegmentsGraphs.getChildren().addAll(model.getChartMetrics().getSegmentCharts());
         audienceSegmentsGraphs.getChildren().forEach(node -> {
             node.scaleXProperty();
             node.scaleYProperty();
