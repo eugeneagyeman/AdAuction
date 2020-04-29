@@ -1,7 +1,22 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package gui.upload;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import gui.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -11,52 +26,43 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.io.IOException;
-import java.io.File;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import javafx.stage.Window;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class UploadController {
-
     List<String> validExtensions = Collections.singletonList("csv");
-
     @FXML
     private Label csvLabel;
-
     @FXML
     private ListView<String> itemsList;
-
     @FXML
     private ImageView dragField;
 
+    public UploadController() {
+    }
+
     @FXML
     private void handleDragOver() {
-        dragField.setOnDragOver(event -> {
-            // On drag over if the DragBoard has files
-            if (event.getGestureSource() != dragField && event.getDragboard().hasFiles()) {
-                // All files on the dragboard must have an accepted extension
-                if (!validExtensions.containsAll(
-                        event.getDragboard().getFiles().stream()
-                                .map(file -> getExtension(file.getName()))
-                                .collect(Collectors.toList()))) {
+        this.dragField.setOnDragOver((event) -> {
+            if (event.getGestureSource() != this.dragField && event.getDragboard().hasFiles()) {
+                if (!this.validExtensions.containsAll((Collection)event.getDragboard().getFiles().stream().map((file) -> {
+                    return this.getExtension(file.getName());
+                }).collect(Collectors.toList()))) {
                     event.consume();
                     return;
                 }
+
                 event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
             }
+
             event.consume();
         });
     }
 
     private String getExtension(String fileName) {
         String extension = "";
-
-        int i = fileName.lastIndexOf('.');
-        if (i > 0 && i < fileName.length() - 1) //if the name is not empty
-            return fileName.substring(i + 1).toLowerCase();
-
-        return extension;
+        int i = fileName.lastIndexOf(46);
+        return i > 0 && i < fileName.length() - 1 ? fileName.substring(i + 1).toLowerCase() : extension;
     }
 
     public void handleDrop(DragEvent event) throws IOException {
@@ -64,37 +70,40 @@ public class UploadController {
         List<File> selectedFiles = db.getFiles();
         boolean success = false;
         if (db.hasFiles()) {
-            itemsList.getItems().add(selectedFiles.get(0).getName());
+            this.itemsList.getItems().add(((File)selectedFiles.get(0)).getName());
             success = true;
         }
+
         event.setDropCompleted(success);
         event.consume();
-        filesSelected();
+        this.filesSelected();
     }
 
-    public void buttonAction() throws IOException {
+    public void ButtonAction() throws IOException {
         FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-        List<File> selectedFiles = fc.showOpenMultipleDialog(null);
+        fc.getExtensionFilters().addAll(new ExtensionFilter[]{new ExtensionFilter("CSV Files", new String[]{"*.csv"})});
+        List<File> selectedFiles = fc.showOpenMultipleDialog((Window)null);
         if (selectedFiles != null) {
-            for (File selectedFile : selectedFiles) {
-                itemsList.getItems().add(selectedFile.getName());
-                filesSelected();
+            Iterator var3 = selectedFiles.iterator();
+
+            while(var3.hasNext()) {
+                File selectedFile = (File)var3.next();
+                this.itemsList.getItems().add(selectedFile.getName());
+                this.filesSelected();
             }
         } else {
             System.out.println("File invalid");
         }
+
     }
 
     public void filesSelected() throws IOException {
-        if (itemsList.getItems().contains("server_log.csv") && itemsList.getItems().contains("impression_log.csv") && itemsList.getItems().contains("click_log.csv")) {
+        if (this.itemsList.getItems().contains("server_log.csv") && this.itemsList.getItems().contains("impression_log.csv") && this.itemsList.getItems().contains("click_log.csv")) {
             Stage mainWindow = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/overview.fxml"));
-            Scene scene = new Scene(loader.load());
-            mainWindow.setScene(scene);
-            mainWindow.show();
+            Main.changeSceneAndResize("/fxml/Overview.fxml");
         } else {
-            csvLabel.setText("Please upload click, server and impression log csv files");
+            this.csvLabel.setText("Please upload click, server and impression log csv files");
         }
+
     }
 }
