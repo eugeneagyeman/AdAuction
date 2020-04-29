@@ -101,20 +101,7 @@
                                         </TitledPane>
                                         <TitledPane fx:id="contextTab" animated="false" expanded="false" text="Context">
                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                                            prefWidth="200.0">
-                                                    <children>
-                                                        <CheckBox fx:id="newsBttn" layoutX="50.0" layoutY="50.0"
-                                                                  mnemonicParsing="false" text="News"/>
-                                                        <CheckBox fx:id="shoppingBttn" layoutX="50.0" layoutY="100.0"
-                                                                  mnemonicParsing="false" text="Shopping"/>
-                                                        <CheckBox fx:id="socialmediaBttn" layoutX="50.0" layoutY="150.0"
-                                                                  mnemonicParsing="false" text="Social Media"/>
-                                                        <CheckBox fx:id="hobbiesBttn" layoutX="50.0" layoutY="200.0"
-                                                                  mnemonicParsing="false" text="Hobbies"/>
-                                                        <CheckBox fx:id="travelBttn" layoutX="50.0" layoutY="250.0"
-                                                                  mnemonicParsing="false" text="Travel"/>
-                                                    </children>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                 </AnchorPane>
                                             </content>
                                         </TitledPane>
@@ -130,7 +117,7 @@
                                             </content>
                                         </TitledPane>
                                         <TitledPane fx:id="configurationTab" animated="false" collapsible="false"
-                                                    expanded="false" text="configuration">
+                                                    expanded="false" text="Configuration">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
                                                             prefWidth="200.0"/>
@@ -175,84 +162,18 @@
                                         <Font size="18.0"/>
                                     </font>
                                 </TextField>
-                                <Text layoutX="62.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                <Text layoutX="112.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0"
                                       text="From:">
                                     <font>
                                         <Font size="18.0"/>
                                     </font>
                                 </Text>
-                                <Text layoutX="594.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                <Text layoutX="677.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0"
                                       text="Until:">
                                     <font>
                                         <Font size="18.0"/>
                                     </font>
                                 </Text>
-                                <Pane layoutX="133.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0"
-                                      style="-fx-border-color: black;">
-                                    <children>
-                                        <Text fx:id="fromDateDay" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE"
-                                              strokeWidth="0.0" text="day">
-                                            <font>
-                                                <Font size="16.0"/>
-                                            </font>
-                                        </Text>
-                                    </children>
-                                </Pane>
-                                <Pane layoutX="249.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0"
-                                      style="-fx-border-color: black;">
-                                    <children>
-                                        <Text fx:id="fromDateMonth" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE"
-                                              strokeWidth="0.0" text="month">
-                                            <font>
-                                                <Font size="16.0"/>
-                                            </font>
-                                        </Text>
-                                    </children>
-                                </Pane>
-                                <Pane layoutX="365.0" layoutY="123.0" prefHeight="43.0" prefWidth="116.0"
-                                      style="-fx-border-color: black;">
-                                    <children>
-                                        <Text fx:id="fromDateYear" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE"
-                                              strokeWidth="0.0" text="year">
-                                            <font>
-                                                <Font size="16.0"/>
-                                            </font>
-                                        </Text>
-                                    </children>
-                                </Pane>
-                                <Pane layoutX="668.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0"
-                                      style="-fx-border-color: black;">
-                                    <children>
-                                        <Text fx:id="untilDateDay" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE"
-                                              strokeWidth="0.0" text="day">
-                                            <font>
-                                                <Font size="16.0"/>
-                                            </font>
-                                        </Text>
-                                    </children>
-                                </Pane>
-                                <Pane layoutX="784.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0"
-                                      style="-fx-border-color: black;">
-                                    <children>
-                                        <Text fx:id="untilDateMonth" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE"
-                                              strokeWidth="0.0" text="month">
-                                            <font>
-                                                <Font size="16.0"/>
-                                            </font>
-                                        </Text>
-                                    </children>
-                                </Pane>
-                                <Pane layoutX="900.0" layoutY="121.0" prefHeight="43.0" prefWidth="116.0"
-                                      style="-fx-border-color: black;">
-                                    <children>
-                                        <Text fx:id="untilDateYear" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE"
-                                              strokeWidth="0.0" text="year">
-                                            <font>
-                                                <Font size="16.0"/>
-                                            </font>
-                                        </Text>
-                                    </children>
-                                </Pane>
                                 <SplitPane dividerPositions="0.03" layoutY="220.0" prefHeight="645.0"
                                            prefWidth="1124.0">
                                     <items>
@@ -271,6 +192,10 @@
                                         </AnchorPane>
                                     </items>
                                 </SplitPane>
+                                <DatePicker fx:id="fromDatePicker" layoutX="173.0" layoutY="124.0" prefHeight="37.0"
+                                            prefWidth="158.0"/>
+                                <DatePicker fx:id="untilDatePicker" layoutX="732.0" layoutY="124.0" prefHeight="37.0"
+                                            prefWidth="158.0"/>
                             </children>
                         </Pane>
                     </children>

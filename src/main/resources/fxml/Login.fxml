@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="loginPagePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #4c52d3);&#10;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.login.LoginController">
+  <children>
+    <AnchorPane fx:id="loginPane" layoutX="340.0" layoutY="117.0" prefHeight="400.0" prefWidth="600.0">
+      <children>
+        <Button fx:id="LoginButton" layoutX="99.0" layoutY="328.0" minHeight="25.0" mnemonicParsing="false" onAction="#Login" prefHeight="36.0" prefWidth="128.0" text="Login" textOverrun="CLIP" />
+        <ImageView fx:id="loginPic" fitHeight="53.25" fitWidth="70.99999852802443" layoutX="132.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@Login.PNG" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="adminPic" fitHeight="59.6882685830203" fitWidth="55.33333206176758" layoutX="279.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@admin.PNG" />
+          </image>
+        </ImageView>
+        <ImageView fx:id="groupPic" fitHeight="92.0" fitWidth="92.0" layoutX="398.0" layoutY="243.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@group.PNG" />
+          </image>
+        </ImageView>
+        <Button id="LoginButton" fx:id="adminButton" layoutX="236.0" layoutY="328.0" minHeight="25.0" mnemonicParsing="false" onAction="#Login" prefHeight="36.0" prefWidth="136.0" text="Admin Login" textAlignment="LEFT" textOverrun="CLIP" />
+        <Button id="LoginButton" fx:id="groupButton" layoutX="380.0" layoutY="328.0" minHeight="25.0" mnemonicParsing="false" onAction="#Login" prefHeight="36.0" prefWidth="128.0" text="Group login" textOverrun="CLIP" />
+        <PasswordField fx:id="passField" layoutX="102.0" layoutY="165.0" prefHeight="49.0" prefWidth="396.0" promptText="Password" />
+        <TextField fx:id="userField" layoutX="102.0" layoutY="110.0" prefHeight="44.0" prefWidth="396.0" promptText="Username or ID" text="" />
+        <Label fx:id="loginLabel" alignment="CENTER" layoutX="103.0" layoutY="32.0" prefHeight="57.0" prefWidth="396.0" text="Please provide correct login details" textOverrun="CLIP">
+          <font>
+            <Font size="24.0" />
+          </font>
+        </Label>
+      </children>
+    </AnchorPane>
+  </children>
+</AnchorPane>
