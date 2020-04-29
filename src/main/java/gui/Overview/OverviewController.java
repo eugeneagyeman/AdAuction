@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -22,6 +23,7 @@ public class OverviewController extends Controller {
     @FXML private Text totalClicksText = new Text();
     @FXML private PieChart overviewPieChart = new PieChart();
     @FXML private ListView<String> recommendationsListView = new ListView<>();
+    @FXML private VBox demographicsBox;
 
     public void initialiseOverview() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -31,6 +33,8 @@ public class OverviewController extends Controller {
         costPerThousandImpressionsText.setText("£" + decimalFormat.format(model.getMetrics().getCostPerThousand()));
         totalClicksText.setText(String.valueOf(model.getMetrics().getNumOfClicks()));
         recommendationsListView.setItems((ObservableList<String>) model.getRecommendations());
+        overviewPieChart = model.getChartMetrics().buildContextDistribution();
+        demographicsBox.getChildren().add(overviewPieChart);
     }
 
     @Override
