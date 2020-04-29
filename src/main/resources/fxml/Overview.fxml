@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="900.0" minWidth="1400.0" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.overview.OverviewController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.overview.OverviewController">
     <children>
         <MenuBar prefWidth="1400.0" style="-fx-font-size: 16px;" VBox.vgrow="NEVER">
             <menus>
@@ -84,12 +84,24 @@
                               <TitledPane fx:id="audienceSegmentsTab" animated="false" expanded="false" text="Audience Segments">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                           <CheckBox fx:id="ageBttn" layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="Age" />
+                                           <CheckBox fx:id="genderBttn" layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Gender" />
+                                           <CheckBox fx:id="incomebttn" layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Income" />
+                                       </children>
                                     </AnchorPane>
                                  </content>
                               </TitledPane>
                                <TitledPane fx:id="contextTab" animated="false" expanded="false" text="Context">
                                    <content>
                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                           <children>
+                                               <CheckBox fx:id="newsBttn" layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text="News" />
+                                               <CheckBox fx:id="shoppingBttn" layoutX="50.0" layoutY="100.0" mnemonicParsing="false" text="Shopping" />
+                                               <CheckBox fx:id="socialMediaBttn" layoutX="50.0" layoutY="150.0" mnemonicParsing="false" text="Social Media" />
+                                               <CheckBox fx:id="hobbiesBttn" layoutX="50.0" layoutY="200.0" mnemonicParsing="false" text="Hobbies" />
+                                               <CheckBox fx:id="travelBttn" layoutX="50.0" layoutY="250.0" mnemonicParsing="false" text="Travel" />
+                                           </children>
                                        </AnchorPane>
                                    </content>
                                </TitledPane>
@@ -102,7 +114,7 @@
                                        </AnchorPane>
                                    </content>
                                </TitledPane>
-                               <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="Configuration">
+                               <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="configuration">
                                    <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                  </content>

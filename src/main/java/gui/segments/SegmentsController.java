@@ -20,7 +20,7 @@ public class SegmentsController extends Controller {
     @FXML
     private DatePicker untilDatePicker = new DatePicker();
     @FXML
-    private TilePane segmentsGraphs = new TilePane();
+    private VBox audienceSegmentsGraphs = new VBox();
     @FXML
     private TreeView<String> segmentsTreeView;
 
@@ -47,8 +47,8 @@ public class SegmentsController extends Controller {
         segmentsTreeView.setRoot(rootItem);
         segmentsTreeView.setShowRoot(false);
 
-        segmentsGraphs.getChildren().addAll(model.getChartMetrics().getCharts());
-        segmentsGraphs.getChildren().forEach(node -> {
+        audienceSegmentsGraphs.getChildren().addAll(model.getChartMetrics().getCharts());
+        audienceSegmentsGraphs.getChildren().forEach(node -> {
             node.scaleXProperty();
             node.scaleYProperty();
             node.scaleZProperty();

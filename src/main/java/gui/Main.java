@@ -52,10 +52,12 @@ public class Main extends Application {
         Main.loader = loader;
     }
 
+
     private static FXMLLoader loader;
 
     public static void changeScene(String fxml) throws IOException {
-        Parent pane = FXMLLoader.load(Main.class.getResource(fxml));
+        Parent pane = FXMLLoader.load(
+                Main.class.getResource(fxml));
         mainWindow.getScene().setRoot(pane);
     }
     public static void changeSceneAndResize(String fxml) throws IOException {
@@ -64,8 +66,6 @@ public class Main extends Application {
         Scene scene = new Scene(loader.load());
         mainWindow.setScene(scene);
         mainWindow.show();
-//        Parent pane = FXMLLoader.load(Main.class.getResource(fxml));
-//        mainWindow.getScene().setRoot(pane);
     }
 
     @Override

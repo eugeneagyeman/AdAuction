@@ -1,6 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?> <?import javafx.scene.Cursor?> <?import javafx.scene.control.Accordion?> <?import javafx.scene.control.DatePicker?> <?import javafx.scene.control.ListView?> <?import javafx.scene.control.Menu?> <?import javafx.scene.control.MenuBar?> <?import javafx.scene.control.MenuItem?> <?import javafx.scene.control.ScrollBar?> <?import javafx.scene.control.SeparatorMenuItem?> <?import javafx.scene.control.SplitPane?> <?import javafx.scene.control.TextField?> <?import javafx.scene.control.TitledPane?> <?import javafx.scene.control.TreeView?> <?import javafx.scene.image.Image?> <?import javafx.scene.image.ImageView?> <?import javafx.scene.layout.AnchorPane?> <?import javafx.scene.layout.HBox?> <?import javafx.scene.layout.Pane?> <?import javafx.scene.layout.TilePane?> <?import javafx.scene.layout.VBox?> <?import javafx.scene.text.Font?> <?import javafx.scene.text.Text?>
-<VBox prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="gui.context.ContextController">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" depthTest="DISABLE" maxHeight="-Infinity"
+      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0"
+      scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="gui.segments.SegmentsController">
     <children>
         <MenuBar prefWidth="1400.0" style="-fx-font-size: 16px;" VBox.vgrow="ALWAYS">
             <menus>
@@ -63,21 +88,20 @@
                                                             prefWidth="200.0"/>
                                             </content>
                                         </TitledPane>
-                                        <TitledPane fx:id="audienceSegmentsTab" animated="false" expanded="false"
+                                        <TitledPane fx:id="audienceSegmentsTab" animated="false"
                                                     text="Audience Segments">
                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                                            prefWidth="200.0"></AnchorPane>
-                                            </content>
-                                        </TitledPane>
-                                        <TitledPane fx:id="contextTab" animated="false" text="Context">
-                                            <content>
-                                                <AnchorPane minHeight="-Infinity" minWidth="-Infinity"
-                                                            prefHeight="330.0" prefWidth="200.0">
+                                                <AnchorPane minHeight="330.0" minWidth="0.0" scaleShape="false">
                                                     <children>
-                                                        <TreeView fx:id="contextTreeView" layoutX="-2.0"
+                                                        <TreeView fx:id="segmentsTreeView" layoutX="-2.0"
                                                                   prefHeight="413.0" prefWidth="275.0"/>
                                                     </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </TitledPane>
+                                        <TitledPane fx:id="contextTab" animated="false" expanded="false" text="Context">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                 </AnchorPane>
                                             </content>
                                         </TitledPane>
@@ -93,7 +117,7 @@
                                             </content>
                                         </TitledPane>
                                         <TitledPane fx:id="configurationTab" animated="false" collapsible="false"
-                                                    expanded="false" text="configuration">
+                                                    expanded="false" text="Configuration">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
                                                             prefWidth="200.0"/>
@@ -108,8 +132,8 @@
                         </VBox>
                         <Pane HBox.hgrow="ALWAYS">
                             <children>
-                                <Text layoutX="427.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                                      text="Context" textAlignment="CENTER" textOrigin="CENTER">
+                                <Text layoutX="311.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      text="Audience Segments" textAlignment="CENTER" textOrigin="CENTER">
                                     <font>
                                         <Font size="40.0"/>
                                     </font>
@@ -161,9 +185,9 @@
                                         </AnchorPane>
                                         <AnchorPane>
                                             <children>
-                                                <TilePane fx:id="contextGraphs" alignment="BOTTOM_CENTER" hgap="50.0"
-                                                          prefColumns="2" prefHeight="645.0" prefWidth="1084.0"
-                                                          tileAlignment="TOP_CENTER" vgap="50.0"/>
+                                                <TilePane fx:id="audienceSegmentsGraphs" alignment="BOTTOM_CENTER"
+                                                          hgap="50.0" prefColumns="3" prefHeight="645.0"
+                                                          prefWidth="1084.0" tileAlignment="TOP_CENTER" vgap="50.0"/>
                                             </children>
                                         </AnchorPane>
                                     </items>
