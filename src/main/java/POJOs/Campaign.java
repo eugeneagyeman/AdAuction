@@ -1,6 +1,6 @@
 package POJOs;
-
 import metrics.Metrics;
+import java.time.LocalDate;
 
 public class Campaign {
     private String campaignID;
@@ -50,6 +50,5 @@ public class Campaign {
         this.bounceDefinition = bounceDefinition;
         return this;
     }
-
 
 }

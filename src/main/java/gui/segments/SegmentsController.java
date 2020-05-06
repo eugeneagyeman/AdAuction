@@ -12,6 +12,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class SegmentsController extends Controller {
@@ -46,6 +47,9 @@ public class SegmentsController extends Controller {
         rootItem.getChildren().addAll((TreeItem<String>) ageItem, genderItem, incomeItem);
         segmentsTreeView.setRoot(rootItem);
         segmentsTreeView.setShowRoot(false);
+
+        fromDatePicker.setValue(model.getMetrics().getStartDate());
+        untilDatePicker.setValue(model.getMetrics().getEndDate());
 
         audienceSegmentsGraphs.getChildren().addAll(model.getChartMetrics().getCharts());
         audienceSegmentsGraphs.getChildren().forEach(node -> {

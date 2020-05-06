@@ -4,9 +4,11 @@ import com.google.common.collect.*;
 import org.apache.commons.collections.CollectionUtils;
 
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
 
@@ -120,4 +122,5 @@ public class Records {
                         .map(ImpressionRecord::getImpressionCost)
                         .reduce((float) 0.00,Float::sum));
     }
+
 }

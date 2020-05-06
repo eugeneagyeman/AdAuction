@@ -58,7 +58,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                        <MenuItem mnemonicParsing="false" text="About Ad Auction" />
                     </items>
                 </Menu>
             </menus>
@@ -88,7 +88,11 @@
                                         </TitledPane>
                                         <TitledPane fx:id="contextTab" animated="false" expanded="false" text="Context">
                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                <AnchorPane minHeight="330.0" minWidth="0.0" scaleShape="false">
+                                                    <children>
+                                                        <TreeView fx:id="contextTreeView" layoutX="-2.0" prefHeight="382.0" prefWidth="304.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                    </children>
+                                                </AnchorPane>
                                             </content>
                                         </TitledPane>
                                         <TitledPane fx:id="campaignsTab" animated="false" expanded="false" prefHeight="691.0" prefWidth="275.0" text="Campaigns">
@@ -114,7 +118,7 @@
                         </VBox>
                   <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="1092.0" HBox.hgrow="ALWAYS">
                      <children>
-                                <Text layoutX="387.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Audience Segments" textAlignment="CENTER" textOrigin="CENTER" AnchorPane.bottomAnchor="757.4453125" AnchorPane.leftAnchor="387.0" AnchorPane.rightAnchor="367.5390625" AnchorPane.topAnchor="55.4453125">
+                                <Text layoutX="330.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Audience Segments" textAlignment="CENTER" textOrigin="CENTER">
                                     <font>
                                         <Font size="40.0" />
                                     </font>
@@ -154,13 +158,13 @@
                                               <Font size="18.0" />
                                           </font>
                                       </Text>
-                                      <Text layoutX="579.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:">
+                                      <Text layoutX="540.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:">
                                           <font>
                                               <Font size="18.0" />
                                           </font>
                                       </Text>
-                                      <DatePicker fx:id="fromDatePicker" layoutX="60.0" prefHeight="37.0" prefWidth="158.0" />
-                                      <DatePicker fx:id="untilDatePicker" layoutX="619.0" prefHeight="37.0" prefWidth="158.0" />
+                                      <DatePicker fx:id="fromDatePicker" layoutX="80.0" prefHeight="37.0" prefWidth="158.0" />
+                                      <DatePicker fx:id="untilDatePicker" layoutX="600.0" prefHeight="37.0" prefWidth="158.0" />
                            </children>
                         </Group>
                         <ScrollPane fitToWidth="true" layoutX="20.0" layoutY="190.0" prefHeight="670.0" prefWidth="1072.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="180.0">
