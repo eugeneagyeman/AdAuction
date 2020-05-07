@@ -38,14 +38,11 @@ public class UploadController {
     @FXML
     private ImageView dragField;
 
-    public UploadController() {
-    }
-
     @FXML
     private void handleDragOver() {
         this.dragField.setOnDragOver((event) -> {
             if (event.getGestureSource() != this.dragField && event.getDragboard().hasFiles()) {
-                if (!this.validExtensions.containsAll((Collection)event.getDragboard().getFiles().stream().map((file) -> {
+                if (!this.validExtensions.containsAll(event.getDragboard().getFiles().stream().map((file) -> {
                     return this.getExtension(file.getName());
                 }).collect(Collectors.toList()))) {
                     event.consume();
