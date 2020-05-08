@@ -113,7 +113,7 @@
                                        </children></AnchorPane>
                                  </content>
                               </TitledPane>
-                              <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="configuration">
+                              <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="Configuration">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                  </content>
@@ -157,11 +157,11 @@
                               <Font size="24.0" />
                            </font>
                         </Text>
-                        <SplitPane dividerPositions="0.33627019089574156" layoutX="339.0" layoutY="191.0" prefHeight="203.0" prefWidth="683.0">
+                        <SplitPane dividerPositions="0.33627019089574156" layoutX="339.0" layoutY="191.0" prefHeight="281.0" prefWidth="683.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <VBox prefHeight="200.0" prefWidth="202.0">
+                                    <VBox prefHeight="279.0" prefWidth="226.0" spacing="25.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
                                              <font>
@@ -201,7 +201,7 @@
                               </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <VBox prefHeight="200.0" prefWidth="448.0">
+                                    <VBox prefHeight="279.0" prefWidth="448.0" spacing="25.0">
                                        <children>
                                           <Text fx:id="usernameText" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="401.0">
                                              <font>
@@ -241,12 +241,12 @@
                               </AnchorPane>
                           </items>
                         </SplitPane>
-                        <Button id="printButton" fx:id="printButton" layoutX="663.0" layoutY="645.0" mnemonicParsing="false" onAction="#printCharts" prefHeight="77.0" prefWidth="220.0" style="-fx-color:green" text="Print Charts">
+                        <Button id="printButton" fx:id="printButton" layoutX="666.0" layoutY="610.0" mnemonicParsing="false" onAction="#printCharts" prefHeight="77.0" prefWidth="220.0" style="-fx-color:green" text="Print Charts">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Button>
-                        <Button id="saveAsPDFButton" fx:id="saveAsPDFButton" layoutX="168.0" layoutY="645.0" mnemonicParsing="false" onAction="#saveAsPDF" prefHeight="77.0" prefWidth="220.0" style="-fx-color:green" text="Save Charts As PDF">
+                        <Button id="saveAsPDFButton" fx:id="saveAsPDFButton" layoutX="171.0" layoutY="610.0" mnemonicParsing="false" onAction="#saveAsPDF" prefHeight="77.0" prefWidth="220.0" style="-fx-color:green" text="Save Charts As PDF">
                            <font>
                               <Font size="20.0" />
                            </font>
