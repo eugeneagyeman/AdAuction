@@ -38,9 +38,16 @@ public class Metrics {
     private float costPerClick;
     private float costPerThousand;
     private float bounceRate;
-    private Records records;
-    private List<String> ageRanges;
-    private ArrayList<String> recommendations = new ArrayList<>();
+    private final Records records;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private final List<String> ageRanges;
+    private final ArrayList<String> recommendations = new ArrayList<>();
+
+    public LocalDate getStartDate() { return startDate; }
+    public LocalDate getEndDate() { return endDate; }
+    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
+    public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
 
     public Metrics(Records records) {
         this.records = records;
@@ -87,6 +94,8 @@ public class Metrics {
         calculateCostPerClick();
         calculateCostPerThousand();
         calculateBouncerate();
+        calculateStartDate();
+        calculateEndDate();
     }
 
     private void printMetrics() {
@@ -190,9 +199,9 @@ public class Metrics {
         Map percentages = new TreeMap();
         contextCount.keySet()
                 .stream()
-                .forEach(occurance -> {
-                    Long percent = (contextCount.get(occurance) * 100 / values.size());
-                    percentages.put(occurance, percent);
+                .forEach(occurrence -> {
+                    Long percent = (contextCount.get(occurrence) * 100 / values.size());
+                    percentages.put(occurrence, percent);
                 });
 
         return percentages;
@@ -254,21 +263,37 @@ public class Metrics {
                 .collect(Collectors.toList());
     }
 
+    public void calculateStartDate() {
+        Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords().asMap();
+        clickRecords.forEach((k, v) -> {
+            LocalDate earliestDate = v.stream()
+                    .map(ClickRecord::getLocalDate)
+                    .min(LocalDate::compareTo)
+                    .get();
+            setStartDate(earliestDate);
+        });
+    }
+
+    public void calculateEndDate() {
+        Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords().asMap();
+        clickRecords.forEach((k, v) -> {
+            LocalDate latestDate = v.stream()
+                    .map(ClickRecord::getLocalDate)
+                    .max(LocalDate::compareTo)
+                    .get();
+            setEndDate(latestDate);
+        });
+    }
+
     public ChartMetrics getChartMetrics() {
         return this.chartMetrics;
     }
-
 
     public class ChartMetrics {
         private final List listOfCharts = new ArrayList();
         private Map<String, Integer> distributionMap;
         private final Collection<Chart> segmentCollection = new ArrayList<>();
         private final Collection<Chart> contextCollection = new ArrayList<>();
-
-        public ChartMetrics() {
-
-
-        }
 
         private List convertToInteger() {
             final List<String> frequencyOfClickCosts = getListOfClickCosts();
@@ -567,6 +592,5 @@ public class Metrics {
         }
 
     }
-
 
 }

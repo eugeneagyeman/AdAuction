@@ -1,92 +1,88 @@
 package gui.configuration;
 
-import gui.Controller;
 import gui.Main;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.printing.PDFPageable;
 
 import javax.imageio.ImageIO;
+import javax.print.*;
+import javax.print.attribute.HashPrintRequestAttributeSet;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class ConfigController extends Controller {
+public class PrintPreviewController implements Initializable {
     Parent root;
     Stage primaryStage;
-    @FXML private Text usernameText = new Text();
-    @FXML private Text userIDText = new Text();
-    @FXML private Text currentCampaignText = new Text();
-    @FXML private Text dateTimeText = new Text();
-    @FXML private Text configText = new Text();
-    @FXML private Button saveAsPDFButton = new Button();
-    @FXML private Button printButton = new Button();
-    @FXML private TextField currentDate = new TextField();
+    @FXML private VBox graphs = new VBox(10);
+    @FXML private Text chunk1 = new Text();
+    @FXML private Text chunk2 = new Text();
+    @FXML private Text chunk3 = new Text();
+    @FXML private Text chunk4 = new Text();
+    @FXML private Text chunk5 = new Text();
+    @FXML private Text chunk6 = new Text();
+    @FXML private Text chunk7 = new Text();
+    @FXML private Text chunk8 = new Text();
+    @FXML private Text chunk9 = new Text();
 
-    public void initialiseConfiguration() {
-        usernameText.setText(Main.getLogin().getCurrentUser().getUsername());
-        userIDText.setText(String.valueOf(Main.getLogin().getUserID()));
-        currentCampaignText.setText(Main.getModel().getCurrentCampaign().getCampaignID());
-        dateTimeText.setText(Main.getLogin().getUsers().get(Main.getLogin().getCurrentUser()));
-        configText.setText("");
-        currentDate.setText(LocalDate.now().toString());
-    }
-
-    public void saveAsPDF(ActionEvent actionEvent) {
-        saveAsPDFButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                try {
-                    createPDF();
-                } catch (IOException e) { e.printStackTrace(); }
-                // select location
-            }
+    public void initializePrintController() {
+        chunk1.setText("Total Clicks: " + Main.getModel().getMetrics().getNumOfClicks());
+        chunk2.setText("Cost Per Click: " + Main.getModel().getMetrics().getCostPerClick());
+        chunk3.setText("Cost Per Thousand Impressions: " + Main.getModel().getMetrics().getCostPerThousand());
+        chunk4.setText("Total Impressions: " + Main.getModel().getMetrics().getNumOfImpressions());
+        chunk5.setText("Total Conversions: " + Main.getModel().getMetrics().getNumOfConversions());
+        chunk6.setText("Bounce Rate: " + Main.getModel().getMetrics().getBounceRate());
+        chunk7.setText("Total Bounces: " + Main.getModel().getMetrics().getNumOfBounces());
+        chunk8.setText("Click Through Rate: " + Main.getModel().getMetrics().getClickThroughRate());
+        chunk9.setText("Number of Uniques: " + Main.getModel().getMetrics().getNumOfUniques());
+        graphs.getChildren().addAll(Main.getModel().getChartMetrics().getCharts());
+        graphs.getChildren().forEach(node -> {
+            node.scaleXProperty();
+            node.scaleYProperty();
+            node.scaleZProperty();
         });
     }
 
-    public void printCharts(ActionEvent actionEvent) {
-        printButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                try {
-                    root = FXMLLoader.load(this.getClass().getResource("/fxml/PrintPreview.fxml"));
-                    primaryStage = new Stage();
-                    primaryStage.setTitle("Print");
-                    primaryStage.setScene(new Scene(root, 600.0D, 600.0D));
-                    primaryStage.show();
-                } catch (IOException e) { e.printStackTrace(); }
-            }
-        });
+    public void print(javafx.event.ActionEvent actionEvent) throws IOException, PrintException, PrinterException {
+        createPDF();
+        PDDocument doc = PDDocument.load(new File("AdAuctionPrint.pdf"));
+        PrinterJob job = PrinterJob.getPrinterJob();
+        PrintService service = job.getPrintService();
+        job.setPageable(new PDFPageable(doc));
+        job.print();
+        doc.close();
+    }
+
+    public void closeWindow(javafx.event.ActionEvent actionEvent) {
+        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        model = Main.getModel();
-        initialiseController();
-        initialiseConfiguration();
+        initializePrintController();
     }
 
     public void createPDF() throws IOException {
@@ -149,4 +145,5 @@ public class ConfigController extends Controller {
         document.save("AdAuctionPrint.pdf");
         document.close();
     }
+
 }

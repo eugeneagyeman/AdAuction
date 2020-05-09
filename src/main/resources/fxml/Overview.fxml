@@ -58,7 +58,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem mnemonicParsing="false" text="About Ad Auction" />
           </items>
         </Menu>
       </menus>
@@ -114,7 +114,7 @@
                                        </AnchorPane>
                                    </content>
                                </TitledPane>
-                               <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="configuration">
+                               <TitledPane fx:id="configurationTab" animated="false" collapsible="false" expanded="false" text="Configuration">
                                    <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                  </content>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="271.0" prefWidth="456.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.login.RegisterController">
+   <children>
+      <Label fx:id="loginLabel" alignment="CENTER" layoutX="31.0" layoutY="14.0" prefHeight="57.0" prefWidth="396.0" text="Register" textOverrun="CLIP">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="loginButton" layoutX="54.0" layoutY="212.0" minHeight="25.0" mnemonicParsing="false" onAction="#Register" prefHeight="36.0" prefWidth="103.0" text="Register User" textOverrun="CLIP" />
+      <ImageView fx:id="loginPic" fitHeight="46.0" fitWidth="39.0" layoutX="86.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Login.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="adminPic" fitHeight="39.0" fitWidth="39.0" layoutX="214.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@admin.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="groupPic" fitHeight="57.0" fitWidth="61.0" layoutX="325.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@group.PNG" />
+         </image>
+      </ImageView>
+      <Button id="LoginButton" fx:id="adminButton" layoutX="182.0" layoutY="212.0" minHeight="25.0" mnemonicParsing="false" onAction="#Register" prefHeight="36.0" prefWidth="103.0" text="Register Admin" textAlignment="LEFT" textOverrun="CLIP" />
+      <Button id="LoginButton" fx:id="groupButton" layoutX="302.0" layoutY="212.0" minHeight="25.0" mnemonicParsing="false" onAction="#Register" prefHeight="36.0" prefWidth="103.0" text="Register Group" textOverrun="CLIP" />
+      <PasswordField fx:id="passField" layoutX="87.0" layoutY="117.0" prefHeight="36.0" prefWidth="295.0" promptText="Password" />
+      <TextField fx:id="userField" layoutX="87.0" layoutY="71.0" prefHeight="36.0" prefWidth="295.0" promptText="Username or ID" text="" />
+   </children>
+</AnchorPane>

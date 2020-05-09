@@ -9,6 +9,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class SegmentsController extends Controller {
@@ -44,7 +45,10 @@ public class SegmentsController extends Controller {
         segmentsTreeView.setRoot(rootItem);
         segmentsTreeView.setShowRoot(false);
 
-        audienceSegmentsGraphs.getChildren().addAll(model.getChartMetrics().getSegmentCharts());
+        fromDatePicker.setValue(model.getMetrics().getStartDate());
+        untilDatePicker.setValue(model.getMetrics().getEndDate());
+
+        audienceSegmentsGraphs.getChildren().addAll(model.getChartMetrics().getCharts());
         audienceSegmentsGraphs.getChildren().forEach(node -> {
             node.scaleXProperty();
             node.scaleYProperty();

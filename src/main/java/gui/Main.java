@@ -17,12 +17,14 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import login.Login;
 
 import java.io.IOException;
 
 public class Main extends Application {
     private static Stage mainWindow;
     private static DashboardModel model;
+    private static Login login;
     private static OverviewController overviewController;
     private static SegmentsController segmentsController;
     private static ContextController contextController;
@@ -35,6 +37,10 @@ public class Main extends Application {
     public static void setModel(DashboardModel model) {
         Main.model = model;
     }
+
+    public static Login getLogin() { return login; }
+
+    public static void setLogin(Login login) { Main.login = login; }
 
     public static OverviewController getOverviewController() {
         return overviewController;
@@ -51,7 +57,6 @@ public class Main extends Application {
     public static void setLoader(FXMLLoader loader) {
         Main.loader = loader;
     }
-
 
     private static FXMLLoader loader;
 
@@ -71,7 +76,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         mainWindow = stage;
-        model = new Configuration().buildDashboard();
+        setModel(new Configuration().buildDashboard());
+        setLogin(new Login());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
         Scene scene = new Scene(loader.load());
         mainWindow.setScene(scene);

@@ -8,12 +8,12 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="316.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="gui.login.InvalidLogin">
-  <children>
-    <Button id="closeButton" layoutX="121.0" layoutY="88.0" mnemonicParsing="false" onAction="#closeWindow" text="Close" textAlignment="CENTER" />
-    <Label id="invalidLoginLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="49.0" layoutY="14.0" prefHeight="59.5" prefWidth="219.0" text="The login details you provided are incorrect!" textAlignment="CENTER" wrapText="true">
-      <font>
-        <Font size="20.0" />
-      </font>
-    </Label>
-  </children>
+   <children>
+      <Button id="closeButton" layoutX="121.0" layoutY="88.0" mnemonicParsing="false" onAction="#closeWindow" text="Close" textAlignment="CENTER" />
+      <Label id="invalidLoginLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="49.0" layoutY="14.0" prefHeight="59.5" prefWidth="219.0" text="The login details you provided are incorrect!" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>
