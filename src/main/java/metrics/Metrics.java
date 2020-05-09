@@ -6,7 +6,6 @@ import dashboard.DateRange;
 import dashboard.Filter;
 import gui.charts.ChartBuilder;
 import javafx.scene.chart.*;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.math3.stat.Frequency;
 import org.apache.commons.math3.util.Precision;
 
@@ -25,51 +24,54 @@ import static gui.charts.ChartBuilder.buildTimeSeriesChart;
 import static java.util.stream.Collectors.*;
 
 public class Metrics {
+    private final Records records;
+    private final ArrayList<String> recommendations = new ArrayList<>();
     private ChartMetrics chartMetrics;
     private String context;
-    private Campaign campaign;
     private int numOfImpressions;
     private int numOfClicks;
     private int numOfUniques;
     private int numOfBounces;
     private int numOfConversions;
-    private float totalCost;
-    private float clickThroughRate;
-    private float costPerAction;
-    private float costPerClick;
-    private float costPerThousand;
-    private float bounceRate;
-    private final Records records;
+    private Float totalCost;
+    private Float clickThroughRate;
+    private Float costPerAction;
+    private Float costPerClick;
+    private Float costPerThousand;
+    private Float bounceRate;
     private LocalDate startDate;
     private LocalDate endDate;
-    private final List<String> ageRanges;
-    private final ArrayList<String> recommendations = new ArrayList<>();
-
-    public LocalDate getStartDate() { return startDate; }
-    public LocalDate getEndDate() { return endDate; }
-    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
-    public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
 
     public Metrics(Records records) {
         this.records = records;
-        this.ageRanges = getAgeRanges();
         calculateMetrics();
         calculateRecommendations();
-        //printMetrics();
         chartMetrics = new ChartMetrics();
     }
 
     public Metrics(Records records, String context) {
         this.context = context;
         this.records = records;
-        this.ageRanges = getAgeRanges();
         calculateMetrics();
         calculateRecommendations();
-        //printMetrics();
         chartMetrics = new ChartMetrics();
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
 
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
 
     public List<String> getAgeRanges() {
 
@@ -98,6 +100,12 @@ public class Metrics {
         calculateStartDate();
         calculateEndDate();
 
+    }
+
+    private float roundMetrics(Float v) {
+        BigDecimal bd = new BigDecimal(Double.toString(v));
+        bd = bd.setScale(6, RoundingMode.HALF_UP);
+        return bd.floatValue();
     }
 
     private void printMetrics() {
@@ -154,37 +162,37 @@ public class Metrics {
     }
 
     public float calculateTotalCost() {
-        totalCost = records.getImpressionRecords().values()
+        totalCost = roundMetrics(records.getImpressionRecords().values()
                 .parallelStream()
                 .map(ImpressionRecord::getImpressionCost)
-                .reduce((float) 0.00, Float::sum);
+                .reduce((float) 0.00, Float::sum));
         return totalCost;
     }
 
     public float calculateClickThroughRate() {
-        clickThroughRate = (float) (((double) getNumOfClicks() / getNumOfImpressions()) * 100);
+        clickThroughRate = roundMetrics((float) (((double) getNumOfClicks() / getNumOfImpressions()) * 100));
         return clickThroughRate;
     }
 
     public float calculateCostPerAction() {
-        costPerAction = totalCost / numOfConversions;
+        costPerAction = roundMetrics(totalCost / numOfConversions);
         return costPerAction;
     }
 
     public float calculateCostPerClick() {
-        costPerClick = totalCost / getNumOfClicks();
+        costPerClick = roundMetrics(totalCost / getNumOfClicks());
         return costPerClick;
     }
 
     public float calculateCostPerThousand() {
-        costPerThousand = ((1000 * (totalCost)) / numOfImpressions);
+        costPerThousand = roundMetrics((1000 * (totalCost)) / numOfImpressions);
         return costPerThousand;
     }
 
     public float calculateBouncerate() {
-        bounceRate = (float) ((numOfBounces / (numOfClicks * 1.0)) * 100.0);
+        bounceRate = roundMetrics((float) ((numOfBounces / (numOfClicks * 1.0)) * 100.0));
 
-        return (float) (bounceRate * 1.0);
+        return bounceRate;
     }
 
     public Map percentagesByAge() {
@@ -293,9 +301,9 @@ public class Metrics {
 
     public class ChartMetrics {
         private final List listOfCharts = new ArrayList();
-        private Map<String, Integer> distributionMap;
         private final Collection<Chart> segmentCollection = new ArrayList<>();
         private final Collection<Chart> contextCollection = new ArrayList<>();
+        private Map<String, Integer> distributionMap;
 
         private List convertToInteger() {
             final List<String> frequencyOfClickCosts = getListOfClickCosts();
@@ -362,7 +370,7 @@ public class Metrics {
         }
 
         private String buildTitle(String title) {
-            if(context!=null) return title +" by"+ context;
+            if (context != null) return title + " by" + context;
             return title;
         }
 
@@ -495,6 +503,7 @@ public class Metrics {
         public Map getTotalCostPerDayData() {
             return records.dateToAdCostMap();
         }
+
         public Map getNumOfUniquesChartData() {
             Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords().asMap();
             Map<String, LocalDate> uniquesPerDateMap = new TreeMap<>();
@@ -507,17 +516,16 @@ public class Metrics {
                 uniquesPerDateMap.put(k, earliestDate);
             });
 
-            Map<LocalDate,Long> result = new TreeMap<>(LocalDate::compareTo);
+            Map<LocalDate, Long> result = new TreeMap<>(LocalDate::compareTo);
             result.putAll(uniquesPerDateMap.values()
-                                .stream()
-                                .collect(groupingBy(date -> date, counting())));
+                    .stream()
+                    .collect(groupingBy(date -> date, counting())));
 
-            Map<String, Long> newMap = result
+            return result
                     .entrySet()
                     .stream()
-                    .collect(Collectors.toMap(e -> e.getKey().toString(),Map.Entry::getValue));
+                    .collect(Collectors.toMap(e -> e.getKey().toString(), Map.Entry::getValue));
 
-            return newMap;
 
         }
 
@@ -528,11 +536,11 @@ public class Metrics {
             LineChart impressionsChart = buildImpressionsChart();
             LineChart numOfClicksChart = buildClickChart();
             BarChart numOfUniquesChart = ChartBuilder.buildBarChart(getNumOfUniquesChartData(), buildTitle("Number of Uniques"));
-            LineChart totalCostChart = ChartBuilder.buildTimeSeriesChart(getTotalCostPerDayData(),"Date","Cost","Total Cost", buildTitle("Total Cost Per Day"));
-            LineChart costChart = ChartBuilder.buildTimeSeriesChart(getClickThroughRateChartData(),"Date","Amount", "Click Through Rate", buildTitle("Click Calculations"));
+            LineChart totalCostChart = ChartBuilder.buildTimeSeriesChart(getTotalCostPerDayData(), "Date", "Cost", "Total Cost", buildTitle("Total Cost Per Day"));
+            LineChart costChart = ChartBuilder.buildTimeSeriesChart(getClickThroughRateChartData(), "Date", "Amount", "Click Through Rate", buildTitle("Click Calculations"));
             costChart.getData()
-                     .addAll(ChartBuilder.buildSeries(getCostPerActionChartData(), "Cost Per Action"),
-                             ChartBuilder.buildSeries(getCostPerClickChartData(), "Cost per click"));
+                    .addAll(ChartBuilder.buildSeries(getCostPerActionChartData(), "Cost Per Action"),
+                            ChartBuilder.buildSeries(getCostPerClickChartData(), "Cost per click"));
 
             segmentCollection.add(histogram);
             segmentCollection.add(impressionsChart);
@@ -572,8 +580,9 @@ public class Metrics {
             return contextCollection;
 
         }
+
         public Collection<Chart> getContextCharts() {
-            if(contextCollection.isEmpty()) return buildContextCharts();
+            if (contextCollection.isEmpty()) return buildContextCharts();
             return contextCollection;
         }
 
@@ -585,6 +594,7 @@ public class Metrics {
             return charts;
 
         }
+
         private class DoublesComparator implements Comparator {
             @Override
             public int compare(Object o1, Object o2) {

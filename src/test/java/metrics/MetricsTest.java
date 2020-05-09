@@ -96,7 +96,7 @@ public class MetricsTest {
     @Test
     @DisplayName("Test Bounce Rate")
     public void bounceRateTest() {
-        assertEquals(round_6(1.0 / 3.0 * 100.0), (metrics.calculateBouncerate()));
+        assertEquals(33.333332, round_6(metrics.calculateBouncerate()));
     }
 
     @Test
