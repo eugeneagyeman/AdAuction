@@ -2,11 +2,7 @@ package gui.context;
 
 import gui.Controller;
 import gui.Main;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -15,7 +11,6 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ContextController extends Controller {

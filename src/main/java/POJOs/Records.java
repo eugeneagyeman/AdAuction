@@ -1,6 +1,7 @@
 package POJOs;
 
 import com.google.common.collect.*;
+import metrics.Metrics;
 import org.apache.commons.collections.CollectionUtils;
 
 import java.time.LocalDate;
@@ -13,10 +14,12 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.*;
 
 public class Records {
+    private String context;
     private Multimap<String, Record> recordMultimap;
     private Multimap<String, ImpressionRecord> impressionRecords;
     private Multimap<String, ServerRecord> serverRecords;
     private Multimap<String, ClickRecord> clickRecords;
+    private boolean isFiltered = false;
 
     public Records(Multimap<String, Record> impressionRecords, Multimap<String, Record> serverRecords, Multimap<String, Record> clickRecords) {
         recordMultimap = ArrayListMultimap.create();
@@ -37,6 +40,15 @@ public class Records {
         this.impressionRecords = setImpressionRecords();
         this.clickRecords = setClickRecords();
         this.serverRecords = setServerRecords();
+    }
+
+    public Records(Multimap<String, Record> filteredRecordMap, String context, boolean filtered) {
+        this.recordMultimap = filteredRecordMap;
+        this.impressionRecords = setImpressionRecords();
+        this.clickRecords = setClickRecords();
+        this.serverRecords = setServerRecords();
+        isFiltered = filtered;
+        if(isFiltered) this.context = context;
     }
 
     public Multimap<String, Record> getAllRecords() {
@@ -123,4 +135,10 @@ public class Records {
                         .reduce((float) 0.00,Float::sum));
     }
 
+    public Metrics buildMetrics() {
+        return new Metrics(this,context);
+    }
+    public Metrics buildMetrics(Records rec) {
+        return new Metrics(rec);
+    }
 }
