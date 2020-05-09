@@ -70,7 +70,6 @@ public class PrintPreviewController implements Initializable {
         createPDF();
         PDDocument doc = PDDocument.load(new File("AdAuctionPrint.pdf"));
         PrinterJob job = PrinterJob.getPrinterJob();
-        PrintService service = job.getPrintService();
         job.setPageable(new PDFPageable(doc));
         job.print();
         doc.close();

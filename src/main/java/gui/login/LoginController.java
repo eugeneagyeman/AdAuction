@@ -2,6 +2,7 @@ package gui.login;
 
 import java.io.IOException;
 
+import POJOs.Privilege;
 import gui.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,19 +31,19 @@ public class LoginController {
         loginButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                try { userLogin(); } catch (IOException e) { e.printStackTrace(); }
+                try { userLogin(Privilege.USER); } catch (IOException e) { e.printStackTrace(); }
             }
         });
         adminButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                try { adminLogin(); } catch (IOException e) { e.printStackTrace(); }
+                try { userLogin(Privilege.ADMIN); } catch (IOException e) { e.printStackTrace(); }
             }
         });
         groupButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                try { groupLogin(); } catch (IOException e) { e.printStackTrace(); }
+                try { userLogin(Privilege.GROUP); } catch (IOException e) { e.printStackTrace(); }
             }
         });
     }
@@ -62,46 +63,17 @@ public class LoginController {
         });
     }
 
-    public void userLogin() throws IOException {
+    public void userLogin(Privilege privilege) throws IOException {
         String userInput = userField.getText();
         String userPass = passField.getText();
-        if (Main.getLogin().login(userInput,userPass,"user") != null) {
+
+        if (Main.getLogin().login(userInput,userPass,privilege) != null) {
             this.loginLabel.setText("Log in successful");
             Main.changeScene("/fxml/FileChooser.fxml");
         } else {
             root = FXMLLoader.load(this.getClass().getResource("/fxml/InvalidLogin.fxml"));
             primaryStage = new Stage();
-            primaryStage.setTitle("Invalid credentials screen");
-            primaryStage.setScene(new Scene(root, 300.0D, 150.0D));
-            primaryStage.show();
-            this.loginLabel.setText("Please provide correct login details");
-        }
-    }
-    public void adminLogin() throws IOException {
-        String userInput = userField.getText();
-        String userPass = passField.getText();
-        if (Main.getLogin().login(userInput,userPass,"admin") != null) {
-            this.loginLabel.setText("Log in successful");
-            Main.changeScene("/fxml/FileChooser.fxml");
-        } else {
-            root = FXMLLoader.load(this.getClass().getResource("/fxml/InvalidLogin.fxml"));
-            primaryStage = new Stage();
-            primaryStage.setTitle("Invalid credentials screen");
-            primaryStage.setScene(new Scene(root, 300.0D, 150.0D));
-            primaryStage.show();
-            this.loginLabel.setText("Please provide correct login details");
-        }
-    }
-    public void groupLogin() throws IOException {
-        String userInput = userField.getText();
-        String userPass = passField.getText();
-        if (Main.getLogin().login(userInput,userPass,"group") != null) {
-            this.loginLabel.setText("Log in successful");
-            Main.changeScene("/fxml/FileChooser.fxml");
-        } else {
-            root = FXMLLoader.load(this.getClass().getResource("/fxml/InvalidLogin.fxml"));
-            primaryStage = new Stage();
-            primaryStage.setTitle("Invalid credentials screen");
+            primaryStage.setTitle("Invalid Credentials Screen");
             primaryStage.setScene(new Scene(root, 300.0D, 150.0D));
             primaryStage.show();
             this.loginLabel.setText("Please provide correct login details");

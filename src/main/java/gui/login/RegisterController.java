@@ -1,6 +1,8 @@
 package gui.login;
 
+import POJOs.Privilege;
 import gui.Main;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.EventObject;
 
 public class RegisterController {
     Parent root;
@@ -28,57 +31,38 @@ public class RegisterController {
         loginButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                String userInput = userField.getText();
-                String userPass = passField.getText();
-                if (Main.getLogin().addUser(userInput,userPass,"user") == null) {
-                    try {
-                        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-                        root = FXMLLoader.load(this.getClass().getResource("/fxml/InvalidRegister.fxml"));
-                        primaryStage = new Stage();
-                        primaryStage.setScene(new Scene(root, 300.0D, 150.0D));
-                        primaryStage.setTitle("Register Screen");
-                        primaryStage.show();
-                    } catch (IOException e) { e.printStackTrace(); }
-                }
-                ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+                attemptLogin(actionEvent);
             }
+
+
         });
         adminButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                String userInput = userField.getText();
-                String userPass = passField.getText();
-                if (Main.getLogin().addUser(userInput,userPass,"admin") == null) {
-                    try {
-                        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-                        root = FXMLLoader.load(this.getClass().getResource("/fxml/InvalidRegister.fxml"));
-                        primaryStage = new Stage();
-                        primaryStage.setScene(new Scene(root, 300.0D, 150.0D));
-                        primaryStage.setTitle("Register Screen");
-                        primaryStage.show();
-                    } catch (IOException e) { e.printStackTrace(); }
-                }
-                ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+                attemptLogin(actionEvent);
             }
         });
         groupButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                String userInput = userField.getText();
-                String userPass = passField.getText();
-                if (Main.getLogin().addUser(userInput,userPass,"group") == null) {
-                    try {
-                        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-                        root = FXMLLoader.load(this.getClass().getResource("/fxml/InvalidRegister.fxml"));
-                        primaryStage = new Stage();
-                        primaryStage.setScene(new Scene(root, 300.0D, 150.0D));
-                        primaryStage.setTitle("Register Screen");
-                        primaryStage.show();
-                    } catch (IOException e) { e.printStackTrace(); }
-                }
-                ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+                attemptLogin(actionEvent);
             }
         });
+    }
+    private void attemptLogin(EventObject actionEvent) {
+        String userInput = userField.getText();
+        String userPass = passField.getText();
+        if (Main.getLogin().addUser(userInput,userPass, Privilege.valueOf("user")) == null) {
+            try {
+                ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+                root = FXMLLoader.load(this.getClass().getResource("/fxml/InvalidRegister.fxml"));
+                primaryStage = new Stage();
+                primaryStage.setScene(new Scene(root, 300.0D, 150.0D));
+                primaryStage.setTitle("Register Screen");
+                primaryStage.show();
+            } catch (IOException e) { e.printStackTrace(); }
+        }
+        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
     }
 
 }

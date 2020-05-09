@@ -10,6 +10,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.math3.stat.Frequency;
 import org.apache.commons.math3.util.Precision;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -96,6 +97,7 @@ public class Metrics {
         calculateBouncerate();
         calculateStartDate();
         calculateEndDate();
+
     }
 
     private void printMetrics() {
@@ -264,10 +266,10 @@ public class Metrics {
     }
 
     public void calculateStartDate() {
-        Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords().asMap();
+        Map<String, Collection<ImpressionRecord>> clickRecords = records.getImpressionRecords().asMap();
         clickRecords.forEach((k, v) -> {
             LocalDate earliestDate = v.stream()
-                    .map(ClickRecord::getLocalDate)
+                    .map(ImpressionRecord::getLocalDate)
                     .min(LocalDate::compareTo)
                     .get();
             setStartDate(earliestDate);
@@ -275,10 +277,10 @@ public class Metrics {
     }
 
     public void calculateEndDate() {
-        Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords().asMap();
+        Map<String, Collection<ImpressionRecord>> clickRecords = records.getImpressionRecords().asMap();
         clickRecords.forEach((k, v) -> {
             LocalDate latestDate = v.stream()
-                    .map(ClickRecord::getLocalDate)
+                    .map(ImpressionRecord::getLocalDate)
                     .max(LocalDate::compareTo)
                     .get();
             setEndDate(latestDate);

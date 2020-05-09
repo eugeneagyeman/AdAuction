@@ -1,5 +1,6 @@
 package login;
 
+import POJOs.Privilege;
 import POJOs.User;
 
 import java.time.LocalDateTime;
@@ -23,10 +24,10 @@ public class Login {
 
     public Login() {
         users = new HashMap<>();
-        user = addUser("admin", "password", "admin");
+        user = addUser("admin", "password", Privilege.ADMIN);
     }
 
-    public User addUser(String username, String password, String type) {
+    public User addUser(String username, String password, Privilege type) {
         User user = new User(username, password, type);
         if (username.equals("") || password.equals(""))
             return null;
@@ -48,7 +49,7 @@ public class Login {
         }
     }
 
-    public User login(String username, String password, String type) {
+    public User login(String username, String password, Privilege type) {
         Iterator iterator = this.users.keySet().iterator();
         User user;
         do {

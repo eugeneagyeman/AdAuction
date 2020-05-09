@@ -12,6 +12,7 @@ public class DashboardModel {
     private ArrayList<Campaign> listOfCampaigns;
     private Metrics metrics;
     private ObservableList<?> recommendations;
+    private Filter filter;
 
     public DashboardModel() {
         listOfCampaigns = new ArrayList<>();
@@ -59,5 +60,10 @@ public class DashboardModel {
     public DashboardModel setRecommendations(ObservableList<?> recommendations) {
         this.recommendations = recommendations;
         return this;
+    }
+
+    public Filter getFilter() {
+        if(filter == null) filter = new Filter(this);
+        return filter;
     }
 }

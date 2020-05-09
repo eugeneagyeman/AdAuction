@@ -12,7 +12,7 @@ public class ConfigurationTest {
         @Test
         @DisplayName("Test Three Files Check")
         void threeFilesCheckTest() {
-                User user = new User("A212","123", "user");
+                User user = new User("A212","123", Privilege.USER);
                 String serverLogFilePath = "TestData/server_log.csv", impressionsLogFilePath = "TestData/impression_log.csv";
                 try {
                      new Configuration(user, serverLogFilePath, impressionsLogFilePath, null);
@@ -26,7 +26,7 @@ public class ConfigurationTest {
         @Test
         @DisplayName("Test Unique Campaign")
         void campaignUniqueTest() {
-                User user = new User("David","123", "user");
+                User user = new User("David","123", Privilege.USER);
                 final String SERVER_LOG_CSV = "TestData/server_log.csv";
                 final String IMPRESSION_LOG_CSV = "TestData/impression_log.csv";
                 final String CLICK_LOG_CSV = "TestData/click_log.csv";

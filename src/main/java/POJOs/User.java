@@ -6,9 +6,9 @@ import java.time.format.DateTimeFormatter;
 public class User {
     String username, password;
     String loginDateTime;
-    String type;
+    Privilege type;
 
-    public User(String username, String password, String type) {
+    public User(String username, String password, Privilege type) {
         this.username = username;
         this.password = password;
         this.type = type;
@@ -36,6 +36,6 @@ public class User {
         return this;
     }
 
-    public String getType() { return type; }
+    public String getType() { return type.name(); }
 
 }
