@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="csvImage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #4c52d3);&#10;" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="gui.upload.UploadController">
+<AnchorPane id="AnchorPane" fx:id="csvImage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #4c52d3);&#10;" visible="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.upload.UploadController">
   <children>
     <AnchorPane id="loginPane" layoutX="340.0" layoutY="117.0" prefHeight="400.0" prefWidth="600.0">
       <children>
@@ -14,7 +17,7 @@
             <Font size="24.0" fx:id="x1" />
           </font>
         </Label>
-        <ImageView fx:id="dragField" fitHeight="83.97702440330383" fitWidth="375.1496887207031" layoutX="14.0" layoutY="184.0" onDragDropped="#handleDrop" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="dragField" fitHeight="83.97702440330383" fitWidth="375.1496887207031" layoutX="117.0" layoutY="184.0" onDragDropped="#handleDrop" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@draganddrop.PNG" />
           </image>
@@ -25,9 +28,9 @@
           </image>
         </ImageView>
         <Label fx:id="orField" alignment="CENTER" contentDisplay="CENTER" font="$x1" layoutX="190.0" layoutY="273.0" prefHeight="30.0" prefWidth="40.0" text="or" textAlignment="CENTER" />
-        <Button fx:id="selectButton" font="$x1" layoutX="60.0" layoutY="316.0" mnemonicParsing="false" onAction="#ButtonAction" onDragDropped="#handleDrop" onDragOver="#handleDragOver" prefHeight="39.0" prefWidth="301.0" text="Click here to select files" textAlignment="CENTER" />
-        <ListView fx:id="itemsList" layoutX="409.0" layoutY="184.0" prefHeight="174.0" prefWidth="177.0" />
-        <Label alignment="CENTER" layoutX="423.0" layoutY="153.0" prefWidth="149.0" text="Selected files:">
+        <Button fx:id="selectButton" font="$x1" layoutX="68.0" layoutY="316.0" mnemonicParsing="false" onAction="#ButtonAction" onDragDropped="#handleDrop" onDragOver="#handleDragOver" prefHeight="51.0" prefWidth="285.0" text="Click here to select files" textAlignment="CENTER" />
+        <ListView fx:id="itemsList" layoutX="409.0" layoutY="196.0" prefHeight="174.0" prefWidth="177.0" />
+        <Label alignment="CENTER" layoutX="423.0" layoutY="165.0" prefWidth="149.0" text="Selected files:">
           <font>
             <Font size="20.0" />
           </font>

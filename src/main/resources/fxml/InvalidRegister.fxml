@@ -4,14 +4,35 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="299.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.login.InvalidRegister">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="226.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.login.InvalidRegister">
    <children>
-      <Button id="closeButton" layoutX="121.0" layoutY="88.0" mnemonicParsing="false" onAction="#closeWindow" text="Close" textAlignment="CENTER" />
-      <Label id="invalidLoginLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="34.0" layoutY="14.0" prefHeight="59.5" prefWidth="219.0" text="This user is invalid or already exists" textAlignment="CENTER" wrapText="true">
+      <Button id="closeButton" layoutX="114.0" layoutY="184.0" mnemonicParsing="false" onAction="#closeWindow" text="Close" textAlignment="CENTER" />
+      <Label id="invalidLoginLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="18.0" prefHeight="59.5" prefWidth="219.0" text="This user is invalid or already exists" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
+      <Text fill="RED" layoutX="50.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passwords must:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="RED" layoutX="42.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- contain 8-16 characters">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="RED" layoutX="42.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- contain 1 number">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="RED" layoutX="42.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- contain 1 uppercase letter">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

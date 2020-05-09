@@ -32,33 +32,35 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class PrintPreviewController implements Initializable {
     Parent root;
     Stage primaryStage;
     @FXML private VBox graphs = new VBox(10);
-    @FXML private Text chunk1 = new Text();
-    @FXML private Text chunk2 = new Text();
-    @FXML private Text chunk3 = new Text();
-    @FXML private Text chunk4 = new Text();
-    @FXML private Text chunk5 = new Text();
-    @FXML private Text chunk6 = new Text();
-    @FXML private Text chunk7 = new Text();
-    @FXML private Text chunk8 = new Text();
-    @FXML private Text chunk9 = new Text();
+    @FXML private Text chunk1;
+    @FXML private Text chunk2;
+    @FXML private Text chunk3;
+    @FXML private Text chunk4;
+    @FXML private Text chunk5;
+    @FXML private Text chunk6;
+    @FXML private Text chunk7;
+    @FXML private Text chunk8;
+    @FXML private Text chunk9;
 
     public void initializePrintController() {
         chunk1.setText("Total Clicks: " + Main.getModel().getMetrics().getNumOfClicks());
-        chunk2.setText("Cost Per Click: " + Main.getModel().getMetrics().getCostPerClick());
-        chunk3.setText("Cost Per Thousand Impressions: " + Main.getModel().getMetrics().getCostPerThousand());
+        chunk2.setText("Cost Per Click: " + round(Main.getModel().getMetrics().getCostPerClick(),2));
+        chunk3.setText("Cost Per Thousand Impressions: " + round(Main.getModel().getMetrics().getCostPerThousand(),2));
         chunk4.setText("Total Impressions: " + Main.getModel().getMetrics().getNumOfImpressions());
         chunk5.setText("Total Conversions: " + Main.getModel().getMetrics().getNumOfConversions());
-        chunk6.setText("Bounce Rate: " + Main.getModel().getMetrics().getBounceRate());
+        chunk6.setText("Bounce Rate: " + round(Main.getModel().getMetrics().getBounceRate(),2));
         chunk7.setText("Total Bounces: " + Main.getModel().getMetrics().getNumOfBounces());
-        chunk8.setText("Click Through Rate: " + Main.getModel().getMetrics().getClickThroughRate());
+        chunk8.setText("Click Through Rate: " + round(Main.getModel().getMetrics().getClickThroughRate(),2));
         chunk9.setText("Number of Uniques: " + Main.getModel().getMetrics().getNumOfUniques());
-        graphs.getChildren().addAll(Main.getModel().getChartMetrics().getAllCharts());
+        graphs.getChildren().addAll(Main.getModel().getChartMetrics().getSegmentCharts());
+        //graphs.getChildren().addAll(Main.getModel().getChartMetrics().getContextCharts());
         graphs.getChildren().forEach(node -> {
             node.scaleXProperty();
             node.scaleYProperty();
@@ -66,11 +68,15 @@ public class PrintPreviewController implements Initializable {
         });
     }
 
-    public void print(javafx.event.ActionEvent actionEvent) throws IOException, PrintException, PrinterException {
+    public static double round(Float value, int places) {
+            double scale = Math.pow(10, places);
+            return Math.round(value * scale) / scale;
+    }
+
+    public void print(javafx.event.ActionEvent actionEvent) throws IOException, PrinterException {
         createPDF();
         PDDocument doc = PDDocument.load(new File("AdAuctionPrint.pdf"));
         PrinterJob job = PrinterJob.getPrinterJob();
-        PrintService service = job.getPrintService();
         job.setPageable(new PDFPageable(doc));
         job.print();
         doc.close();

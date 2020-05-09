@@ -35,7 +35,7 @@ public class RegisterController {
                         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
                         root = FXMLLoader.load(this.getClass().getResource("/fxml/InvalidRegister.fxml"));
                         primaryStage = new Stage();
-                        primaryStage.setScene(new Scene(root, 300.0D, 150.0D));
+                        primaryStage.setScene(new Scene(root, 280.0D, 250.0D));
                         primaryStage.setTitle("Register Screen");
                         primaryStage.show();
                     } catch (IOException e) { e.printStackTrace(); }
@@ -53,7 +53,7 @@ public class RegisterController {
                         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
                         root = FXMLLoader.load(this.getClass().getResource("/fxml/InvalidRegister.fxml"));
                         primaryStage = new Stage();
-                        primaryStage.setScene(new Scene(root, 300.0D, 150.0D));
+                        primaryStage.setScene(new Scene(root, 280.0D, 250.0D));
                         primaryStage.setTitle("Register Screen");
                         primaryStage.show();
                     } catch (IOException e) { e.printStackTrace(); }
@@ -71,7 +71,7 @@ public class RegisterController {
                         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
                         root = FXMLLoader.load(this.getClass().getResource("/fxml/InvalidRegister.fxml"));
                         primaryStage = new Stage();
-                        primaryStage.setScene(new Scene(root, 300.0D, 150.0D));
+                        primaryStage.setScene(new Scene(root, 280.0D, 250.0D));
                         primaryStage.setTitle("Register Screen");
                         primaryStage.show();
                     } catch (IOException e) { e.printStackTrace(); }

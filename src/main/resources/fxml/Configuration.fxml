@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -132,16 +133,6 @@
                               <Font size="40.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="890.0" layoutY="30.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Profile.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="68.0" fitWidth="68.0" layoutX="992.0" layoutY="26.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Settings.png" />
-                           </image>
-                        </ImageView>
                         <Text layoutX="35.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
                            <font>
                               <Font size="18.0" />
@@ -152,6 +143,28 @@
                               <Font size="18.0" />
                            </font>
                         </TextField>
+                        <Group layoutX="826.0" layoutY="30.0">
+                           <children>
+                               <Button fx:id="profileButton" onAction="#profilePopup" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutY="4.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0">
+                                   <graphic>
+                                       <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                           <image>
+                                               <Image url="@Profile.png" />
+                                           </image>
+                                       </ImageView>
+                                   </graphic>
+                               </Button>
+                               <Button fx:id="settingsButton" onAction="#settingsPopup" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="110.0" layoutY="4.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0">
+                                   <graphic>
+                                       <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                           <image>
+                                               <Image url="@Settings.png" />
+                                           </image>
+                                       </ImageView>
+                                   </graphic>
+                               </Button>
+                           </children>
+                        </Group>
                         <Text layoutX="81.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Information">
                            <font>
                               <Font size="24.0" />

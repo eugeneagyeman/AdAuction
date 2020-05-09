@@ -14,7 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -27,21 +30,23 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class ConfigController extends Controller {
     Parent root;
     Stage primaryStage;
-    @FXML private Text usernameText = new Text();
-    @FXML private Text userIDText = new Text();
-    @FXML private Text currentCampaignText = new Text();
-    @FXML private Text dateTimeText = new Text();
-    @FXML private Text configText = new Text();
-    @FXML private Button saveAsPDFButton = new Button();
-    @FXML private Button printButton = new Button();
-    @FXML private TextField currentDate = new TextField();
+    @FXML private Text usernameText;
+    @FXML private Text userIDText;
+    @FXML private Text currentCampaignText;
+    @FXML private Text dateTimeText;
+    @FXML private Text configText;
+    @FXML private Button saveAsPDFButton;
+    @FXML private Button printButton;
+    @FXML private TextField currentDate;
 
     public void initialiseConfiguration() {
         usernameText.setText(Main.getLogin().getCurrentUser().getUsername());
@@ -57,9 +62,24 @@ public class ConfigController extends Controller {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
-                    createPDF();
+                    PDDocument document = createPDF();
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+                    fileChooser.setInitialFileName("AdAuctionData");
+                    File file = fileChooser.showSaveDialog(primaryStage);
+                    File directory = file.getParentFile();
+                    String filename = fileChooser.getInitialFileName();
+                    if (directory.isDirectory()) {
+                        if (filename.contains(".pdf")) {
+                            document.save(directory + "/" + filename);
+                            document.close();
+                        }
+                        else {
+                            document.save(directory + "/" + filename + ".pdf");
+                            document.close();
+                        }
+                    }
                 } catch (IOException e) { e.printStackTrace(); }
-                // select location
             }
         });
     }
@@ -86,7 +106,7 @@ public class ConfigController extends Controller {
         initialiseConfiguration();
     }
 
-    public void createPDF() throws IOException {
+    public PDDocument createPDF() throws IOException {
         root = FXMLLoader.load(this.getClass().getResource("/fxml/Print.fxml"));
         primaryStage = new Stage();
         primaryStage.setTitle("Print");
@@ -144,6 +164,6 @@ public class ConfigController extends Controller {
         contentStream2.drawImage(img,60,60);
         contentStream2.close();
         document.save("AdAuctionPrint.pdf");
-        document.close();
+        return document;
     }
 }

@@ -3,16 +3,26 @@ package gui.overview;
 import gui.Controller;
 import gui.Main;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.PopupWindow;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
+import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class OverviewController extends Controller {
@@ -26,7 +36,6 @@ public class OverviewController extends Controller {
     @FXML private VBox demographicsBox;
 
     public void initialiseOverview() {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         costPerClickText.setText("£" + decimalFormat.format(model.getMetrics().getCostPerClick()));
         totalImpressionsText.setText(String.valueOf(model.getMetrics().getNumOfImpressions()));
