@@ -14,7 +14,7 @@ public class PrintController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        graphs.getChildren().addAll(Main.getModel().getChartMetrics().getCharts());
+        graphs.getChildren().addAll(Main.getModel().getChartMetrics().getAllCharts());
         graphs.getChildren().forEach(node -> {
             node.scaleXProperty();
             node.scaleYProperty();

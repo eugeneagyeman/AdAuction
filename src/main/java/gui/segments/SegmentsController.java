@@ -48,7 +48,7 @@ public class SegmentsController extends Controller {
         fromDatePicker.setValue(model.getMetrics().getStartDate());
         untilDatePicker.setValue(model.getMetrics().getEndDate());
 
-        audienceSegmentsGraphs.getChildren().addAll(model.getChartMetrics().getCharts());
+        audienceSegmentsGraphs.getChildren().addAll(model.getChartMetrics().getSegmentCharts());
         audienceSegmentsGraphs.getChildren().forEach(node -> {
             node.scaleXProperty();
             node.scaleYProperty();

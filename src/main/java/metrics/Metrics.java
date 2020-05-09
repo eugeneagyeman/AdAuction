@@ -575,8 +575,14 @@ public class Metrics {
             return contextCollection;
         }
 
+        public Collection<Chart> getAllCharts() {
+            Collection<Chart> charts = new HashSet();
+            charts.addAll(getContextCharts());
+            charts.addAll(getSegmentCharts());
 
+            return charts;
 
+        }
         private class DoublesComparator implements Comparator {
             @Override
             public int compare(Object o1, Object o2) {

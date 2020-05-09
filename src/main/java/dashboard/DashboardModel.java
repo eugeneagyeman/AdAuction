@@ -46,6 +46,7 @@ public class DashboardModel {
         return metrics.getChartMetrics();
     }
 
+
     public DashboardModel setMetrics(Metrics metrics) {
         this.metrics = metrics;
         return this;

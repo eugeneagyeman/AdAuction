@@ -39,7 +39,7 @@ public class ContextController extends Controller {
         fromDatePicker.setValue(model.getMetrics().getStartDate());
         untilDatePicker.setValue(model.getMetrics().getEndDate());
 
-        contextGraphs.getChildren().addAll(model.getChartMetrics().getCharts());
+        contextGraphs.getChildren().addAll(model.getChartMetrics().getContextCharts());
         contextGraphs.getChildren().forEach(node -> {
             node.scaleXProperty();
             node.scaleYProperty();

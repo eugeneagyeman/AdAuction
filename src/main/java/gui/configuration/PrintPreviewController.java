@@ -58,7 +58,7 @@ public class PrintPreviewController implements Initializable {
         chunk7.setText("Total Bounces: " + Main.getModel().getMetrics().getNumOfBounces());
         chunk8.setText("Click Through Rate: " + Main.getModel().getMetrics().getClickThroughRate());
         chunk9.setText("Number of Uniques: " + Main.getModel().getMetrics().getNumOfUniques());
-        graphs.getChildren().addAll(Main.getModel().getChartMetrics().getCharts());
+        graphs.getChildren().addAll(Main.getModel().getChartMetrics().getAllCharts());
         graphs.getChildren().forEach(node -> {
             node.scaleXProperty();
             node.scaleYProperty();
