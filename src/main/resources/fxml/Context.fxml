@@ -119,14 +119,14 @@
                         </VBox>
                   <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="1092.0" HBox.hgrow="ALWAYS">
                      <children>
-                                <Text layoutX="474.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Context" textAlignment="CENTER" textOrigin="CENTER">
+                                <Text layoutX="431.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Context" textAlignment="CENTER" textOrigin="CENTER">
                                     <font>
                                         <Font size="40.0" />
                                     </font>
                                 </Text>
                         <Group layoutX="826.0" layoutY="30.0">
                            <children>
-                               <Button fx:id="profileButton" onAction="#profilePopup" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutY="4.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0">
+                               <Button fx:id="profileButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutY="4.0" mnemonicParsing="false" onAction="#profilePopup" prefHeight="70.0" prefWidth="70.0">
                                    <graphic>
                                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                            <image>
@@ -135,7 +135,7 @@
                                        </ImageView>
                                    </graphic>
                                </Button>
-                               <Button fx:id="settingsButton" onAction="#settingsPopup" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="110.0" layoutY="4.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0">
+                               <Button fx:id="settingsButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="110.0" layoutY="4.0" mnemonicParsing="false" onAction="#settingsPopup" prefHeight="70.0" prefWidth="70.0">
                                    <graphic>
                                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                            <image>
@@ -160,20 +160,25 @@
                                       </TextField>
                            </children>
                         </Group>
-                        <Group layoutX="150.0" layoutY="113.0" AnchorPane.bottomAnchor="709.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="113.0">
+                        <Group layoutX="178.0" layoutY="117.0">
                            <children>
-                                      <Text layoutX="14.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:">
-                                          <font>
-                                              <Font size="18.0" />
-                                          </font>
-                                      </Text>
-                                      <Text layoutX="540.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:">
-                                          <font>
-                                              <Font size="18.0" />
-                                          </font>
-                                      </Text>
-                                      <DatePicker fx:id="fromDatePicker" layoutX="80.0" prefHeight="37.0" prefWidth="158.0" />
-                                      <DatePicker fx:id="untilDatePicker" layoutX="600.0" prefHeight="37.0" prefWidth="158.0" />
+                              <Text layoutX="-51.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text layoutX="300.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Until:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                              <DatePicker fx:id="fromDatePicker" layoutX="15.0" layoutY="3.0" prefHeight="37.0" prefWidth="158.0" />
+                              <DatePicker fx:id="untilDatePicker" layoutX="360.0" layoutY="4.0" prefHeight="37.0" prefWidth="158.0" />
+                              <Button fx:id="okButton" layoutX="561.0" layoutY="5.0" mnemonicParsing="false" onAction="#invalidDates" text="Ok">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </Group>
                         <ScrollPane fitToWidth="true" layoutX="20.0" layoutY="190.0" prefHeight="670.0" prefWidth="1072.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="180.0">

@@ -39,7 +39,6 @@ public class Login {
 
     public User addUser(String username, String password, String type) throws BadPaddingException, IllegalBlockSizeException {
         User user = new User(username, encryption.encrypt(password), type);
-        System.out.println(user.getHash());
         if (username.equals("") || password.equals("") || password.length() < 8 || password.length() > 16 || !password.matches(".*\\d.*") || !password.matches(".*[A-Z].*"))
             return null;
         for (User u : users.keySet()) {
@@ -68,7 +67,6 @@ public class Login {
                 return null;
             }
             user = (User)iterator.next();
-            System.out.println(user.getHash());
         } while(!user.getUsername().equals(username) || !Arrays.equals(user.getHash(), encryption.encrypt(password)) || !user.getType().equals(type));
         this.user = user;
         return user;
