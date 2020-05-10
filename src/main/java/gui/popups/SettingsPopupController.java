@@ -32,9 +32,9 @@ public class SettingsPopupController implements Initializable {
         zoomIn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                Main.getMainScene().getRoot().setScaleX(Main.getMainScene().getRoot().getScaleX()*1.25);
-                Main.getMainScene().getRoot().setScaleY(Main.getMainScene().getRoot().getScaleY()*1.25);
-                Main.getMainScene().getRoot().setScaleZ(Main.getMainScene().getRoot().getScaleZ()*1.25);
+                Main.getMainScene().getRoot().setScaleX(Main.getMainScene().getRoot().getScaleX()/0.75);
+                Main.getMainScene().getRoot().setScaleY(Main.getMainScene().getRoot().getScaleY()/0.75);
+                Main.getMainScene().getRoot().setScaleZ(Main.getMainScene().getRoot().getScaleZ()/0.75);
             }
         });
     }
