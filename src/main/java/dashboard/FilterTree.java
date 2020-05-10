@@ -65,7 +65,7 @@ public class FilterTree<T> {
 
     public T filterDate(LocalDate startDate, LocalDate endDate) throws InvalidDateRangeException {
         if (endDate.isBefore(startDate))
-            throw new InvalidDateRangeException("End date should not be before start date");
+            throw new InvalidDateRangeException("End date should not be before start date"); //TO
 
         T newData = (T) filters.dateFilter(startDate, endDate);
         root = new Node<>();
@@ -128,6 +128,9 @@ public class FilterTree<T> {
                 break;
             case "gender":
                 data = (T) filters.impressionsGenderFilter(filter, map);
+                break;
+            case "context":
+                data = (T) filters.contextFilter(filter, map);
                 break;
             default:
                 throw new Exception("Incorrect format for filtering provided");

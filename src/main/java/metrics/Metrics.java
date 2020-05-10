@@ -554,11 +554,18 @@ public class Metrics {
 
         public Collection<Chart> buildContextCharts() {
             Filter contextRecords = new Filter(records);
-            Metrics newsRec = contextRecords.contextFilter("News").buildMetrics();
+            /*Metrics newsRec = contextRecords.contextFilter("News").buildMetrics();
             Metrics shoppingRec = contextRecords.contextFilter("Shopping").buildMetrics();
             Metrics socialMediaRec = contextRecords.contextFilter("Social Media").buildMetrics();
             Metrics hobbiesRec = contextRecords.contextFilter("Hobbies").buildMetrics();
-            Metrics travelRec = contextRecords.contextFilter("Travel").buildMetrics();
+            Metrics travelRec = contextRecords.contextFilter("Travel").buildMetrics();*/
+            //TODO: This is based off of the way context worked pre-refactoring ^
+            //      Below is only a placeholder so the program compiles
+            Metrics newsRec = records.buildMetrics();
+            Metrics shoppingRec = records.buildMetrics();
+            Metrics socialMediaRec = records.buildMetrics();
+            Metrics hobbiesRec = records.buildMetrics();
+            Metrics travelRec = records.buildMetrics();
 
             contextCollection.addAll(newsRec.getChartMetrics().getContextCharts());
            /* contextCollection.addAll(shoppingRec.getChartMetrics().buildSetOfCharts());
