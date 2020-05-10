@@ -6,18 +6,12 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import metrics.Metrics;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -81,7 +75,8 @@ public class FilterTest {
     @ValueSource(strings = {"<25", "25-34", "35-44", "45-54", ">54"})
     @DisplayName("Test Filtering by Age")
     public void impressionsAgeFilterTest(String ageRange) {
-        Multimap<String, Record> filteredTestMap = model.getFilter().impressionsAgeFilter(ageRange);
+        Multimap<String, ImpressionRecord> filteredTestMap = model.getFilter()
+                .impressionsAgeFilter(ageRange, model.getCurrentCampaign().getRecords().getImpressionRecords());
         String expected = null;
         switch (ageRange) {
             case "<25":
@@ -107,7 +102,8 @@ public class FilterTest {
     @ValueSource(strings = {"Male", "Female"})
     @DisplayName("Test Filtering by Gender")
     public void impressionsGenderFilterTest(String gender) {
-        Multimap<String, Record> filteredTestMap = model.getFilter().impressionsGenderFilter(gender); //TODO: Can throw null pointer exception because rec instead of records and all reference class variable. Add NullPointerException catch here and update Eugene
+        Multimap<String, ImpressionRecord> filteredTestMap = model.getFilter()
+                .impressionsGenderFilter(gender, model.getCurrentCampaign().getRecords().getImpressionRecords());
         ArrayList<String> expected = new ArrayList<>();
         switch (gender) {
             case "Male":
@@ -133,7 +129,8 @@ public class FilterTest {
     @ValueSource(strings = {"High", "Medium", "Low"})
     @DisplayName("Test Filtering by Income")
     public void impressionsIncomeFilterTest(String income) {
-        Multimap<String, Record> filteredTestMap = model.getFilter().impressionsIncomeFilter(income);
+        Multimap<String, ImpressionRecord> filteredTestMap = model.getFilter()
+                .impressionsIncomeFilter(income, model.getCurrentCampaign().getRecords().getImpressionRecords());
         ArrayList<String> expected = new ArrayList<>();
         switch (income) {
             case "High":
@@ -162,7 +159,7 @@ public class FilterTest {
     @ValueSource(strings = {"Blog", "Social Media", "Shopping", "News"})
     @DisplayName("Test Filtering by Context")
     public void impressionsContextFilterTest(String context) {
-        Multimap<String, Record> filteredTestMap = model.getFilter().contextFilter(context);
+        Multimap<String, Record> filteredTestMap = model.getFilter().contextFilter(context).getAllRecords();
         ArrayList<String> expected = new ArrayList<>();
         switch (context) {
             case "Blog":

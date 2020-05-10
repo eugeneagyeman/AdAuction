@@ -1,6 +1,9 @@
 package dashboard;
 
 import POJOs.Campaign;
+import POJOs.ImpressionRecord;
+import POJOs.Record;
+import com.google.common.collect.Multimap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import metrics.Metrics;
@@ -12,10 +15,11 @@ public class DashboardModel {
     private ArrayList<Campaign> listOfCampaigns;
     private Metrics metrics;
     private ObservableList<?> recommendations;
+    private Filter filter;
+    private FilterTree<Multimap<String, ImpressionRecord>> filterTree;
 
     public DashboardModel() {
         listOfCampaigns = new ArrayList<>();
-
     }
 
     public Campaign getCurrentCampaign() {
@@ -26,6 +30,8 @@ public class DashboardModel {
         this.currentCampaign = currentCampaign;
         this.metrics = currentCampaign.getMetrics();
         this.recommendations = FXCollections.observableArrayList(currentCampaign.getMetrics().getRecommendations());
+        this.filter = new Filter(this);
+        this.filterTree = new FilterTree<>(filter, currentCampaign.getRecords().getImpressionRecords());
         return this;
     }
 
@@ -59,5 +65,13 @@ public class DashboardModel {
     public DashboardModel setRecommendations(ObservableList<?> recommendations) {
         this.recommendations = recommendations;
         return this;
+    }
+
+    public Filter getFilter() {
+        return filter;
+    }
+
+    public FilterTree<Multimap<String, ImpressionRecord>> getFilterTree() {
+        return filterTree;
     }
 }

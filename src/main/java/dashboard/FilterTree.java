@@ -1,5 +1,10 @@
 package dashboard;
 
+import POJOs.ImpressionRecord;
+import POJOs.Record;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import dashboard.Filter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,53 +14,71 @@ import java.util.stream.Collectors;
 // Reference the parent node to undo a filter level.
 // FilterTree stores Multimaps of the data and filters when necessary.
 public class FilterTree<T> {
+    private Filter filters;
     private Node<T> root;
     private Node<T> current;
 
-    public FilterTree(T rootData) {
+    public FilterTree(Filter filters, T rootData) {
+        this.filters = filters;
         root = new Node<>();
         root.data = rootData;
         root.children = new ArrayList<>();
+        root.setFilterPath(new ArrayList<>());
         this.setCurrentNode(root);
     }
 
-    public void filter(T nodeData) {
+    // filterID must be in the format: "filter_type,filter"
+    public T filter(String filterID) throws Exception {
+        // Sets current node to child if filter already exists
+        for (Node<T> child : current.children) {
+            if (child.getDeepestFilter().equals(filterID)) {
+                this.setCurrentNode(child);
+                return current.data;
+            }
+        }
+
+        // If node is not already in children
         Node<T> node = new Node<>();
-        node.data = nodeData;
+        node.data = this.selectFilter(filterID); // filter here based on filterID
         node.parent = this.current;
         node.children = new ArrayList<>();
-        if (!current.children.contains(node))
-            current.children.add(node);
 
-        List<T> newPath = node.parent.getFilterPath();
-        newPath.add(nodeData);
+        current.children.add(node);
+        List<String> newPath = null;
+        if (node.getFilterPath() == null)
+            newPath = new ArrayList<>();
+        else
+            newPath = new ArrayList<>(node.getFilterPath());
+        newPath.add(filterID);
         node.setFilterPath(newPath);
         this.setCurrentNode(node);
+        return current.data;
     }
 
-    public void filter(List<T> filterPath) {
-        for (T nodeData : filterPath) {
-            filter(nodeData);
+    private void filter(List<String> filterPath) throws Exception {
+        for (String filterID : filterPath) {
+            filter(filterID);
         }
     }
 
+    // filterID must be in the format: "filter_type,filter"
     // Throws exception when calling this on the root node
-    public void undoFilter(T nodeData) throws Exception {
+    public T undoFilter(String filterID) throws Exception {
         if (current.parent == null)
             throw new NullPointerException("Cannot undo filter from the root node.");
         // Checks whether the filter being removed is the current node
-        if (nodeData.equals(current.data)) {
+        if (filterID.equals(current.getDeepestFilter())) {
             this.setCurrentNode(current.parent);
         } else {
-            List<T> newPath = this.current.getFilterPath();
-            newPath.remove(nodeData);
+            List<String> newPath = new ArrayList<>(this.current.getFilterPath());
+            newPath.remove(filterID);
             // Traverses the tree until either no node with the requested data has
             // been filtered yet, or until the desired filter path is reached, in which
             // case it sets the current node to that value
-            while (!newPath.isEmpty()) {
-                // Filters the children to check if one with the requested data is present
+            this.setCurrentNode(root);
+            for (String filter : newPath) {
                 List<Node<T>> child = current.children.stream()
-                        .filter(c -> c.getEquivalentData(nodeData))
+                        .filter(c -> c.getDeepestFilter().equals(filter))
                         .collect(Collectors.toList());
                 if (child.isEmpty()) {
                     // Filter from the current node because the current filter does not yet exist
@@ -65,30 +88,67 @@ public class FilterTree<T> {
                 } else
                     throw new Exception("Cannot have more than one of the same filter in a layer");
             }
+        } return current.data;
+    }
+
+    private T selectFilter(String filterID) throws Exception {
+        T data = null;
+        Multimap<String, ImpressionRecord> map = ArrayListMultimap
+                .create((Multimap<String, ImpressionRecord>) current.data);
+
+        String[] filterStr = filterID
+                .replaceAll("\\s", "")
+                .toLowerCase()
+                .split(",");
+        String filterType = filterStr[0];
+        String filter = filterStr[1];
+
+        switch (filterType) {
+            case "age":
+                data = (T) filters.impressionsAgeFilter(filter, map);
+                break;
+            case "income":
+                data = (T) filters.impressionsIncomeFilter(filter, map);
+                break;
+            case "gender":
+                data = (T) filters.impressionsGenderFilter(filter, map);
+                break;
+            default:
+                throw new Exception("Incorrect format for filtering provided");
         }
+        return data;
     }
 
     private synchronized void setCurrentNode(Node<T> node) {
         this.current = node;
     }
 
+    public T getCurrentData() {
+        return current.data;
+    }
+
     static class Node<T> {
         private T data;
         private Node<T> parent;
         private List<Node<T>> children;
-        private List<T> filterPath; // Stored as the datatype for easy referencing
+        private List<String> filterPath; // Identification for the node
+        // String will be the filter (eg "age,<25") and will be passed when filtering
 
         // For use in filtering the child nodes for their data;
         public boolean getEquivalentData(T nodeData) {
             return this.data.equals(nodeData);
-        }
+        } //TODO: May need to update equals to a more specific comparison
 
-        public List<T> getFilterPath() {
+        public List<String> getFilterPath() {
             return this.filterPath;
         }
 
-        public void setFilterPath(List<T> path) {
+        public void setFilterPath(List<String> path) {
             this.filterPath = path;
+        }
+
+        public String getDeepestFilter() {
+            return filterPath.get(filterPath.size() - 1);
         }
     }
 }

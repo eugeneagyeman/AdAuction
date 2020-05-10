@@ -6,7 +6,6 @@ import POJOs.Records;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
-import metrics.Metrics;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -23,30 +22,28 @@ public class Filter {
     }
 
     //TODO: Implement Multimap as a Parameter
-    public Multimap<String, Record> impressionsAgeFilter(String ageRange) {
-        Records rec = records;
-        Multimap<String, Record> filteredRecordMap = rec.getAllRecords();
+    public Multimap<String, ImpressionRecord> impressionsAgeFilter(String ageRange, Multimap<String, ImpressionRecord> filteredRecordMap) {
         Set<String> setOfFilteredUsers;
 
         switch (ageRange) {
             case "<25":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap("<25", rec.getImpressionRecords()).keySet();
+                setOfFilteredUsers = getImpressionFilteredByAgeMap("<25", filteredRecordMap).keySet();
                 filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
                 break;
             case "25-34":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap("25-34", rec.getImpressionRecords()).keySet();
+                setOfFilteredUsers = getImpressionFilteredByAgeMap("25-34", filteredRecordMap).keySet();
                 filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
                 break;
             case "35-44":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap("35-44", rec.getImpressionRecords()).keySet();
+                setOfFilteredUsers = getImpressionFilteredByAgeMap("35-44", filteredRecordMap).keySet();
                 filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
                 break;
             case "45-54":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap("45-54", rec.getImpressionRecords()).keySet();
+                setOfFilteredUsers = getImpressionFilteredByAgeMap("45-54", filteredRecordMap).keySet();
                 filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
                 break;
             case ">54":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap(">54", rec.getImpressionRecords()).keySet();
+                setOfFilteredUsers = getImpressionFilteredByAgeMap(">54", filteredRecordMap).keySet();
                 filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
                 break;
             default:
@@ -54,6 +51,30 @@ public class Filter {
         }
         return filteredRecordMap;
 
+    }
+
+    //TODO: Implement Multimap as a Parameter
+    public Multimap<String, ImpressionRecord> impressionsIncomeFilter(String incomeLevel, Multimap<String, ImpressionRecord> filteredRecordMap) {
+        Set<String> setOfFilteredUsers;
+
+        setOfFilteredUsers = getImpressionsByIncomeMap(incomeLevel, filteredRecordMap).keySet();
+        filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
+        return filteredRecordMap;
+    }
+
+    //TODO: Implement Multimap as a Parameter
+    public Multimap<String, ImpressionRecord> impressionsGenderFilter(String gender, Multimap<String, ImpressionRecord> filteredRecordMap) {
+        Set<String> setOfFilteredUsers;
+
+        if (gender.equalsIgnoreCase("male")) {
+            setOfFilteredUsers = getImpressionByGenderMap("male", filteredRecordMap).keySet();
+            filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
+        }
+        if (gender.equalsIgnoreCase("female")) {
+            setOfFilteredUsers = getImpressionByGenderMap("female", filteredRecordMap).keySet();
+            filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
+        }
+        return filteredRecordMap;
     }
 
     //TODO: Implement Multimap as a Parameter
@@ -68,33 +89,6 @@ public class Filter {
 
         Records filter = new Records(filteredRecordMap,context,true);
         return filter;
-
-    }
-
-    //TODO: Implement Multimap as a Parameter
-    public Multimap<String, Record> impressionsIncomeFilter(String incomeLevel) {
-        Records rec = records;
-        Set<String> setOfFilteredUsers;
-        Multimap<String, Record> filteredRecordMap = rec.getAllRecords();
-        setOfFilteredUsers = getImpressionsByIncomeMap(incomeLevel, rec.getImpressionRecords()).keySet();
-        filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
-        return filteredRecordMap;
-    }
-
-    //TODO: Implement Multimap as a Parameter
-    public Multimap<String, Record> impressionsGenderFilter(String gender) {
-        Records rec = records;
-        Multimap<String, Record> filteredRecordMap = rec.getAllRecords();
-        Set<String> setOfFilteredUsers;
-        if (gender.equalsIgnoreCase("male")) {
-            setOfFilteredUsers = getImpressionByGenderMap("male", rec.getImpressionRecords()).keySet();
-            filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
-        }
-        if (gender.equalsIgnoreCase("female")) {
-            setOfFilteredUsers = getImpressionByGenderMap("female", rec.getImpressionRecords()).keySet();
-            filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
-        }
-        return filteredRecordMap;
 
     }
 
