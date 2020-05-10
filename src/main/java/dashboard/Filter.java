@@ -21,7 +21,6 @@ public class Filter {
         this.records = records;
     }
 
-    //TODO: Implement Multimap as a Parameter
     public Multimap<String, ImpressionRecord> impressionsAgeFilter(String ageRange, Multimap<String, ImpressionRecord> filteredRecordMap) {
         Set<String> setOfFilteredUsers;
 
@@ -53,7 +52,6 @@ public class Filter {
 
     }
 
-    //TODO: Implement Multimap as a Parameter
     public Multimap<String, ImpressionRecord> impressionsIncomeFilter(String incomeLevel, Multimap<String, ImpressionRecord> filteredRecordMap) {
         Set<String> setOfFilteredUsers;
 
@@ -62,7 +60,6 @@ public class Filter {
         return filteredRecordMap;
     }
 
-    //TODO: Implement Multimap as a Parameter
     public Multimap<String, ImpressionRecord> impressionsGenderFilter(String gender, Multimap<String, ImpressionRecord> filteredRecordMap) {
         Set<String> setOfFilteredUsers;
 
@@ -93,12 +90,11 @@ public class Filter {
     }
 
     //TODO: Implement Multimap as a Parameter
-    private Multimap<String, Record> dateFilter(LocalDate startDate, LocalDate endDate) {
-        Records rec = records;
-        Multimap<String, Record> allRecords = rec.getAllRecords();
-        Multimap<String, Record> filteredDateMap = ArrayListMultimap.create();
+    public Multimap<String, ImpressionRecord> dateFilter(LocalDate startDate, LocalDate endDate) {
+        Multimap<String, ImpressionRecord> recordMap = records.getImpressionRecords();
+        Multimap<String, ImpressionRecord> filteredDateMap = ArrayListMultimap.create();
 
-        allRecords.asMap().forEach((id, recs) -> recs.parallelStream()
+        recordMap.asMap().forEach((id, recs) -> recs.parallelStream()
                 .filter(r -> r.dateInBetween(startDate, endDate))
                 .forEach(r -> filteredDateMap.put(id, r)));
 

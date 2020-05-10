@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -69,6 +70,7 @@ public class FilterTreeTest {
         } catch (Exception e) {
             e.printStackTrace();
             fail("Unexpected exception thrown");
+            return;
         }
 
         assertTrue(tree.getCurrentData().containsKey(expected) && tree.getCurrentData().size() == 1);
@@ -84,6 +86,7 @@ public class FilterTreeTest {
         } catch (Exception e) {
             e.printStackTrace();
             fail("Unexpected exception thrown");
+            return;
         }
 
         assertEquals(3, tree.getCurrentData().keySet().size());
@@ -99,6 +102,7 @@ public class FilterTreeTest {
         } catch (Exception e) {
             e.printStackTrace();
             fail("Unexpected exception thrown");
+            return;
         }
 
         assertEquals(1, tree.getCurrentData().keySet().size());
@@ -123,6 +127,7 @@ public class FilterTreeTest {
             tree = model.getFilterTree();
         } catch (Exception e) {
             fail("Unexpected Exception Thrown");
+            return;
         }
 
         try {
@@ -145,5 +150,38 @@ public class FilterTreeTest {
             e.printStackTrace();
             fail("Unexpected exception thrown");
         }
+    }
+
+    @Test
+    @DisplayName("Test Date Filtering")
+    public void dateFilterTest() {
+        String expected = id_1;
+
+        try {
+            tree.filter("gender, male");
+            tree.filterDate(LocalDate.of(2015,1,1), LocalDate.of(2015,1,1));
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Unexpected exception thrown");
+            return;
+        }
+
+        assertTrue(tree.getCurrentData().containsKey(expected) && tree.getCurrentData().size() == 1);
+    }
+
+    @Test
+    @DisplayName("Test Invalid Date Range when Filtering")
+    public void invalidDateRangeTest() {
+        try {
+            tree.filterDate(LocalDate.of(2015,1,2), LocalDate.of(2015,1,1));
+        } catch (FilterTree.InvalidDateRangeException e) {
+            assertTrue(true);
+            return;
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+            return;
+        }
+
+        fail("No exception thrown");
     }
 }

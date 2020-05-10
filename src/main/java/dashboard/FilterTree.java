@@ -5,6 +5,8 @@ import POJOs.Record;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import dashboard.Filter;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,6 +61,20 @@ public class FilterTree<T> {
         for (String filterID : filterPath) {
             filter(filterID);
         }
+    }
+
+    public T filterDate(LocalDate startDate, LocalDate endDate) throws InvalidDateRangeException {
+        if (endDate.isBefore(startDate))
+            throw new InvalidDateRangeException("End date should not be before start date");
+
+        T newData = (T) filters.dateFilter(startDate, endDate);
+        root = new Node<>();
+        root.data = newData;
+        root.children = new ArrayList<>();
+        root.setFilterPath(new ArrayList<>());
+        this.setCurrentNode(root);
+
+        return root.data;
     }
 
     // filterID must be in the format: "filter_type,filter"
@@ -149,6 +165,12 @@ public class FilterTree<T> {
 
         public String getDeepestFilter() {
             return filterPath.get(filterPath.size() - 1);
+        }
+    }
+
+    public static class InvalidDateRangeException extends Exception {
+        InvalidDateRangeException(String message) {
+            super(message);
         }
     }
 }
