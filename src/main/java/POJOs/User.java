@@ -4,13 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class User {
-    String username, password;
+    String username;
+    byte[] hash;
     String loginDateTime;
     String type;
 
-    public User(String username, String password, String type) {
+    public User(String username, byte[] hash, String type) {
         this.username = username;
-        this.password = password;
+        this.hash = hash;
         this.type = type;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime now = LocalDateTime.now();
@@ -22,19 +23,7 @@ public class User {
         return username;
     }
 
-    public User setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public User setPassword(String password) {
-        this.password = password;
-        return this;
-    }
+    public byte[] getHash() { return hash; }
 
     public String getType() { return type; }
 
