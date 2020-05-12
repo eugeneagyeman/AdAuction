@@ -38,7 +38,7 @@ public class Metrics {
     private float costPerClick;
     private float costPerThousand;
     private float bounceRate;
-    private final Records records;
+    private Records records;
     private LocalDate startDate;
     private LocalDate endDate;
     private final List<String> ageRanges;
@@ -68,6 +68,14 @@ public class Metrics {
         chartMetrics = new ChartMetrics();
     }
 
+    public void updateMetrics() {
+        calculateMetrics();
+        updateChartMetrics();
+    }
+
+    private void updateChartMetrics() {
+        this.getChartMetrics().updateChartMetrics();
+    }
 
 
     public List<String> getAgeRanges() {
@@ -96,6 +104,7 @@ public class Metrics {
         calculateBouncerate();
         calculateStartDate();
         calculateEndDate();
+        printMetrics();
     }
 
     private void printMetrics() {
@@ -578,7 +587,7 @@ public class Metrics {
 
         }
         public Collection<Chart> getContextCharts() {
-            if(contextCollection.isEmpty()) return buildContextCharts();
+            if(contextCollection.isEmpty()) return getSegmentCharts();
             return contextCollection;
         }
 
@@ -590,6 +599,13 @@ public class Metrics {
             return charts;
 
         }
+
+        public void updateChartMetrics() {
+            segmentCollection.clear();
+            contextCollection.clear();
+            buildSetOfCharts();
+        }
+
         private class DoublesComparator implements Comparator {
             @Override
             public int compare(Object o1, Object o2) {

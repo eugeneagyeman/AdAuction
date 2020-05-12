@@ -1,7 +1,11 @@
 package gui.segments;
 
+import POJOs.Records;
+import com.google.common.collect.Multimap;
 import gui.Controller;
 import gui.Main;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -50,15 +54,41 @@ public class SegmentsController extends Controller {
         segmentsTreeView.setRoot(rootItem);
         segmentsTreeView.setShowRoot(false);
 
+        segmentsTreeView.getSelectionModel().selectedItemProperty().addListener((ChangeListener) (observable, oldValue, newValue) -> {
+
+            TreeItem<String> selectedItem = (TreeItem<String>) newValue;
+            String parent = selectedItem.getParent().getValue();
+            String category = selectedItem.getValue();
+            String selectedFilter = parent + "," + category;
+            System.out.println("Selected Filter : " + selectedFilter);
+
+            try {
+                Multimap filteredMap = model.getFilterTree().filter(selectedFilter);
+                Boolean hasUpdate = model.updateCharts(filteredMap);
+                if(hasUpdate) rebuildCharts();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        });
+
         fromDatePicker.setValue(model.getMetrics().getStartDate());
         untilDatePicker.setValue(model.getMetrics().getEndDate());
+        addCharts();
+    }
 
+    private void addCharts() {
         audienceSegmentsGraphs.getChildren().addAll(model.getChartMetrics().getSegmentCharts());
         audienceSegmentsGraphs.getChildren().forEach(node -> {
             node.scaleXProperty();
             node.scaleYProperty();
             node.scaleZProperty();
         });
+    }
+
+    private void rebuildCharts() {
+        audienceSegmentsGraphs.getChildren().clear();
+        addCharts();
     }
 
     public void invalidDates(ActionEvent actionEvent) {

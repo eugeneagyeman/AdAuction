@@ -148,7 +148,7 @@ public class FilterTreeTest {
         FilterTree<Multimap<String, ImpressionRecord>> tree = null;
         String expected = id_2;
 
-        User user = new User("David","123", "user");
+        User user = new User("David","123".getBytes(), "user");
         final String SERVER_LOG_CSV = "TestData/server_log.csv";
         final String IMPRESSION_LOG_CSV = "TestData/impression_log.csv";
         final String CLICK_LOG_CSV = "TestData/click_log.csv";

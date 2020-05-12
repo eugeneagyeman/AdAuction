@@ -1,7 +1,6 @@
 package dashboard;
 
 import POJOs.ImpressionRecord;
-import POJOs.Record;
 import POJOs.Records;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;

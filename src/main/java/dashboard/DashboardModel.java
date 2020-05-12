@@ -2,7 +2,6 @@ package dashboard;
 
 import POJOs.Campaign;
 import POJOs.ImpressionRecord;
-import POJOs.Record;
 import com.google.common.collect.Multimap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -67,11 +66,23 @@ public class DashboardModel {
         return this;
     }
 
+    public boolean update (Multimap filteredMap) {
+        getCurrentCampaign().getRecords().update(filteredMap);
+        return true;
+    }
+
     public Filter getFilter() {
         return filter;
     }
 
     public FilterTree<Multimap<String, ImpressionRecord>> getFilterTree() {
         return filterTree;
+    }
+
+    public Boolean updateCharts(Multimap filteredMap) {
+        getCurrentCampaign().getRecords().update(filteredMap);
+        getCurrentCampaign().getMetrics().updateMetrics();
+
+        return true;
     }
 }

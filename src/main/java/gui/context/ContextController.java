@@ -2,6 +2,8 @@ package gui.context;
 
 import gui.Controller;
 import gui.Main;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -38,6 +40,7 @@ public class ContextController extends Controller {
         CheckBoxTreeItem<String> hobbiesItem = new CheckBoxTreeItem<>("Hobbies");
         CheckBoxTreeItem<String> travelItem = new CheckBoxTreeItem<>("Travel");
         rootItem.getChildren().addAll(newsItem, shoppingItem, socialMediaItem, hobbiesItem, travelItem);
+
         contextTreeView.setRoot(rootItem);
         contextTreeView.setShowRoot(false);
 
@@ -49,6 +52,19 @@ public class ContextController extends Controller {
             node.scaleXProperty();
             node.scaleYProperty();
             node.scaleZProperty();
+        });
+
+        contextTreeView.getSelectionModel().selectedItemProperty().addListener( new ChangeListener() {
+
+            @Override
+            public void changed(ObservableValue observable, Object oldValue,
+                                Object newValue) {
+
+                TreeItem<String> selectedItem = (TreeItem<String>) newValue;
+                System.out.println("Selected Text : " + selectedItem.getValue());
+                // do what ever you want 
+            }
+
         });
     }
 
@@ -73,6 +89,12 @@ public class ContextController extends Controller {
                 }
             }
         });
+    }
+
+    private String getSelectedDates() {
+        TreeItem<String> selectedItem = contextTreeView.getSelectionModel().getSelectedItem();
+        return selectedItem == null ? null : selectedItem.getValue();
+
     }
 
     @Override
