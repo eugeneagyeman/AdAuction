@@ -6,6 +6,7 @@ import POJOs.Record;
 import POJOs.ServerRecord;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.SetMultimap;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
@@ -21,8 +22,8 @@ public class Parser {
 
     private static Reader in;
 
-    static Multimap<String, Record> serverLogsParser(String logCsv) throws IOException {
-        Multimap<String, Record> serverLogs = ArrayListMultimap.create();
+    static Multimap<String, ServerRecord> serverLogsParser(String logCsv) throws IOException {
+        Multimap<String, ServerRecord> serverLogs = ArrayListMultimap.create();
         in = new FileReader(logCsv);
         Iterable<CSVRecord> serverLogCSVRecords = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
         //TODO: Exception Handling for incorrect file input
@@ -33,7 +34,7 @@ public class Parser {
             String pagesViewed = record.get("Pages Viewed");
             String conversion = record.get("Conversion");
 
-            Record serverRecord = new ServerRecord(id, entryDate, exitDate, pagesViewed, conversion);
+            ServerRecord serverRecord = new ServerRecord(id, entryDate, exitDate, pagesViewed, conversion);
             serverLogs.put(id, serverRecord);
 
         }
@@ -41,8 +42,8 @@ public class Parser {
 
     }
 
-    static Multimap<String, Record> clickLogsParser(String logCsv) throws IOException {
-        Multimap<String, Record> clickMultiMap = ArrayListMultimap.create();
+    static Multimap<String, ClickRecord> clickLogsParser(String logCsv) throws IOException {
+        Multimap<String, ClickRecord> clickMultiMap = ArrayListMultimap.create();
         in = new FileReader(logCsv);
         Iterable<CSVRecord> clickLogsCSVRecords = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
 
@@ -51,15 +52,15 @@ public class Parser {
             String date = record.get("Date");
             String click_cost = record.get("Click Cost");
 
-            Record clickRecord = new ClickRecord(id, date, click_cost);
+            ClickRecord clickRecord = new ClickRecord(id, date, click_cost);
             clickMultiMap.put(id, clickRecord);
 
         }
         return clickMultiMap;
     }
 
-    static Multimap<String, Record> impressionLogsParser(String logCsv) throws IOException {
-        Multimap<String, Record> impressionsLogs = ArrayListMultimap.create();
+    static Multimap<String, ImpressionRecord> impressionLogsParser(String logCsv) throws IOException {
+        Multimap<String, ImpressionRecord> impressionsLogs = ArrayListMultimap.create();
 
         in = new FileReader(logCsv);
         Iterable<CSVRecord> impressionsCSVRecords = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
@@ -73,7 +74,7 @@ public class Parser {
             String context = record.get("Context");
             String impression_cost = record.get("Impression Cost");
 
-            Record impressionRecord = new ImpressionRecord(id, date, gender, age, income, context, impression_cost);
+            ImpressionRecord impressionRecord = new ImpressionRecord(id, date, gender, age, income, context, impression_cost);
             impressionsLogs.put(id, impressionRecord);
 
         }

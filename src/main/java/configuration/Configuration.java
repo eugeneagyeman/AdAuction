@@ -39,9 +39,9 @@ public class Configuration {
     }
 
     public DashboardModel buildDashboard(String impressionsLogFilePath, String serverLogFilePath, String clickLogFilePath) throws IOException {
-        Multimap<String, Record> impressionRecordmap = Parser.impressionLogsParser(impressionsLogFilePath);
-        Multimap<String, Record> serverRecordmap = Parser.serverLogsParser(serverLogFilePath);
-        Multimap<String, Record> clickRecordmap = Parser.clickLogsParser(clickLogFilePath);
+        Multimap<String, ImpressionRecord> impressionRecordmap =  Parser.impressionLogsParser(impressionsLogFilePath);
+        Multimap<String, ServerRecord> serverRecordmap =  Parser.serverLogsParser(serverLogFilePath);
+        Multimap<String, ClickRecord> clickRecordmap = Parser.clickLogsParser(clickLogFilePath);
 
         Records records = new Records(impressionRecordmap, serverRecordmap, clickRecordmap);
         Metrics metrics = new Metrics(records);

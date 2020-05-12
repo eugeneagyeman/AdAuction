@@ -79,7 +79,7 @@ public class DashboardModel {
         return filterTree;
     }
 
-    public Boolean updateCharts(Multimap filteredMap) {
+    public Boolean updateCharts(Multimap<String,ImpressionRecord> filteredMap) {
         getCurrentCampaign().getRecords().update(filteredMap);
         getCurrentCampaign().getMetrics().updateMetrics();
 
