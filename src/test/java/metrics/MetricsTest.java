@@ -16,9 +16,9 @@ public class MetricsTest {
     @BeforeEach
     public void setupTest() {
         // Create multimaps
-        Multimap<String, Record> impressionRecordsMap = ArrayListMultimap.create();
-        Multimap<String, Record> serverRecordsMap = ArrayListMultimap.create();
-        Multimap<String, Record> clickRecordsMap = ArrayListMultimap.create();
+        Multimap<String, ImpressionRecord> impressionRecordsMap = ArrayListMultimap.create();
+        Multimap<String, ServerRecord> serverRecordsMap = ArrayListMultimap.create();
+        Multimap<String, ClickRecord> clickRecordsMap = ArrayListMultimap.create();
 
         // Manually build records for use in tests to maintain a separation from the parser class
         String id_1 = "97065088426436600";
@@ -94,7 +94,7 @@ public class MetricsTest {
     @Test
     @DisplayName("Test Bounce Rate")
     public void bounceRateTest() {
-        assertEquals(round_6(1.0 / 3.0 * 100.0), (metrics.calculateBouncerate()));
+        assertEquals(33.333332, round_6(metrics.calculateBouncerate()));
     }
 
     @Test

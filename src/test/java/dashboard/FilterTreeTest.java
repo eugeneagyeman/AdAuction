@@ -26,9 +26,9 @@ public class FilterTreeTest {
     @BeforeEach
     public void setupTest() {
         // Create multimaps
-        Multimap<String, Record> impressionRecordsMap = ArrayListMultimap.create();
-        Multimap<String, Record> serverRecordsMap = ArrayListMultimap.create();
-        Multimap<String, Record> clickRecordsMap = ArrayListMultimap.create();
+        Multimap<String, ImpressionRecord> impressionRecordsMap = ArrayListMultimap.create();
+        Multimap<String, ServerRecord> serverRecordsMap = ArrayListMultimap.create();
+        Multimap<String, ClickRecord> clickRecordsMap = ArrayListMultimap.create();
 
         // Manually build records for use in tests to maintain a separation from the parser class
         id_1 = "97065088426436600";
@@ -216,5 +216,23 @@ public class FilterTreeTest {
         }
 
         fail("No exception thrown");
+    }
+
+    @Test
+    @DisplayName("Test Return Values of Filter")
+    public void filterReturnValuesTest() {
+        Multimap<String, ImpressionRecord> filteredMap1 = null;
+        Multimap<String, ImpressionRecord> filteredMap2 = null;
+        try {
+            filteredMap1 = model.getFilterTree().filter("gender,female");
+            filteredMap2 = model.getFilterTree().filter("income,low");
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+            return;
+        }
+
+        assertTrue(filteredMap1.keySet().size() == 3 &&
+                    filteredMap2.keySet().size() == 1 &&
+                    filteredMap2.keySet().contains(id_4));
     }
 }
