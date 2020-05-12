@@ -75,18 +75,13 @@ public class Filter {
     }
 
     //TODO: Implement Multimap as a Parameter
-    public Records contextFilter(String context) {
+    public Multimap<String, ImpressionRecord> contextFilter(String context, Multimap<String, ImpressionRecord> filteredRecordMap) {
         Set<String> setOfFilteredUsers;
 
-        Records rec = records;
-        Multimap<String, Record> filteredRecordMap = rec.getAllRecords();
-
-        setOfFilteredUsers = getImpressionsByContextMap(context, rec.getImpressionRecords()).keySet();
+        setOfFilteredUsers = getImpressionsByContextMap(context, filteredRecordMap).keySet();
         filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
 
-        Records filter = new Records(filteredRecordMap,context,true);
-        return filter;
-
+        return filteredRecordMap;
     }
 
     //TODO: Implement Multimap as a Parameter

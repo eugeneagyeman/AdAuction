@@ -159,7 +159,8 @@ public class FilterTest {
     @ValueSource(strings = {"Blog", "Social Media", "Shopping", "News"})
     @DisplayName("Test Filtering by Context")
     public void impressionsContextFilterTest(String context) {
-        Multimap<String, Record> filteredTestMap = model.getFilter().contextFilter(context).getAllRecords();
+        Multimap<String, ImpressionRecord> filteredTestMap = model.getFilter()
+                .contextFilter(context, model.getCurrentCampaign().getRecords().getImpressionRecords());
         ArrayList<String> expected = new ArrayList<>();
         switch (context) {
             case "Blog":

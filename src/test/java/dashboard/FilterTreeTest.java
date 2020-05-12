@@ -77,6 +77,39 @@ public class FilterTreeTest {
     }
 
     @Test
+    @DisplayName("Test Filtering by Context")
+    public void contextFilterTest() {
+        String expected = id_4;
+
+        try {
+            tree.filter("context, news");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Unexpected exception thrown");
+            return;
+        }
+
+        assertTrue(tree.getCurrentData().containsKey(expected) && tree.getCurrentData().size() == 1);
+    }
+
+    @Test
+    @DisplayName("Test Filtering by Both Audience Segments and Context")
+    public void mixedFilterTest() {
+        String expected = id_3;
+
+        try {
+            tree.filter("income, medium");
+            tree.filter("context, shopping");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Unexpected exception thrown");
+            return;
+        }
+
+        assertTrue(tree.getCurrentData().containsKey(expected) && tree.getCurrentData().size() == 1);
+    }
+
+    @Test
     @DisplayName("Test Undo Filtering when Undoing Most Recent Filter Applied")
     public void undoSameFilterTest() {
         try {
