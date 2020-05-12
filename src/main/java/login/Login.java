@@ -23,12 +23,12 @@ public class Login {
 
     public Login() {
         users = new HashMap<>();
-        user = addUser("admin", "password", "admin");
+        user = addUser("admin", "Admin2020", "admin");
     }
 
     public User addUser(String username, String password, String type) {
         User user = new User(username, password, type);
-        if (username.equals("") || password.equals(""))
+        if (username.equals("") || password.equals("") || password.length() < 8 || password.length() > 16 || !password.matches(".*\\d.*") || !password.matches(".*[A-Z].*"))
             return null;
         for (User u : users.keySet()) {
             if (username.equals(u.getUsername()))
