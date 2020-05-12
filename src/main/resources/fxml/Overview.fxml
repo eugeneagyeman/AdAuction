@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -69,7 +71,7 @@
                <children>
                   <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="860.0" prefWidth="275.0" style="-fx-border-color: #ababab;">
                      <children>
-                        <ImageView fitHeight="275.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                        <ImageView fitHeight="312.0" fitWidth="306.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                            <image>
                               <Image url="@Logo.png" />
                            </image>
@@ -128,24 +130,36 @@
                   </VBox>
                   <Pane HBox.hgrow="ALWAYS">
                      <children>
-                        <Text layoutX="388.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" textAlignment="CENTER" textOrigin="CENTER">
+                        <Text fx:id="text1" layoutX="456.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" textAlignment="CENTER" textOrigin="CENTER">
                            <font>
                               <Font size="40.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="890.0" layoutY="30.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Profile.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="68.0" fitWidth="68.0" layoutX="992.0" layoutY="26.0" nodeOrientation="INHERIT" opacity="0.9" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Settings.png" />
-                           </image>
-                        </ImageView>
+                        <Group layoutX="826.0" layoutY="30.0">
+                           <children>
+                              <Button fx:id="profileButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutY="4.0" mnemonicParsing="false" onAction="#profilePopup" prefHeight="70.0" prefWidth="70.0">
+                                 <graphic>
+                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Profile.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="settingsButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="110.0" layoutY="4.0" mnemonicParsing="false" onAction="#settingsPopup" prefHeight="70.0" prefWidth="70.0">
+                                 <graphic>
+                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Settings.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </Group>
                         <BorderPane layoutX="85.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
                            <top>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Clicks" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                              <Text fx:id="text3" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Clicks" wrappingWidth="175.0" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -164,7 +178,7 @@
                         </BorderPane>
                         <BorderPane layoutX="340.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
                            <top>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Impressions" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                              <Text fx:id="text4" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Impressions" wrappingWidth="175.0" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -183,7 +197,7 @@
                         </BorderPane>
                         <BorderPane layoutX="600.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
                            <top>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Click" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                              <Text fx:id="text5" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Click" wrappingWidth="175.0" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -205,7 +219,7 @@
                         </BorderPane>
                         <BorderPane layoutX="850.0" layoutY="175.0" prefHeight="175.0" prefWidth="175.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
                            <top>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Thousand Impressions" wrappingWidth="175.0" BorderPane.alignment="CENTER">
+                              <Text fx:id="text6" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost Per Thousand Impressions" wrappingWidth="175.0" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -227,7 +241,7 @@
                         </BorderPane>
                         <VBox fx:id="demographicsBox" alignment="TOP_CENTER" fillWidth="false" layoutX="90.0" layoutY="440.0" prefHeight="345.0" prefWidth="475.0" style="-fx-border-color: black;">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Demographics" textAlignment="CENTER">
+                              <Text fx:id="text7" strokeType="OUTSIDE" strokeWidth="0.0" text="User Demographics" textAlignment="CENTER">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -241,7 +255,7 @@
                         </VBox>
                         <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="679.0" layoutY="440.0" prefHeight="350.0" prefWidth="336.0" style="-fx-border-color: black;">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recommendations" textAlignment="CENTER">
+                              <Text fx:id="text8" strokeType="OUTSIDE" strokeWidth="0.0" text="Recommendations" textAlignment="CENTER">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -254,7 +268,7 @@
                               <ListView fx:id="recommendationsListView" prefWidth="350.0" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
-                        <Text layoutX="35.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+                        <Text fx:id="text2" layoutX="35.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
                            <font>
                               <Font size="18.0" />
                            </font>

@@ -10,25 +10,24 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.StackedBarChart;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import login.Login;
 
 import java.io.IOException;
 
 public class Main extends Application {
     private static Stage mainWindow;
+    private static Scene mainScene;
     private static DashboardModel model;
     private static Login login;
     private static OverviewController overviewController;
     private static SegmentsController segmentsController;
     private static ContextController contextController;
     private static ConfigController configController;
+    public static Boolean invertedColours = false;
+
+    public static Scene getMainScene() { return mainScene; }
 
     public static DashboardModel getModel() {
         return model;
@@ -42,34 +41,19 @@ public class Main extends Application {
 
     public static void setLogin(Login login) { Main.login = login; }
 
-    public static OverviewController getOverviewController() {
-        return overviewController;
-    }
+    public static Boolean getInvertedColours() { return invertedColours; }
 
-    public static void setOverviewController(OverviewController overviewController) {
-        Main.overviewController = overviewController;
-    }
-
-    public static FXMLLoader getLoader() {
-        return loader;
-    }
-
-    public static void setLoader(FXMLLoader loader) {
-        Main.loader = loader;
-    }
-
-    private static FXMLLoader loader;
+    public static void setInvertedColours(Boolean invertedColours) { Main.invertedColours = invertedColours; }
 
     public static void changeScene(String fxml) throws IOException {
-        Parent pane = FXMLLoader.load(
-                Main.class.getResource(fxml));
+        Parent pane = FXMLLoader.load(Main.class.getResource(fxml));
         mainWindow.getScene().setRoot(pane);
     }
     public static void changeSceneAndResize(String fxml) throws IOException {
         mainWindow.close();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/fxml/Overview.fxml"));
-        Scene scene = new Scene(loader.load());
-        mainWindow.setScene(scene);
+        mainScene = new Scene(loader.load());
+        mainWindow.setScene(mainScene);
         mainWindow.show();
     }
 
@@ -79,8 +63,19 @@ public class Main extends Application {
         setModel(new Configuration().buildDashboard());
         setLogin(new Login());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
-        Scene scene = new Scene(loader.load());
-        mainWindow.setScene(scene);
+        mainScene = new Scene(loader.load());
+        mainWindow.setScene(mainScene);
         mainWindow.show();
     }
+
+    public static void restart() throws IOException {
+        mainWindow.close();
+        mainWindow = new Stage();
+        getLogin().logout();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/fxml/Login.fxml"));
+        mainScene = new Scene(loader.load());
+        mainWindow.setScene(mainScene);
+        mainWindow.show();
+    }
+
 }

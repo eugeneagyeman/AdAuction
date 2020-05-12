@@ -15,6 +15,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+
 public class LoginController {
     Parent root;
     Stage primaryStage;
@@ -30,19 +33,23 @@ public class LoginController {
         loginButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                try { userLogin(); } catch (IOException e) { e.printStackTrace(); }
-            }
+                try { userLogin();
+                } catch (IOException | BadPaddingException | IllegalBlockSizeException e) { e.printStackTrace(); } }
         });
         adminButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                try { adminLogin(); } catch (IOException e) { e.printStackTrace(); }
+                try {
+                    adminLogin();
+                } catch (IOException | BadPaddingException | IllegalBlockSizeException e) { e.printStackTrace(); }
             }
         });
         groupButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                try { groupLogin(); } catch (IOException e) { e.printStackTrace(); }
+                try {
+                    groupLogin();
+                } catch (IOException | BadPaddingException | IllegalBlockSizeException e) { e.printStackTrace(); }
             }
         });
     }
@@ -62,7 +69,7 @@ public class LoginController {
         });
     }
 
-    public void userLogin() throws IOException {
+    public void userLogin() throws IOException, BadPaddingException, IllegalBlockSizeException {
         String userInput = userField.getText();
         String userPass = passField.getText();
         if (Main.getLogin().login(userInput,userPass,"user") != null) {
@@ -77,7 +84,7 @@ public class LoginController {
             this.loginLabel.setText("Please provide correct login details");
         }
     }
-    public void adminLogin() throws IOException {
+    public void adminLogin() throws IOException, BadPaddingException, IllegalBlockSizeException {
         String userInput = userField.getText();
         String userPass = passField.getText();
         if (Main.getLogin().login(userInput,userPass,"admin") != null) {
@@ -92,7 +99,7 @@ public class LoginController {
             this.loginLabel.setText("Please provide correct login details");
         }
     }
-    public void groupLogin() throws IOException {
+    public void groupLogin() throws IOException, BadPaddingException, IllegalBlockSizeException {
         String userInput = userField.getText();
         String userPass = passField.getText();
         if (Main.getLogin().login(userInput,userPass,"group") != null) {
