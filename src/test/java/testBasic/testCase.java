@@ -93,72 +93,47 @@ public class testCase {
 
     @Test(priority = 8)
     public void profileTest() {
-        Assert.assertEquals( login.getUserID(),2);
+        Assert.assertEquals( login.getUserID(),1);
         Assert.assertEquals( user.getUsername(),"user");
     }
 
     @Test(priority = 7)
-    public void numOfClicksTest() {
+    public void metricTest() {
         Assert.assertEquals( metrics.calculateNumOfClicks(),23923);
         System.out.print("Correct numOfClicks");
-    }
 
-    @Test(priority = 7)
-    public void numOfUniquesTest() {
+
         Assert.assertEquals( metrics.calculateNumOfUniques(),442458);
         System.out.print("Correct numOfUniques");
-    }
 
-    @Test(priority = 7)
-    public void numOfImpressionsTest() {
         Assert.assertEquals( metrics.getNumOfImpressions(),486104);
         System.out.print("Correct numOfImpressions");
-    }
 
-    @Test(priority = 7)
-    public void numOfConversionsTest() {
         Assert.assertEquals(metrics.getNumOfConversions(),2026);
         System.out.print("Correct numOfConversions");
-    }
 
-    @Test(priority = 7)
-    public void numOfBouncesTest() {
         Assert.assertEquals(metrics.calculateNumOfBounces(),4260);
         System.out.print(" Correct NumOfBounces");
-    }
 
-    @Test(priority = 7)
-    public void bounceRateTest() {
         Assert.assertEquals(round_4(metrics.calculateBouncerate()),round_4(4260.0 / 23923.0 * 100.0));
         System.out.print("Correct bounceRate");
-    }
 
-    @Test(priority = 7)
-    public void  TotalCostTest() {
+
         Assert.assertEquals( round_4(metrics.calculateTotalCost()),round_4(487.0554));
         System.out.print("Correct TotalCost");
-    }
 
-    @Test(priority = 7)
-    public void ctrTest() {
         Assert. assertEquals(round_4(metrics.calculateClickThroughRate()),round_4(4.9214));
         System.out.print("Correct ctr");
-    }
 
-    @Test(priority = 7)
-    public void cpaTest() {
+
         Assert. assertEquals(round_4(metrics.calculateCostPerAction()),round_4(0.2404));
         System.out.print("Correct cpaTest");
-    }
 
-    @Test(priority = 7)
-    public void cpcTest() {
+
         Assert.assertEquals( round_4(metrics.calculateCostPerClick()),round_4(0.0204));
         System.out.print("Correct Cost per Click");
-    }
 
-    @Test(priority = 7)
-    public void cpmTest() {
+
         Assert.assertEquals( round_4(metrics.calculateCostPerThousand()),round_4(1.002));
         System.out.print("Correct Cost per Thousand Impressions");
     }
