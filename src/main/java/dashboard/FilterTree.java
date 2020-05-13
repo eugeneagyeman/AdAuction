@@ -41,6 +41,16 @@ public class FilterTree<T> {
                 return undoFilter(filterID);
         }
 
+        // Changes the filter if switching the filter within a particular filter type
+        String[] filterList = filterID.split(",");
+        for (String str : current.getFilterPath()) {
+            String[] strList = str.toLowerCase().replaceAll("\\s", "").split(",");
+            if (filterList[0].equals(strList[0])) {
+                undoFilter(str);
+                return filter(filterID);
+            }
+        }
+
         // Sets current node to child if filter already exists
         for (Node<T> child : current.children) {
             if (child.getDeepestFilter().equals(filterID)) {
