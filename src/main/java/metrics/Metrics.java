@@ -398,9 +398,10 @@ public class Metrics {
         }
 
         private Map getNumOfImpressionsDateMap(DateRange dateRange) {
-            List<ImpressionRecord> impressionRecords = (List) records.getImpressionRecords();
+            Collection<Collection<ImpressionRecord>> impressionRecords = records.getImpressionRecords().values();
             var datesInBetween = dateRange.toList();
             return impressionRecords.stream()
+                    .flatMap(Collection::parallelStream)
                     .map(impressionRecord -> {
                         return impressionRecord.getDate().toLocalDate();
                     })

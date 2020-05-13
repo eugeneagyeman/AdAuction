@@ -36,6 +36,7 @@ public class Records {
     }
 
     public Map<String, Collection<ImpressionRecord>> getImpressionRecords() {
+        if(this.impressionRecords.isEmpty()) setImpressionRecords();
         return this.impressionRecords.asMap();
     }
 
@@ -48,6 +49,7 @@ public class Records {
     }
 
     public Multimap<String, ? super ImpressionRecord> setImpressionRecords() {
+        if(recordMultimap.isEmpty()) immutableRecordMultimap.forEach(recordMultimap::put);
         return Multimaps.filterValues(recordMultimap, v -> v instanceof ImpressionRecord);
     }
 
@@ -117,7 +119,7 @@ public class Records {
         filterAllRec = filterAllRec
                 .entrySet()
                 .stream()
-                .filter(x -> filteredMap.keySet().contains(x.getKey()))
+                .filter(x -> filteredMap.containsKey(x.getKey()))
                 .collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue()));
 
         Map<String, Collection<ClickRecord>> filteredClickRecords = this.clickRecords.asMap();

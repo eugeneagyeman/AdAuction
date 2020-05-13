@@ -30,11 +30,11 @@ public class Filter {
             case "25-34":
                  return getImpressionFilteredByAgeMap("25-34", records.getImpressionRecords());
             case "35-44":
-                return getImpressionFilteredByAgeMap("35-44", filteredRecordMap);
+                return getImpressionFilteredByAgeMap("35-44", records.getImpressionRecords());
             case "45-54":
-                return getImpressionFilteredByAgeMap("45-54", filteredRecordMap);
+                return getImpressionFilteredByAgeMap("45-54", records.getImpressionRecords());
             case ">54":
-                return getImpressionFilteredByAgeMap(">54", filteredRecordMap);
+                return getImpressionFilteredByAgeMap(">54", records.getImpressionRecords());
             default:
                 //TODO: Exception Thrown here to say cannot filter
         }
@@ -87,7 +87,7 @@ public class Filter {
 
     //NEED TO LOOK AT MASTER COPY
     private Map<String,Collection<ImpressionRecord> > getImpressionFilteredByAgeMap(String ageRange, Map<String, Collection<ImpressionRecord>> impressionRecords) {
-        Map<String, Collection<ImpressionRecord>> impression = impressionRecords;
+        Map<String, Collection<ImpressionRecord>> impression = records.getImpressionRecords();
         impression = impression.entrySet()
                   .stream()
                   .filter(entry -> entry.getValue()

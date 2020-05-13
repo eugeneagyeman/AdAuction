@@ -6,6 +6,7 @@ import POJOs.*;
 import com.google.common.collect.Multimap;
 
 import java.io.IOException;
+import java.util.UUID;
 
 public class Configuration {
     private final String TEST_DATA_CLICK_LOG_CSV = "TestData/click_log.csv";
@@ -45,7 +46,7 @@ public class Configuration {
 
         Records records = new Records(impressionRecordmap, serverRecordmap, clickRecordmap);
         Metrics metrics = new Metrics(records);
-        Campaign campaign = new Campaign("random", records, metrics, "definition");
+        Campaign campaign = new Campaign(UUID.randomUUID().toString(), records, metrics, "definition");
         DashboardModel dashboardModel = new DashboardModel().setCurrentCampaign(campaign);
         dashboardModel.getListOfCampaigns().add(campaign);
         return dashboardModel;
