@@ -77,7 +77,7 @@ public class FilterTree<T> {
 
     public T filterDate(LocalDate startDate, LocalDate endDate) throws InvalidDateRangeException {
         if (endDate.isBefore(startDate))
-            throw new InvalidDateRangeException("End date should not be before start date"); //TO
+            throw new InvalidDateRangeException("End date should not be before start date");
 
         T newData = (T) filters.dateFilter(startDate, endDate);
         root = new Node<>();
