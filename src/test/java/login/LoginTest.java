@@ -16,8 +16,8 @@ public class LoginTest {
     }
 
     @Test
-    @DisplayName("Test login")
-    public void loginTest() {
+    @DisplayName("Test register newUser")
+    public void registerTest() {
 
         //test default account
         assertNull(login.login("admin", "Admin1999", "admin"));
@@ -47,5 +47,14 @@ public class LoginTest {
         login.addUser("admin5","a12345678","admin");
         assertNull (login.login("admin5","a12345678","admin"));
     };
+
+    public void loginTest() {
+        assertNull (login.login("admin0","A123456789123456","admin"));
+        assertNull(login.login("admin", "Admin1999", "admin"));
+
+    }
+
+
+
 
 }

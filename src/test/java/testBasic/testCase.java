@@ -23,7 +23,7 @@ import java.math.RoundingMode;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class testCase {
-    private static Login login;
+    public static Login login;
     private static User user;
     private static Configuration config;
     private static DashboardModel dashboard;
@@ -43,118 +43,121 @@ public class testCase {
         System.out.println("Method---setup");
         login =new Login();
         config=new Configuration();
-        System.out.println("Register for new User");
-        testCase.login.addUser("user", "User2020", "user");
-        user=testCase.login.login("user", "User2020", "user");
-        dashboard =config.buildDashboard();
+        dashboard=config.buildDashboard(TEST_DATA_IMPRESSION_LOG_CSV, TEST_DATA_SERVER_LOG_CSV, TEST_DATA_CLICK_LOG_CSV);
         metrics=dashboard.getMetrics();
         campaign=dashboard.getCurrentCampaign();
         filter=dashboard.getFilter();
         filterTree=dashboard.getFilterTree();
+        login.logout();
     }
-    @Test
-    public void registerTest() {
-        System.out.println("Register for new User");
-        assertNotNull(login.addUser("group","Group2020","group"));
+    @Test(priority = 1)
+    public void invalidLoginTest() {
+        assertNull(login.login("1", "Admin2020", "admin"));
     }
 
-    @Test
+    @Test(priority = 2)
     public void invalidRegisterTest() {
         System.out.println("Register for new User");
         assertNull(login.addUser("","123","admin"));
     }
 
-    @Test
+    @Test(priority = 3)
+    public void registerTest() {
+        testCase.login.addUser("user", "User2020", "user");
+
+    }
+
+    @Test(priority = 4)
+    public void LoginTest() {
+        user=testCase.login.login("user", "User2020", "user");
+    }
+
+    @Test(priority = 5)
     public void userTest() {
         Assert.assertEquals( user.getUsername(),"user");
         Assert.assertEquals( user.getPassword(),"User2020");
         Assert.assertEquals( user.getType(),"user");
     }
 
-    @Test
-    public void invalidLoginTest() {
-        assertNull(login.login("1", "Admin2020", "admin"));
-    }
-
-    @Test
-    public void logOutTest() throws IOException {
-        login.logout();
-    }
-
-    @Test
+    @Test(priority = 6)
     public void uploadFile() throws IOException {
         System.out.println("choose three file ");
         config.buildDashboard(TEST_DATA_IMPRESSION_LOG_CSV, TEST_DATA_SERVER_LOG_CSV, TEST_DATA_CLICK_LOG_CSV);
         System.out.println("successfully loading 3 file");
     }
 
-
-    @Test
-    public void profileTest() {
-        assertNull(login.login("1", "Admin2020", "admin"));
+    @Test(priority = 9)
+    public void logOutTest() throws IOException {
+        login.logout();
     }
 
-    @Test
+    @Test(priority = 8)
+    public void profileTest() {
+        Assert.assertEquals( login.getUserID(),2);
+        Assert.assertEquals( user.getUsername(),"user");
+    }
+
+    @Test(priority = 7)
     public void numOfClicksTest() {
         Assert.assertEquals( metrics.calculateNumOfClicks(),23923);
         System.out.print("Correct numOfClicks");
     }
 
-    @Test
+    @Test(priority = 7)
     public void numOfUniquesTest() {
         Assert.assertEquals( metrics.calculateNumOfUniques(),442458);
         System.out.print("Correct numOfUniques");
     }
 
-    @Test
+    @Test(priority = 7)
     public void numOfImpressionsTest() {
         Assert.assertEquals( metrics.getNumOfImpressions(),486104);
         System.out.print("Correct numOfImpressions");
     }
 
-    @Test
+    @Test(priority = 7)
     public void numOfConversionsTest() {
         Assert.assertEquals(metrics.getNumOfConversions(),2026);
         System.out.print("Correct numOfConversions");
     }
 
-    @Test
+    @Test(priority = 7)
     public void numOfBouncesTest() {
         Assert.assertEquals(metrics.calculateNumOfBounces(),4260);
         System.out.print(" Correct NumOfBounces");
     }
 
-    @Test
+    @Test(priority = 7)
     public void bounceRateTest() {
         Assert.assertEquals(round_4(metrics.calculateBouncerate()),round_4(4260.0 / 23923.0 * 100.0));
         System.out.print("Correct bounceRate");
     }
 
-    @Test
+    @Test(priority = 7)
     public void  TotalCostTest() {
         Assert.assertEquals( round_4(metrics.calculateTotalCost()),round_4(487.0554));
         System.out.print("Correct TotalCost");
     }
 
-    @Test
+    @Test(priority = 7)
     public void ctrTest() {
         Assert. assertEquals(round_4(metrics.calculateClickThroughRate()),round_4(4.9214));
         System.out.print("Correct ctr");
     }
 
-    @Test
+    @Test(priority = 7)
     public void cpaTest() {
         Assert. assertEquals(round_4(metrics.calculateCostPerAction()),round_4(0.2404));
         System.out.print("Correct cpaTest");
     }
 
-    @Test
+    @Test(priority = 7)
     public void cpcTest() {
         Assert.assertEquals( round_4(metrics.calculateCostPerClick()),round_4(0.0204));
         System.out.print("Correct Cost per Click");
     }
 
-    @Test
+    @Test(priority = 7)
     public void cpmTest() {
         Assert.assertEquals( round_4(metrics.calculateCostPerThousand()),round_4(1.002));
         System.out.print("Correct Cost per Thousand Impressions");
