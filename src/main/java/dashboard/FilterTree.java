@@ -8,7 +8,9 @@ import dashboard.Filter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 // The root node of the tree is the whole data, unfiltered.
@@ -119,8 +121,7 @@ public class FilterTree<T> {
 
     private T selectFilter(String filterID) throws Exception {
         T data = null;
-        Multimap<String, ImpressionRecord> map = ArrayListMultimap
-                .create((Multimap<String, ImpressionRecord>) current.data);
+        Map<String, Collection<ImpressionRecord>> map = (Map<String, Collection<ImpressionRecord>>) current.data;
 
         String[] filterStr = filterID
                 .replaceAll("\\s", "")
@@ -134,13 +135,13 @@ public class FilterTree<T> {
                 data = (T) filters.impressionsAgeFilter(filter, map);
                 break;
             case "income":
-                data = (T) filters.impressionsIncomeFilter(filter, map);
+                //data = (T) filters.impressionsIncomeFilter(filter, map);
                 break;
             case "gender":
-                data = (T) filters.impressionsGenderFilter(filter, map);
+                //data = (T) filters.impressionsGenderFilter(filter, map);
                 break;
             case "context":
-                data = (T) filters.contextFilter(filter, map);
+                //data = (T) filters.contextFilter(filter, map);
                 break;
             default:
                 throw new Exception("Incorrect format for filtering provided");

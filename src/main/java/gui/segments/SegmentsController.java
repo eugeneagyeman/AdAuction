@@ -1,5 +1,7 @@
 package gui.segments;
 
+import POJOs.ImpressionRecord;
+import POJOs.Record;
 import POJOs.Records;
 import com.google.common.collect.Multimap;
 import gui.Controller;
@@ -20,6 +22,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class SegmentsController extends Controller {
@@ -63,7 +67,7 @@ public class SegmentsController extends Controller {
             System.out.println("Selected Filter : " + selectedFilter);
 
             try {
-                Multimap filteredMap = model.getFilterTree().filter(selectedFilter);
+                Map<String, Collection<ImpressionRecord>> filteredMap = model.getFilterTree().filter(selectedFilter);
                 Boolean hasUpdate = model.updateCharts(filteredMap);
                 if(hasUpdate) rebuildCharts();
             } catch (Exception e) {
