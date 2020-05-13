@@ -2,12 +2,14 @@ package dashboard;
 
 import POJOs.ImpressionRecord;
 import POJOs.Records;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
+import com.google.common.collect.*;
 
 import java.time.LocalDate;
+import java.util.AbstractMap;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Filter {
     private Records records;
@@ -20,30 +22,19 @@ public class Filter {
         this.records = records;
     }
 
-    public Multimap<String, ImpressionRecord> impressionsAgeFilter(String ageRange, Multimap<String, ImpressionRecord> filteredRecordMap) {
-        Set<String> setOfFilteredUsers;
+    public Map<String, Collection<ImpressionRecord>> impressionsAgeFilter(String ageRange, Map<String, Collection<ImpressionRecord>> filteredRecordMap) {
 
         switch (ageRange) {
             case "<25":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap("<25", filteredRecordMap).keySet();
-                filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
-                break;
+                return getImpressionFilteredByAgeMap("<25", records.getImpressionRecords());
             case "25-34":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap("25-34", filteredRecordMap).keySet();
-                filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
-                break;
+                 return getImpressionFilteredByAgeMap("25-34", records.getImpressionRecords());
             case "35-44":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap("35-44", filteredRecordMap).keySet();
-                filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
-                break;
+                return getImpressionFilteredByAgeMap("35-44", filteredRecordMap);
             case "45-54":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap("45-54", filteredRecordMap).keySet();
-                filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
-                break;
+                return getImpressionFilteredByAgeMap("45-54", filteredRecordMap);
             case ">54":
-                setOfFilteredUsers = getImpressionFilteredByAgeMap(">54", filteredRecordMap).keySet();
-                filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
-                break;
+                return getImpressionFilteredByAgeMap(">54", filteredRecordMap);
             default:
                 //TODO: Exception Thrown here to say cannot filter
         }
@@ -79,38 +70,73 @@ public class Filter {
 
         setOfFilteredUsers = getImpressionsByContextMap(context, filteredRecordMap).keySet();
         filteredRecordMap.keySet().retainAll(setOfFilteredUsers);
-
         return filteredRecordMap;
     }
 
     //TODO: Implement Multimap as a Parameter
     public Multimap<String, ImpressionRecord> dateFilter(LocalDate startDate, LocalDate endDate) {
-        Multimap<String, ImpressionRecord> recordMap = records.getImpressionRecords();
+        Map<String,Collection<ImpressionRecord>> recordMap = records.getImpressionRecords();
         Multimap<String, ImpressionRecord> filteredDateMap = ArrayListMultimap.create();
 
-        recordMap.asMap().forEach((id, recs) -> recs.parallelStream()
+        recordMap.forEach((id, recs) -> recs.parallelStream()
                 .filter(r -> r.dateInBetween(startDate, endDate))
                 .forEach(r -> filteredDateMap.put(id, r)));
 
         return filteredDateMap;
     }
 
-    private Multimap<String, ImpressionRecord> getImpressionFilteredByAgeMap(String ageRange, Multimap<String, ImpressionRecord> impressionRecords) {
-        return Multimaps.filterValues(impressionRecords,
-                impressionRecord -> impressionRecord != null && impressionRecord.getAge()
-                        .equalsIgnoreCase(ageRange));
+    //NEED TO LOOK AT MASTER COPY
+    private Map<String,Collection<ImpressionRecord> > getImpressionFilteredByAgeMap(String ageRange, Map<String, Collection<ImpressionRecord>> impressionRecords) {
+        Map<String, Collection<ImpressionRecord>> impression = impressionRecords;
+        impression = impression.entrySet()
+                  .stream()
+                  .filter(entry -> entry.getValue()
+                                        .stream()
+                                        .anyMatch(l -> l.getAge().equalsIgnoreCase(ageRange)))
+                  .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        ListMultimap lm = ArrayListMultimap.create();
+        impression.forEach(lm::putAll);
+        return impression;
     }
 
     private Multimap<String, ImpressionRecord> getImpressionByGenderMap(String gender, Multimap<String, ImpressionRecord> impressionRecords) {
-        return Multimaps.filterValues(impressionRecords, impressionRecord -> impressionRecord != null && impressionRecord.getGender().equalsIgnoreCase(gender));
-    }
+        Map<String, Collection<ImpressionRecord>> impression = impressionRecords.asMap();
+        impression = impression.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue()
+                        .stream()
+                        .anyMatch(l -> l.getGender().equalsIgnoreCase(gender)))
+                .collect(Collectors.toMap(e -> e.getKey(),e -> e.getValue()));
+
+        ListMultimap lm = ArrayListMultimap.create();
+        impression.forEach(lm::putAll);
+        return lm;    }
 
     private Multimap<String, ImpressionRecord> getImpressionsByIncomeMap(String incomeLevel, Multimap<String, ImpressionRecord> impressionRecords) {
-        return Multimaps.filterValues(impressionRecords, impressionRecord -> impressionRecord != null && impressionRecord.getIncome().equalsIgnoreCase(incomeLevel));
-    }
+        Map<String, Collection<ImpressionRecord>> impression = impressionRecords.asMap();
+        impression = impression.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue()
+                        .stream()
+                        .anyMatch(l -> l.getAge().equalsIgnoreCase(incomeLevel)))
+                .collect(Collectors.toMap(e -> e.getKey(),e -> e.getValue()));
+
+        ListMultimap lm = ArrayListMultimap.create();
+        impression.forEach(lm::putAll);
+        return lm;    }
 
     private Multimap<String, ImpressionRecord> getImpressionsByContextMap(String context, Multimap<String, ImpressionRecord> impressionRecords) {
-        return Multimaps.filterValues(impressionRecords, impressionRecord -> impressionRecord != null && impressionRecord.getContext().equalsIgnoreCase(context));
-    }
+        Map<String, Collection<ImpressionRecord>> impression = impressionRecords.asMap();
+        impression = impression.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue()
+                        .stream()
+                        .anyMatch(l -> l.getAge().equalsIgnoreCase(context)))
+                .collect(Collectors.toMap(e -> e.getKey(),e -> e.getValue()));
+
+        ListMultimap lm = ArrayListMultimap.create();
+        impression.forEach(lm::putAll);
+        return lm;    }
 
 }

@@ -82,6 +82,7 @@ public class Metrics {
 
         return records.getImpressionRecords().values()
                 .stream()
+                .flatMap(Collection::stream)
                 .map(ImpressionRecord::getAge)
                 .distinct().sorted().collect(Collectors.toUnmodifiableList());
     }
@@ -135,9 +136,9 @@ public class Metrics {
 
     public int calculateNumOfBounces() {
         numOfBounces = 0;
-        Collection<ServerRecord> serverRecords = records.getServerRecords().values();
+        Collection<Collection<ServerRecord>> serverRecords = records.getServerRecords().values();
         // Bounce logic
-        serverRecords.forEach(
+        serverRecords.stream().flatMap(Collection::parallelStream).forEach(
                 record -> {
                     LocalDateTime entryDate = record.getEntryDate();
                     LocalDateTime exitDate = record.getExitDate();
@@ -154,6 +155,7 @@ public class Metrics {
     public int calculateNumOfConversions() {
         numOfConversions = (int) records.getServerRecords().values()
                 .parallelStream()
+                .flatMap(Collection::parallelStream)
                 .map(ServerRecord::getConversion)
                 .filter(converted -> converted)
                 .count();
@@ -163,6 +165,7 @@ public class Metrics {
     public float calculateTotalCost() {
         totalCost = records.getImpressionRecords().values()
                 .parallelStream()
+                .flatMap(Collection::parallelStream)
                 .map(ImpressionRecord::getImpressionCost)
                 .reduce((float) 0.00, Float::sum);
         return totalCost;
@@ -199,9 +202,10 @@ public class Metrics {
     }
 
     public Map percentagesOfContext() {
-        Collection<ImpressionRecord> values = records.getImpressionRecords().values();
+        Collection<Collection<ImpressionRecord>> values = records.getImpressionRecords().values();
         Map<String, Long> contextCount = values
                 .stream()
+                .flatMap(Collection::stream)
                 .map(ImpressionRecord::getContext)
                 .collect(groupingBy(Function.identity(), Collectors.counting()));
 
@@ -268,12 +272,13 @@ public class Metrics {
         return records.getClickRecords()
                 .values()
                 .parallelStream()
+                .flatMap(Collection::parallelStream)
                 .map(ClickRecord::getClickCost)
                 .collect(Collectors.toList());
     }
 
     public void calculateStartDate() {
-        Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords().asMap();
+        Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords();
         clickRecords.forEach((k, v) -> {
             LocalDate earliestDate = v.stream()
                     .map(ClickRecord::getLocalDate)
@@ -284,7 +289,7 @@ public class Metrics {
     }
 
     public void calculateEndDate() {
-        Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords().asMap();
+        Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords();
         clickRecords.forEach((k, v) -> {
             LocalDate latestDate = v.stream()
                     .map(ClickRecord::getLocalDate)
@@ -404,21 +409,23 @@ public class Metrics {
         }
 
         private Map getNumOfImpressionsDateMap() {
-            Collection<ImpressionRecord> impressionRecords = records.getImpressionRecords().values();
+            Collection<Collection<ImpressionRecord>> impressionRecords = records.getImpressionRecords().values();
             Map<LocalDate, Long> reverse = new TreeMap<>(Collections.reverseOrder());
             reverse.putAll(impressionRecords
                     .parallelStream()
+                    .flatMap(Collection::parallelStream)
                     .map(rec -> rec.getDate().toLocalDate())
                     .collect(groupingBy(date -> date, Collectors.counting())));
             return reverse;
         }
 
         private Map getNumOfClicksDateMap() {
-            Collection<ClickRecord> clickRecords = records.getClickRecords().values();
+            Collection<Collection<ClickRecord>> clickRecords = records.getClickRecords().values();
             Map<LocalDate, Long> reverse = new TreeMap<>(Collections.reverseOrder(LocalDate::compareTo));
 
             reverse.putAll(clickRecords
                     .parallelStream()
+                    .flatMap(Collection::parallelStream)
                     .map(rec -> rec.getDate().toLocalDate())
                     .collect(groupingBy(date -> date, Collectors.counting())));
             return reverse;
@@ -426,10 +433,11 @@ public class Metrics {
         }
 
         private Map getConversionsDateMap() {
-            Collection<ServerRecord> serverRecords = records.getServerRecords().values();
+            Collection<Collection<ServerRecord>> serverRecords = records.getServerRecords().values();
             Map<LocalDate, Long> reverse = new TreeMap<>(Collections.reverseOrder(LocalDate::compareTo));
             reverse.putAll(serverRecords
                     .parallelStream()
+                    .flatMap(Collection::stream)
                     .filter(ServerRecord::getConversion)
                     .map(serverRecord -> serverRecord.getEntryDate().toLocalDate())
                     .collect(groupingBy(date -> date, Collectors.counting())));
@@ -437,10 +445,11 @@ public class Metrics {
         }
 
         private Map getUnconvertedDateMap() {
-            Collection<ServerRecord> serverRecords = records.getServerRecords().values();
+            Collection<Collection<ServerRecord>> serverRecords = records.getServerRecords().values();
             Map<LocalDate, Long> reverse = new TreeMap<>(Collections.reverseOrder(LocalDate::compareTo));
             reverse.putAll(serverRecords
                     .parallelStream()
+                    .flatMap(Collection::parallelStream)
                     .filter(serverRecord -> !serverRecord.getConversion())
                     .map(serverRecord -> serverRecord.getEntryDate().toLocalDate())
                     .collect(groupingBy(date -> date, Collectors.counting())));
@@ -503,7 +512,7 @@ public class Metrics {
             return records.dateToAdCostMap();
         }
         public Map getNumOfUniquesChartData() {
-            Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords().asMap();
+            Map<String, Collection<ClickRecord>> clickRecords = records.getClickRecords();
             Map<String, LocalDate> uniquesPerDateMap = new TreeMap<>();
             clickRecords.forEach((k, v) -> {
                 LocalDate earliestDate = v.stream()

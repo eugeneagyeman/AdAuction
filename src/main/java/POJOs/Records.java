@@ -1,7 +1,6 @@
 package POJOs;
 
 import com.google.common.collect.*;
-import jdk.jfr.consumer.RecordedClass;
 import metrics.Metrics;
 import org.apache.commons.collections.CollectionUtils;
 
@@ -13,7 +12,7 @@ import java.util.stream.Collectors;
 public class Records {
     private String context;
     private  ImmutableListMultimap<String,Record> immutableRecordMultimap;
-    private  Multimap<String, Record> recordMultimap;
+    private final Multimap<String, Record> recordMultimap;
     private  Multimap<String, ImpressionRecord> impressionRecords;
     private  Multimap<String, ServerRecord> serverRecords;
     private  Multimap<String, ClickRecord> clickRecords;
@@ -36,16 +35,16 @@ public class Records {
         return this.recordMultimap;
     }
 
-    public Multimap<String, ImpressionRecord> getImpressionRecords() {
-        return this.impressionRecords;
+    public Map<String, Collection<ImpressionRecord>> getImpressionRecords() {
+        return this.impressionRecords.asMap();
     }
 
-    public Multimap<String, ServerRecord> getServerRecords() {
-        return this.serverRecords;
+    public Map<String, Collection<ServerRecord>> getServerRecords() {
+        return this.serverRecords.asMap();
     }
 
-    public Multimap<String, ClickRecord> getClickRecords() {
-        return this.clickRecords;
+    public Map<String, Collection<ClickRecord>> getClickRecords() {
+        return this.clickRecords.asMap();
     }
 
     public Multimap<String, ? super ImpressionRecord> setImpressionRecords() {
@@ -66,25 +65,23 @@ public class Records {
 
 
     public Map<LocalDate,Collection<ClickRecord>> dateToClickRecordsMap() {
-        Map<LocalDate, Collection<ClickRecord>> dateToClickRecords = new ConcurrentHashMap<>();
-        Collection<ClickRecord> clickRecords = getClickRecords().values();
-        dateToClickRecords.putAll(clickRecords.parallelStream().collect(Collectors.groupingByConcurrent(ClickRecord::getLocalDate)));
+        Collection<Collection<ClickRecord>> clickRecords = getClickRecords().values();
+        Map<LocalDate, Collection<ClickRecord>> dateToClickRecords = new ConcurrentHashMap<>(clickRecords.parallelStream().flatMap(Collection::parallelStream).collect(Collectors.groupingByConcurrent(ClickRecord::getLocalDate)));
 
         return dateToClickRecords;
     }
 
     public Map<LocalDate,Collection<ImpressionRecord>> dateToImpressionMap() {
-        Map<LocalDate, Collection<ImpressionRecord>> dateToImpressionRecordMap = new ConcurrentHashMap<>();
-        Collection<ImpressionRecord> impressionRecords = getImpressionRecords().values();
-        dateToImpressionRecordMap.putAll(impressionRecords.parallelStream().collect(Collectors.groupingByConcurrent(ImpressionRecord::getLocalDate)));
+        Collection<Collection<ImpressionRecord>> impressionRecords = getImpressionRecords().values();
+        Map<LocalDate, Collection<ImpressionRecord>> dateToImpressionRecordMap = new ConcurrentHashMap<>(impressionRecords.parallelStream().flatMap(Collection::parallelStream).collect(Collectors.groupingByConcurrent(ImpressionRecord::getLocalDate)));
 
         return dateToImpressionRecordMap;
     }
 
     public Map<LocalDate,Collection<ServerRecord>> dateToServerRecordMap() {
         Map<LocalDate,Collection<ServerRecord>> dateToServerRecordMap = new ConcurrentHashMap<>();
-        Collection<ServerRecord> serverRecords = getServerRecords().values();
-        dateToServerRecordMap.putAll(serverRecords.parallelStream().collect(Collectors.groupingByConcurrent(ServerRecord::getEntryLocalDate)));
+        Collection<Collection<ServerRecord>> serverRecords = getServerRecords().values();
+        dateToServerRecordMap.putAll(serverRecords.parallelStream().flatMap(Collection::parallelStream).collect(Collectors.groupingByConcurrent(ServerRecord::getEntryLocalDate)));
         return dateToServerRecordMap;
     }
 
@@ -112,43 +109,42 @@ public class Records {
     }
 
     //May be filteredMap
-    public void update(Multimap<String,ImpressionRecord> filteredMap) {
-        impressionRecords.clear();
-        impressionRecords.putAll(filteredMap);
+    public void update(Map<String,Collection<ImpressionRecord>> filteredMap) {
+        this.impressionRecords.clear();
+        filteredMap.forEach(impressionRecords::putAll);
 
-        Map<String,Collection<Record>> filterAllRec = immutableRecordMultimap.asMap();
+        Map<String,Collection<Record>> filterAllRec = this.immutableRecordMultimap.asMap();
         filterAllRec = filterAllRec
                 .entrySet()
                 .stream()
                 .filter(x -> filteredMap.keySet().contains(x.getKey()))
                 .collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue()));
 
-        Map<String, Collection<ClickRecord>> filteredClickRecords = clickRecords.asMap();
+        Map<String, Collection<ClickRecord>> filteredClickRecords = this.clickRecords.asMap();
         filteredClickRecords = filteredClickRecords
                 .entrySet()
                 .stream()
                 .filter(x -> filteredMap.keySet().contains(x.getKey()))
                 .collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue()));
 
-        Map<String,Collection<ServerRecord>> filteredServerRecords = serverRecords.asMap();
+        Map<String,Collection<ServerRecord>> filteredServerRecords = this.serverRecords.asMap();
         filteredServerRecords = filteredServerRecords
                 .entrySet()
                 .stream()
                 .filter(x -> filteredMap.keySet().contains(x.getKey()))
                 .collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue()));
 
-        recordMultimap.clear();
-        serverRecords.clear();
-        clickRecords.clear();
+        this.recordMultimap.clear();
+        this.serverRecords.clear();
+        this.clickRecords.clear();
 
-        filterAllRec.forEach(recordMultimap::putAll);
-        filteredClickRecords.forEach(clickRecords::putAll);
-        filteredServerRecords.forEach(serverRecords::putAll);
+        filterAllRec.forEach(this.recordMultimap::putAll);
+        filteredClickRecords.forEach(this.clickRecords::putAll);
+        filteredServerRecords.forEach(this.serverRecords::putAll);
 
         /*recordMultimap.putAll(filteredMap);
         recordMultimap.putAll(clickRecords);
         recordMultimap.putAll(serverRecords);*/
-
 
     }
 }

@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import metrics.Metrics;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 public class DashboardModel {
     private Campaign currentCampaign;
@@ -15,7 +17,7 @@ public class DashboardModel {
     private Metrics metrics;
     private ObservableList<?> recommendations;
     private Filter filter;
-    private FilterTree<Multimap<String, ImpressionRecord>> filterTree;
+    private FilterTree<Map<String, Collection<ImpressionRecord>>> filterTree;
 
     public DashboardModel() {
         listOfCampaigns = new ArrayList<>();
@@ -30,7 +32,7 @@ public class DashboardModel {
         this.metrics = currentCampaign.getMetrics();
         this.recommendations = FXCollections.observableArrayList(currentCampaign.getMetrics().getRecommendations());
         this.filter = new Filter(this);
-        this.filterTree = new FilterTree<>(filter, currentCampaign.getRecords().getImpressionRecords());
+        this.filterTree = new FilterTree(filter, currentCampaign.getRecords().getImpressionRecords());
         return this;
     }
 
@@ -66,20 +68,15 @@ public class DashboardModel {
         return this;
     }
 
-    public boolean update (Multimap filteredMap) {
-        getCurrentCampaign().getRecords().update(filteredMap);
-        return true;
-    }
-
     public Filter getFilter() {
         return filter;
     }
 
-    public FilterTree<Multimap<String, ImpressionRecord>> getFilterTree() {
+    public FilterTree<Map<String, Collection<ImpressionRecord>>> getFilterTree() {
         return filterTree;
     }
 
-    public Boolean updateCharts(Multimap<String,ImpressionRecord> filteredMap) {
+    public Boolean updateCharts(Map<String,Collection<ImpressionRecord>> filteredMap) {
         getCurrentCampaign().getRecords().update(filteredMap);
         getCurrentCampaign().getMetrics().updateMetrics();
 
