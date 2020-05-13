@@ -235,4 +235,27 @@ public class FilterTreeTest {
                     filteredMap2.keySet().size() == 1 &&
                     filteredMap2.keySet().contains(id_4));
     }
+
+    @Test
+    @DisplayName("Test Filtering Same Filter Repeatedly")
+    public void repeatedFilterTest() {
+        Multimap<String, ImpressionRecord> filteredMap1 = null;
+        Multimap<String, ImpressionRecord> filteredMap2 = null;
+        Multimap<String, ImpressionRecord> filteredMap3 = null;
+        try {
+            filteredMap1 = model.getFilterTree().filter("gender,female");
+            filteredMap2 = model.getFilterTree().filter("income,low");
+            filteredMap3 = model.getFilterTree().filter("income,low");
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+            return;
+        }
+        System.out.println(filteredMap1.entries());
+        System.out.println(filteredMap2.entries());
+        System.out.println(filteredMap3.entries());
+
+        assertTrue(filteredMap1.keySet().size() == 3
+                && filteredMap2.keySet().size() == 1
+                && filteredMap3.keySet().size() == 3);
+    }
 }

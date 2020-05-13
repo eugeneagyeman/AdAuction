@@ -31,6 +31,14 @@ public class FilterTree<T> {
 
     // filterID must be in the format: "filter_type,filter"
     public T filter(String filterID) throws Exception {
+        // Calls undoFilter if the filter is already in the filter path of the current node
+        filterID = filterID.toLowerCase().replaceAll("\\s","");
+        for (String str : current.getFilterPath()) {
+            str = str.toLowerCase().replaceAll("\\s", "");
+            if (filterID.equals(str))
+                return undoFilter(filterID);
+        }
+
         // Sets current node to child if filter already exists
         for (Node<T> child : current.children) {
             if (child.getDeepestFilter().equals(filterID)) {
@@ -46,21 +54,23 @@ public class FilterTree<T> {
         node.children = new ArrayList<>();
 
         current.children.add(node);
-        List<String> newPath = null;
-        if (node.getFilterPath() == null)
+        List<String> newPath;
+        if (current.getFilterPath() == null)
             newPath = new ArrayList<>();
         else
-            newPath = new ArrayList<>(node.getFilterPath());
+            newPath = new ArrayList<>(current.getFilterPath());
         newPath.add(filterID);
         node.setFilterPath(newPath);
         this.setCurrentNode(node);
         return current.data;
     }
 
-    private void filter(List<String> filterPath) throws Exception {
+    private T filter(List<String> filterPath) throws Exception {
+        T last = null;
         for (String filterID : filterPath) {
-            filter(filterID);
+            last = filter(filterID);
         }
+        return last;
     }
 
     public T filterDate(LocalDate startDate, LocalDate endDate) throws InvalidDateRangeException {
@@ -98,7 +108,7 @@ public class FilterTree<T> {
                         .collect(Collectors.toList());
                 if (child.isEmpty()) {
                     // Filter from the current node because the current filter does not yet exist
-                    filter(newPath);
+                    return filter(newPath);
                 } else if (child.size() == 1) {
                     this.setCurrentNode(child.get(0));
                 } else
