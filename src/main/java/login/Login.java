@@ -61,4 +61,7 @@ public class Login {
         return user;
     }
 
+    public void logout() {
+        user = null;
+    }
 }

@@ -31,7 +31,6 @@ public class LoginTest {
         assertNotNull (login.login("admin0","A12345678","admin"));
         assertNull (login.login("admin0","B12345678","admin"));
 
-
         login.addUser("admin1","A123456789123456","admin");
         assertNotNull (login.login("admin1","A123456789123456","admin"));
         assertNull (login.login("admin0","A123456789123456","admin"));
