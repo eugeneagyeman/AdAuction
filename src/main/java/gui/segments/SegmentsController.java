@@ -55,6 +55,7 @@ public class SegmentsController extends Controller {
         CheckBoxTreeItem<String> highItem = new CheckBoxTreeItem<>("High");
         incomeItem.getChildren().addAll(lowItem, mediumItem, highItem);
         rootItem.getChildren().addAll(ageItem, genderItem, incomeItem);
+
         segmentsTreeView.setRoot(rootItem);
         segmentsTreeView.setShowRoot(false);
 

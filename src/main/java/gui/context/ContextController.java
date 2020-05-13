@@ -1,5 +1,6 @@
 package gui.context;
 
+import POJOs.ImpressionRecord;
 import gui.Controller;
 import gui.Main;
 import javafx.beans.value.ChangeListener;
@@ -20,6 +21,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class ContextController extends Controller {
@@ -44,16 +47,6 @@ public class ContextController extends Controller {
         contextTreeView.setRoot(rootItem);
         contextTreeView.setShowRoot(false);
 
-        fromDatePicker.setValue(model.getMetrics().getStartDate());
-        untilDatePicker.setValue(model.getMetrics().getEndDate());
-
-        contextGraphs.getChildren().addAll(model.getChartMetrics().getContextCharts());
-        contextGraphs.getChildren().forEach(node -> {
-            node.scaleXProperty();
-            node.scaleYProperty();
-            node.scaleZProperty();
-        });
-
         contextTreeView.getSelectionModel().selectedItemProperty().addListener( new ChangeListener() {
 
             @Override
@@ -61,10 +54,45 @@ public class ContextController extends Controller {
                                 Object newValue) {
 
                 TreeItem<String> selectedItem = (TreeItem<String>) newValue;
-                System.out.println("Selected Text : " + selectedItem.getValue());
-                // do what ever you want 
-            }
+                String parent = selectedItem.getParent().getValue();
+                String category = selectedItem.getValue();
+                String selectedFilter = parent + "," + category;
+                System.out.println("Selected Filter : " + selectedFilter);
 
+                try {
+                    Map<String, Collection<ImpressionRecord>> filteredMap = model.getFilterTree().filter(selectedFilter);
+                    Boolean hasUpdate = model.updateCharts(filteredMap);
+                    if(hasUpdate) rebuildCharts();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }            }
+
+        });
+
+        fromDatePicker.setValue(model.getMetrics().getStartDate());
+        untilDatePicker.setValue(model.getMetrics().getEndDate());
+
+        contextGraphs.getChildren().addAll(model.getChartMetrics().buildSetOfCharts());
+        contextGraphs.getChildren().forEach(node -> {
+            node.scaleXProperty();
+            node.scaleYProperty();
+            node.scaleZProperty();
+        });
+
+
+    }
+
+    private void rebuildCharts() {
+        contextGraphs.getChildren().clear();
+        addCharts();
+    }
+
+    private void addCharts() {
+        contextGraphs.getChildren().addAll(model.getChartMetrics().getSegmentCharts());
+        contextGraphs.getChildren().forEach(node -> {
+            node.scaleXProperty();
+            node.scaleYProperty();
+            node.scaleZProperty();
         });
     }
 
