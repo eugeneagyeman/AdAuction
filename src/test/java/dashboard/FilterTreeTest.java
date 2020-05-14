@@ -15,13 +15,15 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FilterTreeTest {
     private static DashboardModel model;
     private static String id_1, id_2, id_3, id_4, id_5;
-    private static FilterTree<Multimap<String, ImpressionRecord>> tree;
+    private static FilterTree tree;
 
     @BeforeEach
     public void setupTest() {
@@ -113,7 +115,7 @@ public class FilterTreeTest {
     @DisplayName("Test Undo Filtering when Undoing Most Recent Filter Applied")
     public void undoSameFilterTest() {
         try {
-            tree.filter("gender, female"); //TODO: undo non-existent filter (even though should be impossible on front end)
+            tree.filter("gender, female");
             tree.filter("age, <25");
             tree.undoFilter("age, <25");
         } catch (Exception e) {
@@ -145,7 +147,7 @@ public class FilterTreeTest {
     @DisplayName("Test Undo Filtering Efficiency for Large Data Set")
     public void undoFilterEfficiencyTest() {
         DashboardModel model = null;
-        FilterTree<Multimap<String, ImpressionRecord>> tree = null;
+        FilterTree tree = null;
         String expected = id_2;
 
         User user = new User("David","123".getBytes(), "user");
@@ -221,8 +223,8 @@ public class FilterTreeTest {
     @Test
     @DisplayName("Test Return Values of Filter")
     public void filterReturnValuesTest() {
-        Multimap<String, ImpressionRecord> filteredMap1 = null;
-        Multimap<String, ImpressionRecord> filteredMap2 = null;
+        Map<String, Collection<ImpressionRecord>> filteredMap1 = null;
+        Map<String, Collection<ImpressionRecord>> filteredMap2 = null;
         try {
             filteredMap1 = model.getFilterTree().filter("gender,female");
             filteredMap2 = model.getFilterTree().filter("income,low");
@@ -233,15 +235,15 @@ public class FilterTreeTest {
 
         assertTrue(filteredMap1.keySet().size() == 3 &&
                     filteredMap2.keySet().size() == 1 &&
-                    filteredMap2.keySet().contains(id_4));
+                    filteredMap2.containsKey(id_4));
     }
 
     @Test
     @DisplayName("Test Filtering Same Filter Repeatedly")
     public void repeatedFilterTest() {
-        Multimap<String, ImpressionRecord> filteredMap1 = null;
-        Multimap<String, ImpressionRecord> filteredMap2 = null;
-        Multimap<String, ImpressionRecord> filteredMap3 = null;
+        Map<String, Collection<ImpressionRecord>> filteredMap1 = null;
+        Map<String, Collection<ImpressionRecord>> filteredMap2 = null;
+        Map<String, Collection<ImpressionRecord>> filteredMap3 = null;
         try {
             filteredMap1 = model.getFilterTree().filter("gender,female");
             filteredMap2 = model.getFilterTree().filter("income,low");
@@ -250,12 +252,29 @@ public class FilterTreeTest {
             fail("Wrong exception thrown");
             return;
         }
-        System.out.println(filteredMap1.entries());
-        System.out.println(filteredMap2.entries());
-        System.out.println(filteredMap3.entries());
+        System.out.println(filteredMap1);
+        System.out.println(filteredMap2);
+        System.out.println(filteredMap3);
 
         assertTrue(filteredMap1.keySet().size() == 3
                 && filteredMap2.keySet().size() == 1
                 && filteredMap3.keySet().size() == 3);
+    }
+
+    @Test
+    @DisplayName("Test Filtering Same Filter Repeatedly")
+    public void repeatedFilterTest2() {
+        Map<String, Collection<ImpressionRecord>> filteredMap1;
+        Map<String, Collection<ImpressionRecord>> filteredMap2;
+        try {
+            filteredMap1 = model.getFilterTree().filter("age,<25");
+            filteredMap2 = model.getFilterTree().filter("age,25-34");
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+            return;
+        }
+
+        assertTrue(filteredMap1.containsKey(id_2)
+                && filteredMap2.containsKey(id_1));
     }
 }

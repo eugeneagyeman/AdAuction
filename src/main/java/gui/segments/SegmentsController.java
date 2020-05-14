@@ -4,6 +4,7 @@ import POJOs.ImpressionRecord;
 import POJOs.Record;
 import POJOs.Records;
 import com.google.common.collect.Multimap;
+import dashboard.FilterTree;
 import gui.Controller;
 import gui.Main;
 import javafx.beans.value.ChangeListener;
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Map;
@@ -100,10 +102,14 @@ public class SegmentsController extends Controller {
         okButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (false) {
-                    // filter by dates
+                try {
+                    LocalDate startDate = fromDatePicker.getValue();
+                    LocalDate endDate = untilDatePicker.getValue();
+                    Map<String, Collection<ImpressionRecord>> filteredMap = model.getFilterTree().filterDate(startDate, endDate);
+                    Boolean hasUpdate = model.updateCharts(filteredMap);
+                    if(hasUpdate) rebuildCharts();
                 }
-                else {
+                catch (FilterTree.InvalidDateRangeException x) {
                     // open error window
                     try {
                         root = FXMLLoader.load(this.getClass().getResource("/fxml/InvalidDates.fxml"));

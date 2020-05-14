@@ -60,7 +60,7 @@ public class MetricsTest {
         assertEquals(c1.getClickCost(), 10.635709);
         assertEquals(c1.getClickCost(), 9.468576);*/
 
-        assertEquals(3, metrics.calculateNumOfClicks());
+        assertEquals(2, metrics.calculateNumOfClicks());
 
         /*model = new Configuration().buildDashboard();
         Metrics metric1=model.getMetrics();
@@ -76,7 +76,7 @@ public class MetricsTest {
     @Test
     @DisplayName("Test Number of Impressions")
     public void numOfImpressionsTest() {
-        assertEquals(4, metrics.getNumOfImpressions());
+        assertEquals(2, metrics.getNumOfImpressions());
     }
 
     @Test
@@ -94,7 +94,7 @@ public class MetricsTest {
     @Test
     @DisplayName("Test Bounce Rate")
     public void bounceRateTest() {
-        assertEquals(33.333332, round_6(metrics.calculateBouncerate()));
+        assertEquals(50, round_6(metrics.calculateBouncerate()));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class MetricsTest {
     @Test
     @DisplayName("Test Average Number of Clicks per Impression")
     public void ctrTest() {
-        assertEquals(round_6(75), round_6(metrics.calculateClickThroughRate()));
+        assertEquals(round_6(100), round_6(metrics.calculateClickThroughRate()));
     }
 
     @Test
@@ -118,13 +118,13 @@ public class MetricsTest {
     @Test
     @DisplayName("Test Cost per Click")
     public void cpcTest() {
-        assertEquals(round_6(0.001714/3), round_6(metrics.calculateCostPerClick()));
+        assertEquals(round_6(8.57E-4), round_6(metrics.calculateCostPerClick()));
     }
 
     @Test
     @DisplayName("Test Cost per Thousand Impressions")
     public void cpmTest() {
-        assertEquals(round_6(1000*0.001714/4), round_6(metrics.calculateCostPerThousand()));
+        assertEquals(round_6(0.857), round_6(metrics.calculateCostPerThousand()));
     }
 
     private double round_6(double v) {

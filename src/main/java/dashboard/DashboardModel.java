@@ -10,6 +10,7 @@ import metrics.Metrics;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.HashMap;
 
 public class DashboardModel {
     private Campaign currentCampaign;
@@ -17,7 +18,7 @@ public class DashboardModel {
     private Metrics metrics;
     private ObservableList<?> recommendations;
     private Filter filter;
-    private FilterTree<Map<String, Collection<ImpressionRecord>>> filterTree;
+    private FilterTree filterTree;
 
     public DashboardModel() {
         listOfCampaigns = new ArrayList<>();
@@ -32,7 +33,9 @@ public class DashboardModel {
         this.metrics = currentCampaign.getMetrics();
         this.recommendations = FXCollections.observableArrayList(currentCampaign.getMetrics().getRecommendations());
         this.filter = new Filter(this);
-        this.filterTree = new FilterTree(filter, currentCampaign.getRecords().getImpressionRecords());
+        //Map<String, Collection<ImpressionRecord>> impRecs = Map.copyOf(currentCampaign.getRecords().getImpressionRecords());
+        Map<String, Collection<ImpressionRecord>> impRecs = new HashMap<>(currentCampaign.getRecords().getImpressionRecords());
+        this.filterTree = new FilterTree(filter, impRecs);
         return this;
     }
 
@@ -72,7 +75,7 @@ public class DashboardModel {
         return filter;
     }
 
-    public FilterTree<Map<String, Collection<ImpressionRecord>>> getFilterTree() {
+    public FilterTree getFilterTree() {
         return filterTree;
     }
 
