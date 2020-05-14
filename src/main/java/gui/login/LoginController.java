@@ -25,11 +25,11 @@ public class LoginController {
     @FXML private TextField userField;
     @FXML private TextField passField;
     @FXML private Button registerButton;
-    @FXML private Button loginButton;
+    @FXML protected Button loginButton;
     @FXML private Button adminButton;
     @FXML private Button groupButton;
 
-    public void Login(ActionEvent actionEvent) {
+    public void Login() {
         loginButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -54,7 +54,7 @@ public class LoginController {
         });
     }
 
-    public void Register(ActionEvent actionEvent) {
+    public void Register() {
         registerButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -114,4 +114,6 @@ public class LoginController {
             this.loginLabel.setText("Please provide correct login details");
         }
     }
+
+
 }

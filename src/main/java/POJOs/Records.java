@@ -31,6 +31,8 @@ public class Records {
         this.clickRecords = (Multimap<String, ClickRecord>) setClickRecords();
     }
 
+
+
     public Multimap<String, ? extends Record> getAllRecords() {
         return this.recordMultimap;
     }
