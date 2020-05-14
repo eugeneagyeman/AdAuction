@@ -36,18 +36,6 @@ public class ParserTest {
     }
 
     @Test
-    void serverLogsParser() {
-    }
-
-    @Test
-    void clickLogsParser() {
-    }
-
-    @Test
-    void impressionLogsParser() {
-    }
-
-    @Test
     @DisplayName("Test Date Format")
     void DateFormatTest() {
         String dateTime = "2015-01-01 13:06:48";
@@ -55,9 +43,4 @@ public class ParserTest {
         LocalDateTime test = LocalDateTime.of(2015,1,1 , 13, 6, 48);
         assertEquals(test, parsedDateTime);
     }
-
-    @Test
-    void dateDifference() {
-    }
-
 }
